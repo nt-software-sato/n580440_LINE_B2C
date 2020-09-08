@@ -1,0 +1,22 @@
+
+<div class="modal-dialog" role="document">
+    <div class="modal-content">
+        <div class="modal-header noborder">
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        </div>
+        <div class="modal-body Img_wrapper_modal">
+            <form>
+                <div class="Img_wrapper_lg">
+                    <div class="container">
+                        <div class="box imgHover" ng-repeat="Items in ImgList">
+                            <img class="img-responsive" id="Img_{{$index}}" src="{{Items.Src}}" alt="">
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <div class="modal-footer">
+            <button type="button" class="btn btn-primary noboder_radius" data-dismiss="modal" style="width:100%;">{{'00004'| i18n}}</button>
+        </div>
+    </div>
+</div>

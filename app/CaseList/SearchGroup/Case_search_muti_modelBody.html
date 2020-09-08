@@ -1,0 +1,38 @@
+<div class="panel-body panel_collapse_list list_underline" style="overflow: hidden;">
+    <div>
+        <ul class="list-group nomargin NT_MutiModelBody">
+            <li class="list-group-item border_bottom" ng-repeat="Select2Item in Select2List">
+                <div class="row NT_selectMul nomargin nopadding">
+                    <!--<select id="mutiselctArea" name="single" class="form-control select2 singleSelect" ng-model="Select2Item.Id" ng-change="SetSelect2Values(Select2Item,$index)">
+                        <option></option>
+                        <option value="{{OptionItem.Id}}" ng-repeat="OptionItem in Select2Data">{{OptionItem.Text}}</option>
+                    </select>-->
+                    <div class="dropdown singleSelect" ng-class="{'col-xs-9 col-md-9':isMultiple,'col-xs-12 col-md-12':!isMultiple}">
+                        <input id="Select4Input" type="text" ng-model="Select2Item.Text" ng-change="SetFiterHighlight(Select2Item)" ng-click="rSetSelect2Values(Select2Item)" autocomplete="off" class="form-control" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" />
+                        <ul class="dropdown-menu" aria-labelledby="Select4Input">
+                            <li class="nopadding" style="overflow:hidden;" ng-repeat="OptionItem in Select2Data">
+                                <a href="#" style="color:#000000;" ng-click="SetSelect2Values(Select2Item,$index)" ng-bind-html="deliberatelyTrustDangerousSnippet(OptionItem.Text)"></a>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="col-xs-3 col-md-3 nopadding" ng-show="isMultiple">
+                        <span class="NT_choose_empty">
+                            <i class="fa fa-1-5x fa-plus-circle" ng-class="{'fa-light':isShowButton('ADD',$index)}" ng-click="AddToSelect2($index)"></i>
+                        </span>
+                        <span class="NT_choose_empty">
+                            <i class="fa fa-1-5x fa-minus-circle margin-left-sm" ng-class="{'fa-light':isShowButton('Delete',$index)}" ng-click="RemoveForSelect2($index)"></i>
+                        </span>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    </div>
+</div>
+<script>
+    $("#mutiselctArea").on('focusin', 'input, textarea', function () {
+        $(".NT_side_footer").addClass('unfixed');
+    })
+    .on('focusout', 'input, textarea', function () {
+        $(".NT_side_footer").removeClass('unfixed');
+    });
+</script>

@@ -1,0 +1,728 @@
+// 預設文字顏色
+$text-color:#fff;
+// 文字連結顏色
+$link-color:#fff;
+// 文字連結背景顏色
+$link-bgcolor:rgb(27, 115, 216);
+// 滑鼠拖曳過後的顏色
+$link-color-hover:darken($color: $link-color, $amount: 25%);
+;
+// 滑鼠拖曳過後的背景顏色
+$link-bgcolor-hover:darken($color: $link-bgcolor, $amount: 25%);
+;
+//标题颜色
+$title-color:#23a2ba;
+//返回顏色
+$back-btn-color:#65b6c7;
+//footer下一步顏色
+$service-next-color:rgb(60, 60, 247);
+// 全域行距
+$line-height:1.8;
+// 網站整體寬度
+$container-width:960px;
+// font
+$font-family: "Microsoft JhengHei",
+PMingLiU,
+MingLiu,
+"Segoe UI",
+"Helvetica",
+Garuda,
+Arial,
+sans-serif;
+$font-s:12px;
+$font-m:14px;
+$font-l:18px;
+// 基準寬度
+$gutter: 15px;
+
+// 清除浮動
+@mixin clearfix {
+
+  &:before,
+  &:after {
+    content: "";
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+// 大小
+@mixin size($width, $height) {
+  width: $width;
+  height: $height;
+}
+
+// 盒子陰影
+.box-shadow {
+  box-shadow: 2px 1px 8px rgba(0, 0, 0, 0.4);
+}
+
+// 刪除線
+.line-through {
+  text-decoration: line-through;
+}
+
+// 隱藏文字
+.hide-text {
+  text-indent: 110%;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+// 限制字數 超多以...顯示
+.text-overflow {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+// 間距設定 0-20 每個參數間格5px
+//m-(參數):x水平 y垂直 t l b r代表方向參數 沒加就是全部
+//把m改成p就變成padding
+
+@for $i from 0 through 100 {
+  .m-#{$i} {
+    margin: $i * 1px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .m-x-#{$i} {
+    margin-left: $i * 1px;
+    margin-right: $i * 1px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .m-y-#{$i} {
+    margin-top: $i * 1px;
+    margin-bottom: $i * 1px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .m-t-#{$i} {
+    margin-top: $i * 1px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .m-l-#{$i} {
+    margin-left: $i * 1px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .m-b-#{$i} {
+    margin-bottom: $i * 1px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .m-r-#{$i} {
+    margin-right: $i * 1px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .p-#{$i} {
+    padding: $i * 1px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .p-x-#{$i} {
+    padding-left: $i * 1px;
+    padding-right: $i * 1px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .p-y-#{$i} {
+    padding-top: $i * 1px;
+    padding-bottom: $i * 1px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .p-t-#{$i} {
+    padding-top: $i * 1px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .p-l-#{$i} {
+    padding-left: $i * 1px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .p-b-#{$i} {
+    padding-bottom: $i * 1px;
+  }
+}
+
+@for $i from 0 through 100 {
+  .p-r-#{$i} {
+    padding-right: $i * 1px;
+  }
+}
+
+// border
+.border {
+  border: 1px solid #eee;
+}
+
+.border-t {
+  border-top: 1px solid #eee;
+}
+
+.border-r {
+  border-right: 1px solid #eee;
+}
+
+.border-b {
+  border-bottom: 1px solid #eee;
+}
+
+.border-l {
+  border-left: 1px solid #eee;
+}
+
+.border-0 {
+  border: 0;
+}
+
+.border-t-0 {
+  border-top: 0;
+}
+
+.border-r-0 {
+  border-right: 0;
+}
+
+.border-b-0 {
+  border-bottom: 0;
+}
+
+.border-l-0 {
+  border-left: 0;
+}
+
+//border-radius
+.radius-s {
+  border-radius: 3px !important;
+}
+
+.radius-m {
+  border-radius: 10px !important;
+}
+
+.radius-l {
+  border-radius: 20px !important;
+}
+
+.circle {
+  border-radius: 50% !important;
+}
+
+//顏色設定
+$colors: red,
+orange,
+yellow,
+green,
+blue,
+purple,
+black,
+brown,
+gold,
+gray,
+pink,
+white;
+
+// border顏色
+@for $i from 1 through length($colors) {
+  .border-#{nth($colors,$i)} {
+    border-color: nth($colors, $i);
+  }
+}
+
+@for $i from 1 through length($colors) {
+  .border-#{nth($colors,$i)}-light {
+    border-color: lighten(nth($colors, $i), 10%);
+  }
+}
+
+@for $i from 1 through length($colors) {
+  .border-#{nth($colors,$i)}-dark {
+    border-color: darken(nth($colors, $i), 10%);
+  }
+}
+
+//文字顏色 text-顏色名稱
+@for $i from 1 through length($colors) {
+  .text-#{nth($colors,$i)} {
+    color: nth($colors, $i);
+  }
+}
+
+@for $i from 1 through length($colors) {
+  .text-#{nth($colors,$i)}-light {
+    color: lighten(nth($colors, $i), 10%);
+  }
+}
+
+@for $i from 1 through length($colors) {
+  .text-#{nth($colors,$i)}-dark {
+    color: darken(nth($colors, $i), 10%);
+  }
+}
+
+//背景顏色 bg-顏色名稱
+@for $i from 1 through length($colors) {
+  .bg-#{nth($colors,$i)} {
+    background-color: nth($colors, $i);
+  }
+}
+
+@for $i from 1 through length($colors) {
+  .bg-#{nth($colors,$i)}-light {
+    background-color: lighten(nth($colors, $i), 10%);
+  }
+}
+
+@for $i from 1 through length($colors) {
+  .bg-#{nth($colors,$i)}-dark {
+    background-color: darken(nth($colors, $i), 10%);
+  }
+}
+
+//背景顏色 bg-顏色名稱 hover值
+@for $i from 1 through length($colors) {
+  .bg-#{nth($colors,$i)}-hover {
+    background-color: nth($colors, $i);
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: darken(nth($colors, $i), 10%);
+    }
+  }
+}
+
+@for $i from 1 through length($colors) {
+  .bg-#{nth($colors,$i)}-light-hover {
+    background-color: lighten(nth($colors, $i), 10%);
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: darken(nth($colors, $i), 10%);
+    }
+  }
+}
+
+@for $i from 1 through length($colors) {
+  .bg-#{nth($colors,$i)}-dark-hover {
+    background-color: darken(nth($colors, $i), 10%);
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: darken(nth($colors, $i), 10%);
+    }
+  }
+}
+
+//按鈕顏色 btn-顏色名稱
+@for $i from 1 through length($colors) {
+  .btn-#{nth($colors,$i)} {
+    background-color: nth($colors, $i);
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: darken(nth($colors, $i), 10%);
+    }
+  }
+}
+
+@for $i from 1 through length($colors) {
+  .btn-#{nth($colors,$i)}-light {
+    background-color: lighten(nth($colors, $i), 10%);
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: darken(nth($colors, $i), 10%);
+    }
+  }
+}
+
+@for $i from 1 through length($colors) {
+  .btn-#{nth($colors,$i)}-dark {
+    background-color: darken(nth($colors, $i), 10%);
+    cursor: pointer;
+    transition: background-color 0.3s;
+
+    &:hover {
+      background-color: darken(nth($colors, $i), 10%);
+    }
+  }
+}
+
+//排版
+// bs4的flex排版 目前套件專案是使用bs3
+.d-flex {
+  display: flex;
+}
+
+.d-inline-flex {
+  display: inline-flex;
+}
+
+.flex-row {
+  flex-direction: row !important;
+}
+
+.flex-column {
+  flex-direction: column !important;
+}
+
+.flex-row-reverse {
+  flex-direction: row-reverse !important;
+}
+
+.flex-column-reverse {
+  flex-direction: column-reverse !important;
+}
+
+.flex-wrap {
+  flex-wrap: wrap !important;
+}
+
+.flex-nowrap {
+  flex-wrap: nowrap !important;
+}
+
+.flex-wrap-reverse {
+  flex-wrap: wrap-reverse !important;
+}
+
+.flex-fill {
+  flex: 1 1 auto !important;
+}
+
+.flex-grow-0 {
+  flex-grow: 0 !important;
+}
+
+.flex-grow-1 {
+  flex-grow: 1 !important;
+}
+
+.flex-shrink-0 {
+  flex-shrink: 0 !important;
+}
+
+.flex-shrink-1 {
+  flex-shrink: 1 !important;
+}
+
+.justify-content-start {
+  justify-content: flex-start !important;
+}
+
+.justify-content-end {
+  justify-content: flex-end !important;
+}
+
+.justify-content-center {
+  justify-content: center !important;
+}
+
+.justify-content-between {
+  justify-content: space-between !important;
+}
+
+.justify-content-around {
+  justify-content: space-around !important;
+}
+
+.align-items-start {
+  align-items: flex-start !important;
+}
+
+.align-items-end {
+  align-items: flex-end !important;
+}
+
+.align-items-center {
+  align-items: center !important;
+}
+
+.align-items-baseline {
+  align-items: baseline !important;
+}
+
+.align-items-stretch {
+  align-items: stretch !important;
+}
+
+.align-content-start {
+  align-content: flex-start !important;
+}
+
+.align-content-end {
+  align-content: flex-end !important;
+}
+
+.align-content-center {
+  align-content: center !important;
+}
+
+.align-content-between {
+  align-content: space-between !important;
+}
+
+.align-content-around {
+  align-content: space-around !important;
+}
+
+.align-content-stretch {
+  align-content: stretch !important;
+}
+
+.align-self-auto {
+  align-self: auto !important;
+}
+
+.align-self-start {
+  align-self: flex-start !important;
+}
+
+.align-self-end {
+  align-self: flex-end !important;
+}
+
+.align-self-center {
+  align-self: center !important;
+}
+
+.align-self-baseline {
+  align-self: baseline !important;
+}
+
+.align-self-stretch {
+  align-self: stretch !important;
+}
+
+$grid-breakpoints: (sm: 576px,
+md: 768px,
+lg: 992px,
+xl: 1200px) !default;
+
+@mixin media-breakpoint-up($name, $breakpoints: $grid-breakpoints) {
+  $min: breakpoint-min($name, $breakpoints);
+
+  @if $min {
+    @media (min-width: $min) {
+      @content;
+    }
+  }
+
+  @else {
+    @content;
+  }
+}
+
+@function breakpoint-infix($name, $breakpoints: $grid-breakpoints) {
+  @return if(breakpoint-min($name, $breakpoints)==null, '', '-#{$name}');
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .flex#{$infix}-row {
+      flex-direction: row !important;
+    }
+
+    .flex#{$infix}-column {
+      flex-direction: column !important;
+    }
+
+    .flex#{$infix}-row-reverse {
+      flex-direction: row-reverse !important;
+    }
+
+    .flex#{$infix}-column-reverse {
+      flex-direction: column-reverse !important;
+    }
+
+    .flex#{$infix}-wrap {
+      flex-wrap: wrap !important;
+    }
+
+    .flex#{$infix}-nowrap {
+      flex-wrap: nowrap !important;
+    }
+
+    .flex#{$infix}-wrap-reverse {
+      flex-wrap: wrap-reverse !important;
+    }
+
+    .flex#{$infix}-fill {
+      flex: 1 1 auto !important;
+    }
+
+    .flex#{$infix}-grow-0 {
+      flex-grow: 0 !important;
+    }
+
+    .flex#{$infix}-grow-1 {
+      flex-grow: 1 !important;
+    }
+
+    .flex#{$infix}-shrink-0 {
+      flex-shrink: 0 !important;
+    }
+
+    .flex#{$infix}-shrink-1 {
+      flex-shrink: 1 !important;
+    }
+
+    .justify-content#{$infix}-start {
+      justify-content: flex-start !important;
+    }
+
+    .justify-content#{$infix}-end {
+      justify-content: flex-end !important;
+    }
+
+    .justify-content#{$infix}-center {
+      justify-content: center !important;
+    }
+
+    .justify-content#{$infix}-between {
+      justify-content: space-between !important;
+    }
+
+    .justify-content#{$infix}-around {
+      justify-content: space-around !important;
+    }
+
+    .align-items#{$infix}-start {
+      align-items: flex-start !important;
+    }
+
+    .align-items#{$infix}-end {
+      align-items: flex-end !important;
+    }
+
+    .align-items#{$infix}-center {
+      align-items: center !important;
+    }
+
+    .align-items#{$infix}-baseline {
+      align-items: baseline !important;
+    }
+
+    .align-items#{$infix}-stretch {
+      align-items: stretch !important;
+    }
+
+    .align-content#{$infix}-start {
+      align-content: flex-start !important;
+    }
+
+    .align-content#{$infix}-end {
+      align-content: flex-end !important;
+    }
+
+    .align-content#{$infix}-center {
+      align-content: center !important;
+    }
+
+    .align-content#{$infix}-between {
+      align-content: space-between !important;
+    }
+
+    .align-content#{$infix}-around {
+      align-content: space-around !important;
+    }
+
+    .align-content#{$infix}-stretch {
+      align-content: stretch !important;
+    }
+
+    .align-self#{$infix}-auto {
+      align-self: auto !important;
+    }
+
+    .align-self#{$infix}-start {
+      align-self: flex-start !important;
+    }
+
+    .align-self#{$infix}-end {
+      align-self: flex-end !important;
+    }
+
+    .align-self#{$infix}-center {
+      align-self: center !important;
+    }
+
+    .align-self#{$infix}-baseline {
+      align-self: baseline !important;
+    }
+
+    .align-self#{$infix}-stretch {
+      align-self: stretch !important;
+    }
+  }
+}
+
+// float 宣告
+// 清除浮動
+.clearfix {
+
+  &:before,
+  &:after {
+    content: '';
+    display: table;
+  }
+
+  &:after {
+    clear: both;
+  }
+}
+
+.float-left {
+  float: left;
+}
+
+.float-right {
+  float: right;
+}
+
+.float-none {
+  float: none;
+}
+
+@each $breakpoint in map-keys($grid-breakpoints) {
+  @include media-breakpoint-up($breakpoint) {
+    $infix: breakpoint-infix($breakpoint, $grid-breakpoints);
+
+    .float#{$infix}-left {
+      float: left;
+    }
+
+    .float#{$infix}-right {
+      float: right;
+    }
+
+    .float#{$infix}-none {
+      float: none;
+    }
+  }
+}

@@ -1,0 +1,201 @@
+<div class="NT_side_head_title nomargin NT_blue_bg">
+    <!--案件编号 + 状态-->
+    <div class="row nomargin" style="padding: 0 0 0 15px;">
+        <div class="col-xs-12 col-md-12 nopadding lineheight_24def" style="margin:2px;">
+            <div class="col-xs-8 col-md-8 nopadding">
+                <h4 class="nomargin NT_detail_w_m">{{Main.QuotationNo}}</h4>
+            </div>            
+            <div class="col-xs-4 col-md-4 nopadding NT_blue_bg_04 NT_detail_fontweight text-center">
+                {{Main.Priority}}
+            </div>
+        </div>
+        <!--设施设备 + 销案密码-->
+        <div class="col-xs-12 col-md-12 nopadding" style="margin:3px 2px 3px 2px;">
+            <div class="col-xs-8 col-md-8 nopadding NT_detail_fontweight">
+                <h3 class="nomargin NT_detail_w_l">[{{Main.EquipmentCode}}]&nbsp;&nbsp;{{Main.EquipmentName}}</h3>
+            </div>
+        </div>
+        <!-- 区域-->
+        <div class="col-xs-12 col-md-12 nopadding" style="margin:0 2px 0 2px; ">
+            <div class="col-xs-12 col-md-12 nopadding NT_detail_fontweight">
+                <p class="text-left nomargin NT_detail_fontweight NT_detail_gray">
+                    <span ng-repeat="Positions in Main.Positions" class="area_tag">
+                        {{Positions}}
+                    </span>
+
+                </p>
+            </div>
+        </div>
+        <!-- 报修原因与备注 -->
+        <div class="col-xs-12 col-md-12 nopadding" style="margin:3px 3px 3px 2px;">
+            <h4 class="nomargin NT_detail_w_m">{{Main.Causes}}</h4>
+        </div>
+    </div>
+</div>
+
+<div class="NT_side_body_caselist panel-group">
+    <form class="form-horizontal">
+        <div class="form-group nomargin" ng-controller="TimepickerDemoCtrl" id="timepickerArea">
+            <div class="row nomargin">
+                <!-- 门店资料 + 维修商 -->
+                <div class="col-xs-12 col-md-12 post-header-line">
+                    <p class="container nomargin nopadding" style="margin-left:0px;">
+                        <!-- 门店 -->
+                        <span class="col-xs-6 col-md-6 nopadding">
+                            <i class="fa fa-home"></i>&nbsp;{{sUnit.Unit}}
+                        </span>
+                        <!-- 连络电话 -->
+                        <span class="col-xs-6 col-md-6 nopadding">
+                            <i class="fa fa-user"></i>&nbsp;{{sUnit.UserName}}
+                        </span>
+                    </p>
+                    <hr style="margin:8px 0;">
+                    <p><i class="fa fa-phone"></i>&nbsp;{{sUnit.PhoneNos}}</p>
+                    <hr style="margin:8px 0;">
+                    <p><i class="fa fa-map-marker"></i>&nbsp;{{sUnit.FullAddress}}</p>
+                    <!--<hr style="margin:8px 0;">
+                    <p><i class="fa fa-user"></i>&nbsp;{{sUnit.UserName}}</p>-->
+                    <hr style="margin:8px 0;">
+                    <p><i class="fa fa-wrench"></i>&nbsp;{{pUnit.MaintainerName}}</p>
+                </div>
+            </div>
+        </div>
+        <hr style="margin:8px 0;">
+        <div class="form-group nomargin">
+            <div class="row overview nomargin">
+                <div class="panel no-border">
+                    <div class="panel-heading padding-tb-0"> 
+                        <span class="text-xs text-muted pull-right">
+                            <i class="fa fa-circle text-primary m-r-xs"></i> {{'11110'| i18n}}
+                        </span>
+                        <h4 class="font-thin m-t-none m-b-none text-muted">{{'11111'| i18n}}</h4>              
+                    </div>
+                    <hr style="margin:0px 0;">
+                    <ul class="list-group list-group-lg m-b-none">
+                        <li class="list-group-item" ng-repeat="DetailsMain in DetailsMain">
+                            <div class="swipe_color">
+                                <div class="NT_CaseNo">
+                                    <div class="row NT_CaseNoList">
+                                        <div>
+                                            <!--<span class="text-center NT_blue_bg_04">{{QuotesItem.ResultStr}}</span>-->
+                                            [{{DetailsMain.ComponentCode}}]{{DetailsMain.ComponentName}}
+                                        </div>                                
+                                        <div class="text-center">
+                                            <span class="pull-right NT_choose_empty">
+                                                <span class="text-center NT_red_bg_04">{{DetailsMain.ComponentSpec}}</span>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <p class="text-left small_detail">{{DetailsMain.ComponentUnitPrice|number:2}}&nbsp;*&nbsp; {{DetailsMain.Count}}({{DetailsMain.ComponentUnit}})={{DetailsMain.Price|number:2}}</p>
+                                <p class="text-left small_detail">{{DetailsMain.Remark}}</p>
+                            </div>
+                            <div class="pull-right" style="margin-top:-20px;" ng-if="ModalParameters.isEdit">
+                                <button type="button" class="btn btn-default NT_blue_word_default NT_btn nopadding" ng-click="openEditModal('itemEdit',$index)" style="border:0px;">
+                                    <i class="fa fa-1-5x fa-edit NT_blue_word"></i>
+                                </button>
+                                <button type="button" class="btn btn-default NT_blue_word_default NT_btn nopadding" ng-click="removeMainItem($index)" style="border:0px;">
+                                    <i class="fa fa-1-5x fa-trash NT_blue_word"></i>
+                                </button>
+                            </div>
+                        </li>
+                    </ul>
+                    
+                    <div class="panel-footer">	  
+                        <span class="text-xs text-muted pull-right">
+                            <i class="fa fa-circle text-primary m-r-xs"></i> {{ModalParameters.MainSubtotal|number:2}}
+                        </span>
+                        <button type="button" ng-if="ModalParameters.isEdit" ng-click="addDetailsMainItem()" data-title="itemEdit" data-toggle="modal" data-target="#itemEdit" class="btn btn-default text-light NT_blue_word_default NT_btn nopadding" style="border:0px;">
+                            <i class="fa fa-1-5x fa-plus NT_blue_word"></i>
+                        </button>
+                    </div>
+                </div>
+                <!--其他报价明细-->
+                <div class="panel no-borde" style="margin-top:15px;">
+                    <div class="panel-heading padding-tb-0">	  
+                        <span class="text-xs text-muted pull-right">
+                            <i class="fa fa-circle text-primary m-r-xs"></i> {{'11110'| i18n}}
+                            <i class="fa fa-circle text-warning m-r-xs m-l-sm"></i> {{'11112'| i18n}}
+                        </span>
+                        <h4 class="font-thin m-t-none m-b-none text-muted">{{'11113'| i18n}}</h4>              
+                    </div>
+                    <hr style="margin:0px 0;">
+                    <ul class="list-group list-group-lg m-b-none">
+                    <li class="list-group-item" ng-repeat="DetailsOther in DetailsOther">
+                        <div class="swipe_color">
+                            <div class="NT_CaseNo">
+                                <div class="row NT_CaseNoList">
+                                    <div>
+                                        <!--<span class="text-center NT_blue_bg_04">{{QuotesItem.ResultStr}}</span>-->
+                                        [{{DetailsOther.ComponentCode}}]{{DetailsOther.ComponentName}}
+                                    </div>                                
+                                    <div class="text-center">
+                                        <span class="pull-right NT_choose_empty">
+                                            <span class="text-center NT_red_bg_04">{{DetailsOther.ComponentSpec}}</span>
+                                        </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-left small_detail">{{DetailsOther.ComponentUnitPrice|number:2}}&nbsp;*&nbsp; {{DetailsOther.Count}}({{DetailsOther.ComponentUnit}})={{DetailsOther.Price|number:2}}</p>
+                            <p class="text-left small_detail">{{DetailsOther.Remark}}</p>
+                        </div>                       
+                        <div class="pull-right" style="margin-top:-20px;" ng-if="ModalParameters.isEdit">
+                            <button type="button" class="btn btn-default NT_blue_word_default NT_btn nopadding" ng-click="openEditModal('itemOtherEdit',$index)" style="border:0px;">
+                                <i class="fa fa-1-5x fa-edit NT_blue_word"></i>
+                            </button>
+                            <button type="button" class="btn btn-default NT_blue_word_default NT_btn nopadding" ng-click="removeOtherItem($index)" style="border:0px;">
+                                <i class="fa fa-1-5x fa-trash NT_blue_word"></i>
+                            </button>
+                        </div>
+                    </li>
+                    </ul>
+                    <div class="panel-footer">	  
+                        <span class="text-xs text-muted pull-right">
+                            <i class="fa fa-circle text-primary m-r-xs"></i> {{ModalParameters.OtherSubtotal}}
+                            <i class="fa fa-circle text-warning m-r-xs m-l-sm"></i> {{ModalParameters.Total}}
+                        </span>
+                        <button type="button" ng-if="ModalParameters.isEdit" ng-click="addDetailsOtherItem()" data-title="itemEdit" data-toggle="modal" data-target="#itemEdit" class="btn btn-default text-light NT_blue_word_default NT_btn nopadding" style="border:0px;">
+                            <i class="fa fa-1-5x fa-plus NT_blue_word"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <hr style="margin:8px 0;">
+        <div>
+            <div class="well" style="padding:5px 19px;">
+                <ul class="cbp_tmtimeline inDeatail">
+                    <li class="NT_teal_bg_03">
+                        <div style=" text-align: center;margin: 20px 0;">
+                            <p class="word_break" style="width:80px;font-size:1em;">{{'2073'| i18n}}</p>
+                        </div>
+                    </li>
+                    <li ng-repeat="approve in Approves">
+                        <time class="cbp_tmtime NT_time_title" datetime="approve.CreatedTime">
+                            <span class="word_break NT_time_word">
+                                {{approve.ResultName}}
+                            </span>
+                        </time>
+                        <div class="NT_teal_bg_03 cbp_tmicon_d "></div>
+                        <div class="cbp_tmlabel_d  NT_teal_bg_03">
+                            <div class="md-list-item-text" style="padding:5px 0;font-size:13px;">
+                                <p class="list_title_gray">{{'2074'| i18n}}：</p>
+                                <p>{{approve.Remark}} </p>
+                                <!--回复人-->
+                                <p class="text-right list_title_gray list_footer">
+                                    - &nbsp;{{approve.UserName}} &nbsp;&nbsp;{{approve.CreatedTime}}
+                                </p>
+                            </div>
+
+                        </div>
+                    </li>
+                    <li class="NT_gray_bg_05">
+                        <div style="text-align: center;margin: 20px 0;height:5px;">
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </form>
+</div>
+

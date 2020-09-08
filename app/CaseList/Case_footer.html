@@ -1,0 +1,104 @@
+<div class="dropup NT_side_footer_search" ng-show="longPressSta" ng-class="{'show-out':longPressSta,'show-in':!longPressSta}"
+  ng-show="Backpage">
+  <button class="btn btn-primary NT_search_btn  dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false" style="width:20%;">
+    <div class="row nopadding nomargin">
+      <i class="fa fa-search fa-1-5x col-xs-8 col-md-8 nopadding"></i>
+      <i class="fa fa-caret-up  col-xs-4 col-md-4 nopadding"></i>
+    </div>
+  </button>
+  <ul class="dropdown-menu NT_blue_bg_03 nopadding" style="margin-top:0px;box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 5px 0 rgba(0,0,0,.14),0 5px 5px 0 rgba(0,0,0,.12);">
+    <li ng-repeat="SidenavList in SidenavList">
+      <a ng-click="loadSearchParams(SidenavList.Event)">
+        <i style="width:30px;" ng-class="{'fa fa-television':SidenavList.Event=='Muti','fa fa-list-ol':SidenavList.Event=='No'}"></i>
+        &nbsp;{{ SidenavList.name }}
+      </a>
+    </li>
+  </ul>
+  <!--我要结案底部查询条件-->
+  <!--<div class="NT_side_footer_search" ng-show="isClosesearch">-->
+  <div class="btn-group pull-left NT_blue_bg_05 NT_side_footer_btnGroup" style="width:80%;" ng-show="isClosesearch">
+    <label class="btn btn-primry NT_blue_bg_05 nopadding lineheight_default" ng-model="RequisitionStatus.Filing"
+      ng-click="SetStatus()" btn-checkbox checked>{{'2004'| i18n}}</label>
+    <label class="btn btn-primry NT_blue_bg_05 nopadding lineheight_default" ng-model="RequisitionStatus.Assignment"
+      ng-click="SetStatus()" btn-checkbox checked>{{'2003'| i18n}}</label>
+    <label class="btn btn-primry NT_blue_bg_05 nopadding lineheight_default" ng-model="RequisitionStatus.InStore"
+      ng-click="SetStatus()" btn-checkbox checked>{{'2078'| i18n}}</label>
+    <label class="btn btn-primry NT_blue_bg_05 nopadding lineheight_default" ng-model="RequisitionStatus.Pending"
+      ng-click="SetStatus()" btn-checkbox>{{'11064'| i18n}}</label>
+    <label class="btn btn-primry NT_blue_bg_05 nopadding lineheight_default" ng-model="RequisitionStatus.Overtime"
+      ng-click="SetStatus()" btn-checkbox>{{'11065'| i18n}}</label>
+  </div>
+  <!--</div>-->
+</div>
+
+<div class="dropup NT_side_footer_search" ng-show="isMutisearch && IsUItoWP">
+  <button class="btn btn-primary NT_search_btn dropdown-toggle" type="button" ng-click="ClassPage()" style="width:100%;">
+    <div class="row nopadding nomargin">
+      <i class="col-xs-12 fa fa-reply nopadding"> {{'00001'| i18n}}</i>
+    </div>
+  </button>
+</div>
+<!--綜合查詢案件清單用 王品此欄位隱藏-->
+<div class="dropup NT_side_footer_search" ng-show="isMutisearch && !IsUItoWP">
+  <button class="btn btn-primary NT_search_btn dropdown-toggle" type="button" id="dropdownSearch" data-toggle="dropdown"
+    aria-haspopup="true" aria-expanded="false" style="width:20%;">
+    <div class="row nopadding nomargin">
+      <i class="col-xs-8 col-md-8 nopadding">{{'2010'| i18n}}</i>
+      <i class="fa fa-caret-up  col-xs-4 col-md-4 nopadding"></i>
+    </div>
+  </button>
+  <ul class="dropdown-menu NT_blue_bg_03 nopadding" style="margin-top:0px;box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 5px 0 rgba(0,0,0,.14),0 5px 5px 0 rgba(0,0,0,.12);">
+    <li>
+      <a ng-click="RequisitionStatus.Filing=!RequisitionStatus.Filing">
+        <i style="width:30px;" ng-class="{'fa fa-check-square-o':RequisitionStatus.Filing,'fa fa-square-o':!RequisitionStatus.Filing}"></i>
+        &nbsp;{{'2004'| i18n}}
+      </a>
+    </li>
+    <li>
+      <a ng-click="RequisitionStatus.Assignment=!RequisitionStatus.Assignment">
+        <i style="width:30px;" ng-class="{'fa fa-check-square-o':RequisitionStatus.Assignment,'fa fa-square-o':!RequisitionStatus.Assignment}"></i>
+        &nbsp;{{'2003'| i18n}}
+      </a>
+    </li>
+    <li>
+      <a ng-click="RequisitionStatus.InStore=!RequisitionStatus.InStore">
+        <i style="width:30px;" ng-class="{'fa fa-check-square-o':RequisitionStatus.InStore,'fa fa-square-o':!RequisitionStatus.InStore}"></i>
+        &nbsp;{{'2002'| i18n}}
+      </a>
+    </li>
+    <li>
+      <a ng-click="RequisitionStatus.RawMaterialPending=!RequisitionStatus.RawMaterialPending">
+        <i style="width:30px;" ng-class="{'fa fa-check-square-o':RequisitionStatus.RawMaterialPending,'fa fa-square-o':!RequisitionStatus.RawMaterialPending}"></i>
+        &nbsp;{{'11066'| i18n}}
+      </a>
+    </li>
+  </ul>
+  <div class="btn-group pull-left NT_blue_bg_05 NT_side_footer_btnGroup4" style="width:80%;">
+    <label class="btn btn-primry NT_blue_bg_05 nopadding lineheight_default" ng-model="RequisitionStatus.Draft"
+      btn-checkbox> {{'2077'| i18n}}</label>
+    <label class="btn btn-primry NT_blue_bg_05 nopadding lineheight_default" ng-model="RequisitionStatus.OnTheRoad"
+      btn-checkbox>{{'2010'| i18n}}</label>
+    <label class="btn btn-primry NT_blue_bg_05 nopadding lineheight_default" ng-model="RequisitionStatus.Acceptance"
+      btn-checkbox>{{'2006'| i18n}}</label>
+    <label class="btn btn-primry NT_blue_bg_05 nopadding lineheight_default" ng-model="RequisitionStatus.Revocation"
+      btn-checkbox>{{'2008'| i18n}}</label>
+    <label class="btn btn-primry NT_blue_bg_05 nopadding lineheight_default" ng-model="RequisitionStatus.Overtime"
+      btn-checkbox>{{'11065'| i18n}}</label>
+  </div>
+</div>
+
+<!--逾時案件清單用-->
+<div class="NT_side_footer_delay" ng-show="showDelayTab=='Detail'">
+  <div class="row nomargin">
+    <div class="col-xs-9 col-md-9 nopadding lineheight_default">
+      &nbsp;
+    </div>
+    <div class="col-xs-3 col-md-3 nopadding">
+      <button type="button" class="btn btn-lg btn-primary NT_close_btn" ng-click="changeDelayTab('List')">
+        {{'00001'| i18n}}
+        <i><img src="img/return_24.png" style="width:20px;"></i>
+      </button>
+    </div>
+  </div>
+</div>

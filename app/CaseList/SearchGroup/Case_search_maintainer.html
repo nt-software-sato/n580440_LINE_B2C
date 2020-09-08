@@ -1,0 +1,30 @@
+<!--搜寻-->
+        <div class="form-group NT_side_head nomargin sidenav_title nomargin NT_blue_bg_04">
+            <!--icon-->
+            <div class="col-xs-2 col-md-2 nopadding ">
+                <label for="inputseatch_store" class="control-label nomargin lineheight_default text-center" style="width:100%;"><i class="fa fa-search"></i></label>
+            </div>
+            <!--输入框-->
+            <div class="col-xs-10 col-md-10 nopadding input_search">
+                <input type="text" class="form-control NT_blue_bg_04 " ng-model="pSearch" placeholder="请输入维修商关键字">
+            </div>
+        </div>
+        <!--清单-->
+        <div class="NT_side_body_list panel-group" id="store_list" ng-init="isSelected_Maintainer=true">
+            <!--20160224 mark ng-repeat="pcompanyItem in pcompanyList | filter:pSearch" ng-click="SetMaintainer(pcompanyItem)"-->
+            <div class="list-group" ng-model="pcompanyItem.MaintainerId"  style="margin-bottom: 0px;" >
+                <!-- 20160224 mark       ng-click="SetMaintainer(pcompanyItem)"        -->
+                <button type="button" class="list-group-item" ng-click="isSelected_Maintainer=!isSelected_Maintainer">
+                    {{pcompanyItem.MaintainerName}} 金城
+                    <span class="pull-right NT_choose_empty" ng-class="{'animated fadeIn':isSelected_Store}">
+                       <i ng-class="{'fa fa-1-5x fa-check-circle':isSelected_Maintainer,'fa fa-1-5x fa-circle-thin':!isSelected_Maintainer}"></i>
+                    </span>
+                </button>
+            </div>
+        </div> <!--清单 End-->
+        <div class="NT_side_footer NT_blue_bg">
+            <button type="button" class="btn btn-primary NT_close_btn btn_closeStyle" ng-click="closeDenav('Maintainer')"> 
+                返回
+                <i><img src="img/return_24.png" style="width:20px;"></i>
+            </button>
+        </div>

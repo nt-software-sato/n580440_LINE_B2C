@@ -1,0 +1,65 @@
+ <!--门店关键字搜寻-->
+<div class="form-group NT_side_head nomargin sidenav_title nomargin NT_blue_bg_04">
+    <div class="col-xs-10 col-md-10 nopadding">
+        <h4 class="modal-title">{{'11042'| i18n}}</h4>
+    </div>
+    <div class="col-xs-2 col-md-2 nopadding ">
+
+    </div>
+</div>
+<div class="form-group nomargin  nomargin NT_red_bg_03 text-center NT_directBtn" style="">
+    <div class="row nomargin" ng-click="gotoTransfer()">
+        <div class="col-xs-10 col-md-10 nopadding">{{'11043'| i18n}}</div>
+        <div class="col-xs-2 col-md-2 nopadding"><i class="fa fa-caret-right"></i></div>
+    </div>
+</div>
+<!--门店选单-->
+<div class="form-group NT_body_list ng-cloak" ng-cloak ng-init="search_tabid='items'">
+    <div class="NT_side_body_Multi panel-group" role="tablist" aria-multiselectable="true">
+        <!--item-->
+        <div class="panel panel-default noborder NT_MutiGroup" ng-show="search_tabid=='items'">
+            <div class="row nomargin" data-toggle="modal" data-target="#SearchMuStore" style="cursor:pointer;" ng-click="LoadMnti(0)">
+                <p class="NT_MutiSelectTitle">{{'2081'| i18n}}</p>
+                <div class="col-xs-12 col-md-12 NT_MutiSelect nopadding">
+                    <div class="row nomargin">
+                        <div class="col-xs-4 col-md-4 NT_chooseItem NT_green_bg_01 nopadding" ng-repeat="StoreItem in StoreSelectedList" ng-show="StoreItem.Id!=''&&StoreItem.Assign==1">
+                            {{StoreItem.Text}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row nomargin" data-toggle="modal" data-target="#SearchMuStore" style="cursor:pointer;" ng-click="LoadMnti(1)">
+                <p class="NT_MutiSelectTitle">{{'2085'| i18n}}</p>
+                <div class="col-xs-12 col-md-12 NT_MutiSelect nopadding">
+                    <div class="row nomargin">
+                        <div class="col-xs-5 col-md-5 NT_green_bg_01 NT_chooseItem nopadding" ng-repeat="MaintainerItem in MaintainerSelectedList" ng-show="MaintainerItem.Id!=''">
+                            {{MaintainerItem.Text}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row nomargin" data-toggle="modal" data-target="#SearchMuStore" style="cursor:pointer;" ng-click="LoadMnti(2)">
+                <p class="NT_MutiSelectTitle">{{'11044'| i18n}}</p>
+                <div class="col-xs-12 col-md-12 NT_MutiSelect nopadding">
+                    <div class="row nomargin">
+                        <div class="col-xs-5 col-md-5 NT_chooseItem NT_green_bg_01 nopadding" ng-repeat="EquipmentItem in EquipmentSelectedList" ng-show="EquipmentItem.Id!=''">
+                            {{EquipmentItem.Text}}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+<div class="NT_side_footer NT_blue_bg">
+    <div class="row nomargin">
+        <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+            <button type="button" class="btn NT_red_bg_04 noboder_radius" data-dismiss="modal" style="width:100%;" ng-click="gotoSearch()">{{'00002'| i18n}}</button>
+        </div>
+        <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+            <button type="button" class="btn btn-primary noboder_radius " data-dismiss="modal" style="width:100%;" ng-click="clearSelect2Values()">{{'00003'| i18n}}</button>
+        </div>
+    </div>
+</div>
+

@@ -1,0 +1,569 @@
+﻿<!DOCTYPE html>
+<html ng-app="WeChat" ng-controller="AcceptanceCtrl" ng-cloak>
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+    <meta name="format-detection" content="telephone=no" />
+    <title>師傅到場</title>
+    <!-- ng-bind="SearchTitle" -->
+    <link rel="stylesheet" href="css/angular-material.min.css" />
+    <link rel="stylesheet" href="css/select/select2.min.css" />
+    <link rel="stylesheet" href="css/select/select2-bootstrap.css" />
+    <link rel="stylesheet" href="css/bootstrap.min.css" />
+    <link rel="stylesheet" href="css/animate.css" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
+    <link href="css/datepicker/daterangepicker.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/NT_color.css" />
+    <link rel="stylesheet" href="css/ngGallery.css" />
+    <link rel="stylesheet" href="css/style_new.css?v=20190318" />
+    <link rel="stylesheet" href="css/bootstrap-nav-wizard.css" />
+    <link rel="stylesheet" href="css/all.css">
+    <style>
+      .ng-cloak {
+        display: none;
+      }
+      .form-control[readonly] {
+        background-color: #fff;
+      }
+      .singaldate {
+        width: 100%;
+      }
+      .daterangepicker .calendar {
+        max-width: 100%;
+      }
+      .daterangepicker:after,
+      .daterangepicker:before {
+        display: none;
+      }
+      .dropdown-menu {
+        top: 10px !important;
+      }
+    </style>
+  </head>
+
+  <body style="overflow:none;" class="ng-cloak" ng-init="longPressSta=false;swipeState=false;isShowAll=true;isShowDetail=true;isMultiple=false;isMutisearch=false;isShowCode=false;isQrcode=true;CaseNO=1;">
+    <!--
+      王品專屬功能 多間
+      2018/11/14 新增
+    -->
+    <div ng-show="isLoading" class="alert isLoading NT_blue_word_wh nomargin">
+      <p class="text-center nomargin">
+        <span class="loader loader-quart"> </span>
+      </p>
+    </div>
+    <div class="container" style="margin:0 auto" ng-show="IsUItoWP && WPUIpage == 'selectPage' && !isLoading" ng-cloak>
+      <ul class="list-group">
+        <li class="list-group-item box-shadow m-t-30 p-y-0" style="height:134px;border:1px solid black;box-shadow: 3px 3px 20px -1px #000;
+          "
+          ng-repeat="item in CaseCountList">
+          <div class="row" style="height:46px">
+            <img class="col-xs-3 p-0" src="img/logo/{{item.DivisionId}}.png" style="height:46px;" />
+            <span class="col-xs-9" style="height:46px;line-height:46px;">{{
+              item.DivisionName
+              }}</span>
+          </div>
+          <div class="row bg-green" ng-click="SelectSearch('进行中',item.DivisionId,item.DivisionName);" style="height:86px;line-height:86px;font-size: 20px">
+            <div class="col-xs-6 text-white">{{'2010'| i18n}}</div>
+            <div class="col-xs-6 text-white" style="font-size: 40px">
+              {{ item.OnTheRoad }}
+            </div>
+          </div>
+        </li>
+      </ul>
+    </div>
+
+
+    <!-- Mod-20131222-Annie -->
+    <!-- 王品外B2C直接顯示清單 -->
+    <form id="acceptanceForm" name="myForm" style="margin-top:0px;overflow:none;" ng-show="!IsUItoWP || (IsUItoWP && WPUIpage == 'listPage')">
+      <!-- 案件查詢 in Case_Search_top.html -->
+      <div class="form-group border_bottom NT_side_head nomargin ng-cloak" ng-cloak ng-init="isShowAll=true;">
+        <div case-search></div>
+      </div>
+      <!-- 日期排序 in   Case_sort_dateTime.html -->
+      <case-sort-toolbar></case-sort-toolbar>
+      <!-- 报修单列表 in Case_list.html -->
+      <div class="NT_side_body_list ng-cloak" ng-cloak>
+        <div class="list-group">
+          <div class="alert alert-danger NT_gray_bg_03" ng-show="!isShowDetail&&!isLoading" style="margin-bottom: 0px;padding: 5px;color:#999;">
+            <p class="text-center nomargin">
+              <i class="fa fa-frown-o"></i>
+              &nbsp;&nbsp;{{'2049'| i18n}}&nbsp;!
+            </p>
+          </div>
+          <div ng-show="isLoading" class="alert isLoading NT_blue_word_wh nomargin">
+            <p class="text-center nomargin">
+              <span class="loader loader-quart"> </span>
+            </p>
+          </div>
+          <!--
+            20151222  Annie
+            1.將簽到longPressSta設為false
+            2.移除----列表click事件&案件詳情&开启签到模式btn
+            3.優化icon特效
+            4.將关闭签到模式改為清空,並將條件longPressSta=true移除
+          -->
+          <div class="list-group-item border_bottom" ng-click="selectIds(RepairItem)" ng-swipe-left="GetDetail(RepairItem,'Sign','0')"
+            ng-repeat="RepairItem in RepairList | filter:Listdata" ng-show="isShowDetail&&!isLoading&&!isQrcode"
+            ng-class="{'case_selectColor':(RepairItem.Selected&&!longPressSta)||(RepairItem.swipeState&&longPressSta)}">
+            <div class="row nomargin nopadding">
+              <label class="checkbox-styled">
+                <span ng-class="{'swipe_color':RepairItem.Selected}">
+                  <blockquote>
+                    <dl>
+                      <dd>
+                        <span class="text-center NT_red_bg_04" ng-class="{'NT_red_bg_04':RepairItem.Emergency==0,'NT_gray_bg_04':RepairItem.Emergency==1||RepairItem.Emergency==2}">{{
+                          RepairItem.Priority }}</span>
+                        {{ RepairItem.CaseNo }}
+                        <span class="pull-right NT_choose_empty" ng-class="{'animated fadeIn':!longPressSta&&RepairItem.Selected}"
+                          ng-show="!isQrcode">
+                          <i ng-class="{'fa fa-1-5x fa-check-circle':!longPressSta&&RepairItem.Selected,'fa fa-1-5x fa-circle-thin':!longPressSta&&!RepairItem.Selected}"></i>
+                        </span><!-- Mod-20131222-Annie -->
+                      </dd>
+                      <dt>
+                        <h4 class="bold">
+                          [{{ RepairItem.EquipmentCode }}]&nbsp;&nbsp;{{
+                          RepairItem.EquipmentName
+                          }}
+                        </h4>
+                      </dt>
+                    </dl>
+                    <p class="text-left small_detail">
+                      {{ RepairItem.MaintainerNickname }}&nbsp;-&nbsp;
+                      {{ RepairItem.StrongholdName }}
+                    </p>
+                    <!-- 状态图 -->
+                    <div class="row">
+                      <!-- 2018/11/16 修改 -->
+                      <ul id="breadcrumb">
+                        <li><a class="complete" disabled="disabled">{{'2077'| i18n}}</a></li>
+                        <li>
+                          <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>1||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==1}">
+                            {{'2004'| i18n}}
+                          </a>
+                        </li>
+                        <li>
+                          <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>2||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==2}">
+                            {{'2003'| i18n}}
+                          </a>
+                        </li>
+                        <li>
+                          <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>3||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==3}">
+                            {{'2078'| i18n}}
+                          </a>
+                        </li>
+                        <li>
+                          <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>4||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==4}">
+                            {{'2079'| i18n}}
+                          </a>
+                        </li>
+                        <li>
+                          <a class="lastChild" ng-show="{{RepairItem.GeneralStageId>=0}}" ng-class="{'':RepairItem.GeneralStageId!=4,'complete':RepairItem.GeneralStageId==5}">
+                            {{'2006'| i18n}}
+                          </a>
+                        </li>
+                        <li>
+                          <a class="lastChild" ng-show="{{RepairItem.GeneralStageId<0}}" ng-class="{'':GeneralStageId,'complete':RepairItem.StageId==-100,'process':RepairItem.StageId==-99}">
+                            {{'2008'| i18n}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div>
+                    <!-- <ul id="breadcrumb">
+                        <li>
+                          <a class="complete" disabled="disabled">{{'2077'| i18n}}</a>
+                        </li>
+                        <li>
+                          <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>1||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==1}">
+                            {{'2004'| i18n}}
+                          </a>
+                        </li>
+                        <li>
+                          <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>2||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==2}">
+                            {{'2003'| i18n}}
+                          </a>
+                        </li>
+                        <li>
+                          <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>4||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==3||RepairItem.GeneralStageId==4}">
+                            厂商到场
+                          </a>
+                        </li>
+                        <li>
+                          <a class="lastChild" ng-show="{{RepairItem.GeneralStageId>=0}}" ng-class="{'':RepairItem.GeneralStageId!=4,'complete':RepairItem.GeneralStageId==5,'process':RepairItem.GeneralStageId==4}">
+                            {{'2006'| i18n}}
+                          </a>
+                        </li>
+                        <li>
+                          <a class="lastChild" ng-show="{{RepairItem.GeneralStageId<0}}" ng-class="{'':GeneralStageId,'complete':RepairItem.StageId==-100,'process':RepairItem.StageId==-99}">
+                            {{'2008'| i18n}}
+                          </a>
+                        </li>
+                      </ul>
+                    </div> -->
+                    <footer class="text-right NT_CaseFooter">
+                      <div class="row">
+                        <div class="text-right">-</div>
+                        <div class="text-right">{{ RepairItem.Unit }}</div>
+                        <div class="text-right">{{ RepairItem.UserName }}</div>
+                        <div class="text-right">{{ RepairItem.DateM }}</div>
+                      </div>
+                    </footer>
+                    <p class="text-right small_detail" style="margin: 5px;" ng-show="RepairItem.IsOvertime==1">
+                      {{'2046'| i18n}} {{ RepairItem.OverTime }} {{'2047'| i18n}}
+                    </p>
+                  </blockquote>
+                </span>
+              </label>
+            </div>
+          </div>
+          <div class="list-group-item border_bottom" ng-click="loadQrcode(RepairItem)" ng-swipe-left="GetDetail(RepairItem,'Sign','0')"
+            ng-repeat="RepairItem in RepairList" ng-show="isShowDetail&&!isLoading&&isQrcode" ng-class="{'case_selectColor':(RepairItem.Selected&&!longPressSta)||(RepairItem.swipeState&&longPressSta)}">
+            <div class="row nomargin nopadding">
+              <!--
+                <md-input-container md-no-float ng-show="RepairItem.showCode" layout-align="center center" style="margin:0 2% 0 2%;padding:0 15px 15px 15px;height: 168px;">
+                          <img ng-src="{{QRCodeUri}}" class="md-card-image" width="165px" height="165px" />
+                      </md-input-container>
+              -->
+              <blockquote ng-show="!RepairItem.showCode">
+                <dl>
+                  <dd>
+                    <span class="text-center NT_red_bg_04" ng-class="{'NT_red_bg_04':RepairItem.Emergency==0,'NT_gray_bg_04':RepairItem.Emergency==1||RepairItem.Emergency==2}">{{
+                      RepairItem.Priority }}</span>
+                    {{ RepairItem.CaseNo }}
+                  </dd>
+                  <span class="pull-right text-center" style="margin-top:-20px;">
+                    <!--
+                      <button type="button" class="btn btn-primary NT_blue_bg noboder_radius " style="width:100%;" >显示二维码</button>
+                    -->
+                    <i class="fa fa-qrcode fa-3x"></i>
+                  </span>
+                  <dt>
+                    <h4 class="bold">
+                      [{{ RepairItem.EquipmentCode }}]&nbsp;&nbsp;{{
+                      RepairItem.EquipmentName
+                      }}
+                    </h4>
+                  </dt>
+                </dl>
+                <p class="text-left small_detail">
+                  {{ RepairItem.MaintainerNickname }}&nbsp;-&nbsp;
+                  {{ RepairItem.StrongholdName }}
+                </p>
+                <!-- 状态图 -->
+                <!-- 2018/11/16 修改 -->
+                <div class="row">
+                  <ul id="breadcrumb">
+                    <li><a class="complete" disabled="disabled">{{'2077'| i18n}}</a></li>
+                    <li>
+                      <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>1||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==1}">
+                        {{'2004'| i18n}}
+                      </a>
+                    </li>
+                    <li>
+                      <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>2||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==2}">
+                        {{'2003'| i18n}}
+                      </a>
+                    </li>
+                    <li>
+                      <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>3||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==3}">
+                        {{'2078'| i18n}}
+                      </a>
+                    </li>
+                    <li>
+                      <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>4||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==4}">
+                        {{'2079'| i18n}}
+                      </a>
+                    </li>
+                    <li>
+                      <a class="lastChild" ng-show="{{RepairItem.GeneralStageId>=0}}" ng-class="{'':RepairItem.GeneralStageId!=4,'complete':RepairItem.GeneralStageId==5}">
+                        {{'2006'| i18n}}
+                      </a>
+                    </li>
+                    <li>
+                      <a class="lastChild" ng-show="{{RepairItem.GeneralStageId<0}}" ng-class="{'':GeneralStageId,'complete':RepairItem.StageId==-100,'process':RepairItem.StageId==-99}">
+                        {{'2008'| i18n}}
+                      </a>
+                    </li>
+                  </ul>
+                </div>
+                <!-- <ul id="breadcrumb">
+                    <li><a class="complete" disabled="disabled">{{'2077'| i18n}}</a></li>
+                    <li>
+                      <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>1||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==1}">
+                        {{'2004'| i18n}}
+                      </a>
+                    </li>
+                    <li>
+                      <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>2||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==2}">
+                        {{'2003'| i18n}}
+                      </a>
+                    </li>
+                    <li>
+                      <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>4||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==3||RepairItem.GeneralStageId==4}">
+                        厂商到场
+                      </a>
+                    </li>
+                    <li>
+                      <a class="lastChild" ng-show="{{RepairItem.GeneralStageId>=0}}" ng-class="{'':RepairItem.GeneralStageId!=4,'complete':RepairItem.GeneralStageId==5,'process':RepairItem.GeneralStageId==4}">
+                        {{'2006'| i18n}}
+                      </a>
+                    </li>
+                    <li>
+                      <a class="lastChild" ng-show="{{RepairItem.GeneralStageId<0}}" ng-class="{'':GeneralStageId,'complete':RepairItem.StageId==-100,'process':RepairItem.StageId==-99}">
+                        {{'2008'| i18n}}
+                      </a>
+                    </li>
+                  </ul>
+                </div> -->
+                <footer class="text-right NT_CaseFooter">
+                  <div class="row">
+                    <div class="text-right">-</div>
+                    <div class="text-right">{{ RepairItem.Unit }}</div>
+                    <div class="text-right">{{ RepairItem.UserName }}</div>
+                    <div class="text-right">{{ RepairItem.DateM }}</div>
+                  </div>
+                </footer>
+                <p class="text-right small_detail" style="margin: 5px;" ng-show="RepairItem.IsOvertime==1">
+                  {{'2046'| i18n}} {{ RepairItem.OverTime }} {{'2047'| i18n}}
+                </p>
+              </blockquote>
+            </div>
+          </div>
+          <!-- 载入中参考 -->
+          <div class="list-group-item" style="height: 50px;">
+            <div class="row nomargin nopadding" load-more></div>
+          </div>
+        </div>
+      </div>
+      <div class="ng-overlay" ng-show="isShowCode" aria-hidden="false" ng-click="closeQrcode()"></div>
+      <div class="ng-gallery-content" ng-show="isShowCode" aria-hidden="false">
+        <div algin="center" text-algin="center">
+          <img name="ShowImg" ng-click="closeQrcode()" width="320px" height="320px" style="margin-top:120px; " ng-src="{{QRCodeUri}}"
+            class="effect" role="button" tabindex="0" aria-hidden="true" />
+        </div>
+      </div>
+      <!-- 签到按钮在案件长按的时候才会把disabled移除 -->
+      <!--
+        <button class="btn btn-danger NT_red_bg_08 NT_submitBtn NT_signbtn show-hover  ng-cloak" ng-show="longPressSta" ng-click="longPressSta=!longPressSta" style="right: 20px;left: auto;"  ng-cloak >
+            开启签<br>到模式
+        </button>
+      -->
+      <!-- 签到确认Modal -->
+      <div class="modal fade" id="SignModal" tabindex="-1" role="dialog" aria-labelledby="SignModalLabel">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title" id="SignModalLabel">{{'2080'| i18n}}</h4>
+            </div>
+            <div class="modal-body sing_list">
+              <div class="container-fluid">
+                <div class="row" ng-repeat="RepairItem in RepairListSelected">
+                  <div class="col-xs-12 col-md-12 col-lg-12 border_bottom_only EQ_tag_margin nopadding">
+                    <p class="EQ_tag_title">
+                      [{{ RepairItem.EquipmentCode }}]&nbsp;&nbsp;{{
+                      RepairItem.EquipmentName
+                      }}
+                    </p>
+                    <p class="EQ_tag">
+                      {{ RepairItem.MaintainerNickname }}&nbsp;-&nbsp;
+                      {{ RepairItem.StrongholdName }}
+                    </p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="modal-footer" controller="TimepickerDemoCtrl">
+              <div class="row nopadding nomargin" id="timepickerSignArea">
+                <div class="col-xs-6 col-md-6 col-lg-6 text-center" style="height:105px;padding:30px 15px;">
+                  <input type="text" class="form-control nomargin" id="singaldate" name="singaldate" placeholder="yyyy/mm/dd"
+                    ng-pattern="/^(\d{4})/(\d{1,2})/(\d{1,2})$/" min="minDay" value="{{singalDate}}" readonly required />
+                </div>
+
+                <!-- 签到时间 -->
+                <div class="col-xs-6 col-md-6 col-lg-6 nopadding" style="padding: 0 5%;height:105px;">
+                  <timepicker ng-change="changed()" hour-step="1" minute-step="5" show-meridian="ismeridian" ng-model="DateC"></timepicker>
+                </div>
+              </div>
+              <div class="row nopadding nomargin">
+                <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+                  <button type="button" class="btn btn-primary noboder_radius " data-dismiss="modal" style="width:100%;"
+                    ng-click="doCancel()">
+                    {{'00003'| i18n}}
+                  </button>
+                </div>
+                <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+                  <button type="button" class="btn NT_red_bg_04 noboder_radius" data-dismiss="modal" style="width:100%;"
+                    ng-click="doSign()">
+                    {{'02004'| i18n}}
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 搜尋按鈕 改用滑出選單方式呈現 -->
+      <div class="NT_side_footer NT_blue_bg">
+        <div class="dropup" ng-show="longPressSta" ng-class="{'show-out':longPressSta,'show-in':!longPressSta}">
+          <button class="btn btn-primary NT_search_btn  dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown"
+            aria-haspopup="true" aria-expanded="false" style="width:25%;">
+            <div class="row nopadding nomargin">
+              <i class="fa fa-search fa-1-5x col-xs-8 col-md-8 nopadding"></i>
+              <i class="fa fa-caret-up  col-xs-4 col-md-4 nopadding"></i>
+            </div>
+          </button>
+          <ul class="dropdown-menu NT_blue_bg_03 nopadding" style="margin-top:0px;box-shadow: 0 3px 1px -2px rgba(0,0,0,.2),0 2px 5px 0 rgba(0,0,0,.14),0 5px 5px 0 rgba(0,0,0,.12);">
+            <li ng-repeat="SidenavList in SidenavList">
+              <a ng-click="loadSearchParams(SidenavList.Event)">
+                <i style="width:30px;" ng-class="{'fa fa-wrench':SidenavList.Event=='Store','fa fa-television':SidenavList.Event=='Equipment','fa fa-list-ol':SidenavList.Event=='No'}"></i>
+                &nbsp;{{ SidenavList.name }}
+              </a>
+            </li>
+          </ul>
+        </div>
+        <div class="row nomargin" ng-class="{'show-out':!longPressSta,'show-in':longPressSta}" ng-show="!longPressSta">
+          <div class="col-xs-3 col-md-3 col-lg-3 nopadding">
+            <button type="button" class="btn btn-primary NT_blue_bg noboder_radius" style="width:100%;" ng-click="doCancel()">
+              {{'02005'| i18n}}
+            </button>
+          </div>
+          <div class="col-xs-3 col-md-3 col-lg-3 nopadding">
+            <button type="button" class="btn btn-primary NT_blue_bg noboder_radius" ng-class="{' active':isQrcode}"
+              style="width:100%;" ng-click="toggleCheckin(0)">
+              {{'2013'| i18n}}
+            </button>
+          </div>
+          <div class="col-xs-3 col-md-3 col-lg-3 nopadding">
+            <button type="button" class="btn btn-primary NT_blue_bg noboder_radius" ng-class="{' active':!isQrcode}"
+              style="width:100%;" ng-click="toggleCheckin(1)">
+              {{'2081'| i18n}}
+            </button>
+          </div>
+          <!--
+            <div class="btn-group pull-left NT_blue_bg_05 NT_side_footer_btnGroup" style="width:100%;">
+                  <label class="btn btn-primry NT_blue_bg_05 nopadding lineheight_default" ng-model="RequisitionStatus.Draft" btn-checkbox> {{'02005'| i18n}}</label>
+                  <label class="btn btn-primry NT_blue_bg_05 nopadding lineheight_default" ng-model="RequisitionStatus.OnTheRoad" btn-checkbox>进行中</label>
+              </div>
+          -->
+          <div class="col-xs-3 col-md-3 col-lg-3 nopadding">
+            <button type="button" class="btn NT_red_bg_04 noboder_radius" style="width:100%;border:0;" data-toggle="modal"
+              data-target="#SignModal" ng-disabled="RepairListSelected.length==0" ng-click="SetSignDate()">
+              <!-- ng-disabled="RepairListSelected.length==0" -->
+              {{'02004'| i18n}}&nbsp;&nbsp;({{ RepairListSelected.length }})
+            </button>
+          </div>
+        </div>
+      </div>
+    </form>
+    <!-- 签到历程 -->
+    <md-sidenav class="md-sidenav-right md-sidenav-right-list md-whiteframe-z2  ng-cloak" style="z-index:999;"
+      md-component-id="right_cancel_sign" ng-swipe-right="closeDenav('right_cancel_sign')">
+      <div class="form-group NT_side_head nomargin sidenav_title nomargin NT_blue_bg_04">
+        <div class="col-xs-12 col-md-12 ">
+          <label class="control-label nomargin lineheight_default text-left" style="width:100%;">
+            {{ RepairInfo.CaseNo }}&nbsp;&nbsp;{{'2082'| i18n}}
+          </label>
+        </div>
+      </div>
+      <!-- 签到历程 group -->
+      <div class="form-group NT_side_body_CancelSignlist">
+        <div class="container nopadding" style="padding: 0 5px;">
+          <form role="form">
+            <!-- 签到历程 repeat -->
+            <div class="list-group-item border_bottom" style="padding: 0px;" ng-repeat="Item in RepairInfo.CheckinHistories">
+              <div class="row nomargin nopadding">
+                <label class="checkbox-styled">
+                  <input type="checkbox" ng-click="SetCheckedIds(Item)" />
+                  <span>
+                    <blockquote>
+                      <dl style="margin-bottom: 5px;">
+                        <dd style="color:#555;">
+                          {{ Item.MaintainerName }}/{{ Item.StrongholdName }}
+                        </dd>
+                      </dl>
+                      <p class="nomargin">
+                        <span class="label label-info NT_green_bg_05">{{'02004'| i18n}} - {{ Item.CheckinUser }}&nbsp;{{
+                          Item.CheckinTime
+                          }}</span>
+                      </p>
+                      <p ng-show="Item.CancelUser!=null">
+                        <span class="label label-warning NT_red_bg_04">{{'00003'| i18n}} - {{ Item.CancelUser }}&nbsp;{{
+                          Item.CancelTime
+                          }}</span>
+                      </p>
+                    </blockquote>
+                  </span>
+                </label>
+              </div>
+            </div>
+            <!-- 签到历程 repeat End -->
+          </form>
+        </div>
+      </div>
+      <button type="submit" ng-click="doCancelSign()" ng-show="RepairInfo.CheckinHistories.length>0" ng-init="isSend4Ajax=false"
+        ng-disabled="CheckedIds.length==0" class="btn btn-primary NT_red_bg_04 NT_submitBtn NT_Cancelsignbtn ng-cloak"
+        autocomplete="off" ng-cloak>
+        <span ng-show="!isSend4Ajax">{{'02006'| i18n}}</span>
+        <i class="fa fa-1-5x fa-spinner fa-spin" ng-show="isSend4Ajax"></i>
+      </button>
+      <div class="NT_side_footer NT_blue_bg">
+        <button type="button" class="btn btn-primary NT_close_btn btn_closeStyle" ng-click="closeDenav('right_cancel_sign')">
+          {{'00001'| i18n}} <i><img src="img/return_24.png" style="width:20px;" /></i>
+        </button>
+      </div>
+    </md-sidenav>
+    <!-- 進階 -->
+    <md-sidenav class="md-sidenav-right md-sidenav-right-list md-whiteframe-z2 ng-cloak " md-component-id="Multi" id="Multi"
+      ng-cloak>
+      <div case-search-right></div>
+    </md-sidenav>
+    <div case-search-mutit-advence></div>
+    <!-- 引用js -->
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/hammerJS/hammer.js"></script>
+    <script src="js/select/select2.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/angular-animate.min.js"></script>
+    <script src="js/angular-touch.min.js"></script>
+    <script src="js/angular-aria.min.js"></script>
+    <script src="js/angular-cookies.js"></script>
+    <script src="js/angular-md5.js"></script>
+    <script src="js/angular-material.min.js"></script>
+    <script src="js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+    <script src="js/underscore-min.js"></script>
+    <script src="js/sha1.js"></script>
+    <script src="js/messages.js"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="js/hammerJS/angular.hammer.js"></script>
+    <script src="js/timepicker/moment.js"></script>
+    <script src="js/timepicker/daterangepicker.js"></script>
+    <script src="js/timepicker/angular-daterangepicker.js"></script>
+    <script src="js/angular-translate/angular-translate.js"></script>
+    <script src="js/angular-translate/loader-static-files.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/services/i18n.js"></script>
+    <script type="text/javascript" src="i10n/zh-cn.js"></script>
+    <script type="text/javascript" src="i10n/zh-tw.js"></script>
+    <script src="js/directives/NT_template.js?v=20190318"></script>
+    <script src="js/timepicker/daterangepicker_top.js"></script>
+    <script src="js/controllers/Acceptance.js?v=20190318"></script>
+    <script src="js/directives/autoComplete.js"></script>
+    <script src="js/directives/starRating.js"></script>
+    <script src="js/directives/hammer_direct.js"></script>
+    <script src="js/scrollSmooth.js"></script>
+    <script>
+      $(function () {
+        $('input[name="singaldate"]').daterangepicker({
+          singleDatePicker: true,
+          showDropdowns: false,
+          format: 'YYYY/MM/DD',
+          minDate: moment().format('YYYY/MM/DD')
+        });
+      });
+    </script>
+  </body>
+
+</html>

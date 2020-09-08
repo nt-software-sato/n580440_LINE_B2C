@@ -1,0 +1,22 @@
+
+<!-- loading 圆圈  -->
+<div loading></div>
+
+<!--  案件清單  -->
+<div class="list-group-item border_bottom" style="padding: 5px 3px;">
+    <div class="row nomargin nopadding">
+        <div class="col-xs-6 col-md-6 ">&nbsp;</div>
+        <div class="col-xs-2 col-md-2 nopadding text-right">{{'11049'| i18n}}</div>
+        <div class="col-xs-2 col-md-2 nopadding text-right">{{'2057'| i18n}}</div>
+        <div class="col-xs-2 col-md-2 nopadding text-right">{{'11092'| i18n}}</div>
+    </div>
+</div>
+<!--  无案件时显示  -->
+<div class="alert alert-danger NT_gray_bg_03 NT_Loading" ng-show="!isShowDetail&&!isLoading">
+    <div without-case></div>
+</div>
+<div>
+    <div delay-case-matainer></div>
+</div>
+
+

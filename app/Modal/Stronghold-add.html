@@ -1,0 +1,82 @@
+<div class="modal-header NT_blue_bg_04 nopadding" style="padding-bottom:0px;">
+    <div class="row">
+        <div class="col-xs-12 col-md-12 nt-flex-center" style="height:50px;">
+            <h4>{{'11103'| i18n}}</h4>
+        </div>
+    </div>
+</div>
+
+<!--修改内容-->
+<div class="modal-body" style="height:400px;overflow:scroll;">
+    <form name="Newform">
+        <div class="panel-body ng-cloak padding-0" ng-cloak>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="row">
+                        <div class="col-lg-7">
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>{{'11104'| i18n}}</label>
+                                    <input type="text" ng-model="Maintainer.MaintainerName" class="form-control input-sm" placeholder="{{'11104'| i18n}}" required/>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>{{'11105'| i18n}}</label>
+                                    <input type="text" ng-model="Maintainer.MaintainerNickname" class="form-control input-sm" placeholder="{{'11105'| i18n}}" />
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>{{'11106'| i18n}}</label>
+                                    <input type="text" ng-model="Maintainer.StrongholdName" class="form-control input-sm" placeholder="{{'11106'| i18n}}" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-12 ">
+                <labal>{{'11107'| i18n}}
+                    <i class="fa fa-plus-square fa-lg text-success" ng-click="AddLiaisons()" style="cursor:pointer;"></i>
+                </labal>
+                <div class="row" ng-repeat="Liaison in Maintainer.Liaison">
+                    <div class="col-lg-12"></div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>{{'11108'| i18n}}
+                                <i class="fa fa-minus-circle fa-lg text-danger" ng-click="RemoveLiaisons($index)" style="cursor:pointer;"></i>
+                            </label>
+                            <input type="text" ng-model="Liaison.Name" class="form-control input-sm" placeholder="{{'11108'| i18n}}" />
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>{{'11109'| i18n}}</label>
+                            <input type="text" ng-model="Liaison.PhoneNo" class="form-control input-sm" placeholder="{{'11109'| i18n}}" ng-pattern="/(^(\d{3,4}-)?\d{7,8})$|(\d{11})$/"
+                            />
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="form-group">
+                            <label>email</label>
+                            <input type="text" ng-model="Liaison.Email" class="form-control input-sm" placeholder="email" ng-pattern="/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+<div class="row nopadding nomargin">
+    <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+        <button type="button" id="closeFixed" class="btn NT_red_bg_04 noboder_radius" style="width:100%;" ng-click="cancel();">{{'01006'| i18n}}</button>
+    </div>
+    <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+        <button type="button" class="btn btn-success noboder_radius" style="width:100%;" ng-disabled="Newform.$invalid || btnDisabled"
+            ng-click="toAdd()">{{'00002'| i18n}}</button>
+    </div>
+</div>

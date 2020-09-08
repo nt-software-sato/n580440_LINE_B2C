@@ -1,0 +1,31 @@
+<div class="row nomargin NT_dateSort" style="z-index:99">
+    <div class="col-xs-4 col-md-4 col-lg-4 nopadding">
+        <button class="btn btn-sm NT_blue_bg_03 noboder_radius dropdown-toggle" style="width:100%;" id="TimeSet" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{pageObj.statusName}}
+            <!-- 未選擇預設名稱"時限"  -->
+            <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu NT_timeSetMenu" aria-labelledby="TimeSet">
+            <li class="dropdown" ng-click="pageObj.SetStatus(1,'待审批')">{{'11124'| i18n}}</li>
+            <li class="dropdown" ng-click="pageObj.SetStatus(3,'审批进行中')">{{'11125'| i18n}}</li>
+            <li class="dropdown" ng-click="pageObj.SetStatus(5,'完成')">{{'2103'| i18n}}</li>
+        </ul>
+    </div>
+
+    <div class="col-xs-4 col-md-4 col-lg-4 nopadding">
+        <button type="button" class="btn btn-sm NT_blue_bg_03 noboder_radius" style="width:100%;" ng-click="pageObj.OrderBy('Price')">
+            {{'11126'| i18n}}&nbsp;
+            <span class="pull-right NT_choose_empty_w">
+                <i ng-class="{'fa fa-caret-up':OrderByPrice==0,'fa fa-caret-down':OrderByPrice==1}"></i>
+            </span>
+        </button>
+    </div>
+    <div class="col-xs-4 col-md-4 col-lg-4 nopadding">
+        <button type="button" class="btn btn-sm NT_blue_bg_03  noboder_radius" style="width:100%;" ng-click="pageObj.OrderBy('Time')">
+            {{'11127'| i18n}}&nbsp;
+            <span class="pull-right NT_choose_empty_w">
+                <i ng-class="{'fa fa-caret-up':OrderByTime==0,'fa fa-caret-down':OrderByTime==1}"></i>
+            </span>
+        </button>
+    </div>
+</div>

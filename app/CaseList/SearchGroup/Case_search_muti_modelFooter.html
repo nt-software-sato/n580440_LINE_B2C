@@ -1,0 +1,14 @@
+<div class="row nopadding nomargin">
+    <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+        <button type="button" class="btn btn-danger noboder_radius" style="width:100%;" data-dismiss="modal" ng-click="clearSelect2Values4Item()">{{'00003'| i18n}}</button>
+    </div>
+    <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+        <button type="button" id="closeFixed" class="btn btn-success noboder_radius" data-dismiss="modal" style="width:100%;" ng-click="loadSelect2Data4Item();">{{'00002'| i18n}}</button>
+    </div>
+</div>
+
+<script>
+    $("#closeFixed").on('click',function(){
+        $(".NT_side_footer").removeClass('unfixed');
+    });
+</script>

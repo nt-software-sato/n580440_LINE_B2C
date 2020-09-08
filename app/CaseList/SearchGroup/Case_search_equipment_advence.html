@@ -1,0 +1,26 @@
+<div class="modal fade" id="Choose_Area" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <!--选择的设备名称-->
+                    <h4 class="modal-title custom_align" id="Heading">[{{RepairParameters.EquipmentCode}}]&nbsp;&nbsp;{{RepairParameters.EquipmentName}}&nbsp;&nbsp;&nbsp;&nbsp;{{'11036'| i18n}}</h4>
+                </div>
+                <div class="modal-body">
+                    <!-- 区域 -->
+                    <div class="btn-group" data-toggle="buttons" id="causes">
+                        <label class="btn btn-default" ng-class="{'active':items.Selected||AreasList.length==1}" ng-repeat="items in AreasList" ng-checked="items.Selected" ng-model="items.Selected" ng-click="toggleForArea(items)">
+                            <input type="checkbox" autocomplete="off">
+                            {{ items.Region }}&nbsp;-&nbsp;{{items.Position}}
+                        </label>
+                    </div>
+                </div>
+                <div class="modal-footer ">
+                    <button type="button" class="btn btn-warning btn-lg" data-dismiss="modal" style="width: 100%;" ng-click="closeDenav('Area')" ng-disabled="RepairParameters.IPositionIds.length==0">
+                      {{'00002'| i18n}}
+                    </button>
+                </div>
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>

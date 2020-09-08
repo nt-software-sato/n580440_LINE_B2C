@@ -1,0 +1,234 @@
+<!--蓝色表头区块-->
+<div case-detail-top></div>
+<!--结案输入区块-->
+<form class="form-horizontal ng-cloak" name="acceptance_form" novalidate ng-cloak>
+  <div class="NT_side_body_acceptance panel-group">
+    <!--输入明细-->
+    <div class="form-group" ng-show="EvaluatedData.RequisitionHistorys.length>0">
+      <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;">
+        {{'11001'| i18n}}
+      </div>
+      <div class="row nopadding nomargin">
+        <div class="col-xs-6 col-md-6 col-lg-6 text-right nt-flex-center" style="height:30px;">
+          {{'11002'| i18n}}：{{EvaluatedData.Total}}
+        </div>
+        <div class="col-xs-6 col-md-6 col-lg-6 text-right" style="height:30px;">
+          <button type="button" class="btn btn-info" style="height: 30px;width: auto;" data-toggle="modal" data-target="#QuoteDetail">{{'11003'| i18n}}</button>
+        </div>
+      </div>
+    </div>
+    <!--维修人员资料-->
+    <div class="form-group">
+      <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;">{{'11004'| i18n}}</div>
+      <div class="media border_bottom" style="padding: 0 5px;">
+        <div class="media-left media-middle">
+          <i class="fa fa-2x fa-user"></i>
+        </div>
+        <div class="media-body">
+          <input type="text" placeholder="{{'11004'| i18n}}" ng-model="AcceptanceParameters.History.WorkerName">
+          <input type="text" placeholder="{{'11005'| i18n}}" ng-model="AcceptanceParameters.History.WorkerId">
+          <input type="number" placeholder="{{'11006'| i18n}}" name="phone" class="requireCol" ng-model="AcceptanceParameters.History.WorkerPhoneNo">
+        </div>
+      </div>
+    </div>
+    <!--到店 - 离店时间-->
+    <div class="form-group nomargin" ng-controller="TimepickerDemoCtrl" id="timepickerArea">
+      <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;">
+        <span style="color:red;">*&nbsp;</span>{{'2108'| i18n}}</div>
+      <!--到店日期-->
+      <div class="row nopadding nomargin" id="timepickerSignArea">
+        <div class="col-xs-6 col-md-6 col-lg-6 text-center" style="height:105px;padding:30px 15px;">
+          <input ng-disabled="DateBLock.value" type="text" class="form-control nomargin" id="Realdate" name="Realdate"
+            min="minDay" value="{{dateObj.RealDate}}" placeholder="yyyy/mm/dd" required />
+        </div>
+        <div class="col-xs-6 col-md-6 col-lg-6 nopadding" style="padding: 0 5%;height:105px;">
+          <fieldset ng-disabled="DateBLock.value">
+            <timepicker ng-change="changed()" id="RealdateTime" hour-step="1" minute-step="5" show-meridian="ismeridian"
+              ng-model="AcceptanceParameters.History.RealArrivalTime"></timepicker>
+          </fieldset>
+        </div>
+      </div>
+      <!--
+                timepicker的ismeridian是控制显示24小时的参数
+                使用来源:http://angular-ui.github.io/bootstrap/#/timepicker
+            -->
+    </div>
+    <div class="form-group nomargin" ng-controller="TimepickerDemoCtrl" id="timepickerArea">
+      <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;">
+        <span style="color:red;">*&nbsp;</span>{{'11007'| i18n}}</div>
+      <!--离店日期-->
+      <div class="row nopadding nomargin" id="timepickerSignArea">
+        <div class="col-xs-6 col-md-6 col-lg-6 text-center" style="height:105px;padding:30px 15px;">
+          <input type="text" class="form-control nomargin" id="Completedate" name="Completedate" min="minDay" value="{{dateObj.CompleteDate}}"
+            placeholder="yyyy/mm/dd" ng-pattern="/^(\d{4})/(\d{1,2})/(\d{1,2})$/" required />
+          <!-- <input type="text" class="form-control nomargin" ng-model="dateObj.CompleteDate" id="date_end" placeholder="yyyy/mm/dd" required /> -->
+        </div>
+
+        <!--离店时间-->
+        <div class="col-xs-6 col-md-6 col-lg-6 nopadding" style="padding: 0 5%;height:105px;">
+          <timepicker ng-change="changed()" id="CompletedateTime" hour-step="1" minute-step="5" show-meridian="ismeridian"
+            ng-model="AcceptanceParameters.History.CompleteTime"></timepicker>
+        </div>
+      </div>
+    </div>
+    <!--维修内容-->
+    <div class="form-group nomargin">
+      <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;">{{'11008'| i18n}}</div>
+      <div class="col-xs-12 col-md-12 nopadding">
+        <textarea class="form-control border_bottom_only" ng-model="AcceptanceParameters.History.Instructions" rows="2"
+          placeholder="{{'11009'| i18n}}"></textarea>
+      </div>
+    </div>
+    <!--设施/设备-->
+    <div class="form-group ng-cloak border_bottom_only" ng-cloak style="min-height:63px;">
+      <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;">{{'11010'| i18n}}</div>
+      <div class="col-xs-10 col-md-10 ng-cloak" ng-cloak style="min-height:63px;">
+        <div class="row nomargin NT_list_breakv02">
+          <p class="nopadding col-xs-12 col-md-12" ng-bind="AcceptanceParameters.History.IFixed[0].EquipmentName"
+            ng-show="AcceptanceParameters.History.IFixed[0].EquipmentName!=''"></p>
+          <p class="nopadding col-xs-12 col-md-12" ng-show="AcceptanceParameters.History.IFixed[0].EquipmentName==''"
+            style="color: #999;">{{'11010'| i18n}}</p>
+        </div>
+      </div>
+
+      <div for="设施设备" class="col-xs-2 col-md-2 lineheight_default nopadding text-center">
+        <button type="button" class="btn btn-default NT_blue_word_default  NT_btn nopadding" ng-click="toggleRight('Area')">
+          <i class="fa fa-1-5x fa-television NT_blue_word"></i>
+        </button>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+    <div class="form-group nomargin">
+      <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;">{{'11011'| i18n}}</div>
+      <div class="col-xs-12 col-md-12 nopadding">
+        <div layout-padding>
+          <div class="btn-group" data-toggle="buttons">
+            <label class="btn btn-primary checkbox_btn NT_blue_bg_04" ng-click="AcceptanceParameters.History.AcceptanceMethod=0"
+              ng-class="{'active':AcceptanceParameters.History.AcceptanceMethod==0}">
+              <input type="radio" ng-model="AcceptanceParameters.History.AcceptanceMethod" ng-true-value="0"
+                autocomplete="off" ng-class="{'active':AcceptanceParameters.History.AcceptanceMethod==0}">{{'11012'| i18n}}
+            </label>
+            <label class="btn btn-primary checkbox_btn NT_blue_bg_04" ng-click="AcceptanceParameters.History.AcceptanceMethod=1"
+              ng-class="{'active':AcceptanceParameters.History.AcceptanceMethod==1}">
+              <input type="radio" ng-model="AcceptanceParameters.History.AcceptanceMethod" ng-true-value="1"
+                autocomplete="off" ng-class="{'active':AcceptanceParameters.History.AcceptanceMethod==1}">{{'11013'| i18n}}
+            </label>
+            <label class="btn btn-primary checkbox_btn NT_blue_bg_04" ng-click="AcceptanceParameters.History.AcceptanceMethod=2"
+              ng-class="{'active':AcceptanceParameters.History.AcceptanceMethod==2}">
+              <input type="radio" ng-model="AcceptanceParameters.History.AcceptanceMethod" ng-true-value="2"
+                autocomplete="off" ng-class="{'active':AcceptanceParameters.History.AcceptanceMethod==2}">{{'11014'| i18n}}
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!--拍照-->
+    <div class="form-group  nomargin" style="min-height:72px;">
+      <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;"><span style="color:red;" ng-show="IsUItoWP">*&nbsp;</span>{{'11015'| i18n}}</div>
+      <div class="col-xs-10 col-md-10" style="min-height:72px;margin-bottom:6px;">
+        <span ng-repeat="item in imagesList.localIds" style="min-height:72px;">
+          <img id="advPic{{$index}}" src="" style="margin-bottom:6px;">
+          <!--<img src="img/volume.png" style="vertical-align: middle;max-width:72px;max-height:72px;" />-->
+          <button class="btn btn-danger img_delet" ng-click="RemoveImg('Other',$index)">
+            <i class="fa fa-times"></i>
+          </button>
+        </span>
+      </div>
+      <div class="col-xs-2 col-md-2 lineheight_default nopadding text-center">
+        <button type="button" class="btn btn-default NT_blue_word_default  NT_btn nopadding" ng-click="chooseImage('Other')">
+          <i class="fa fa-1-5x fa-camera NT_blue_word"></i>
+        </button>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+    <!--拍照-->
+    <div class="form-group  nomargin" style="min-height:72px;">
+      <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;"><span style="color:red;" ng-show="IsUItoWP">*&nbsp;</span>{{'11016'| i18n}}</div>
+      <div class="col-xs-10 col-md-10" style="min-height:72px;margin-bottom:6px;">
+        <span ng-repeat="item in imagesWOList.localIds" style="min-height:72px;">
+          <img id="advWOPic{{$index}}" src="" style="margin-bottom:6px;">
+          <!--<img src="img/volume.png" style="vertical-align: middle;max-width:72px;max-height:72px;" />-->
+          <button class="btn btn-danger img_delet" ng-click="RemoveImg('WO',$index)">
+            <i class="fa fa-times"></i>
+          </button>
+        </span>
+      </div>
+      <div class="col-xs-2 col-md-2 lineheight_default nopadding text-center">
+        <button type="button" class="btn btn-default NT_blue_word_default  NT_btn nopadding" ng-click="chooseImage('WO')">
+          <i class="fa fa-1-5x fa-camera NT_blue_word"></i>
+        </button>
+      </div>
+      <div style="clear:both;"></div>
+    </div>
+    <!--结案说明-->
+    <div class="form-group nomargin">
+      <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;">{{'11017'| i18n}}</div>
+      <div class="col-xs-12 col-md-12 nopadding">
+        <textarea class="form-control border_bottom_only" rows="2" ng-model="AcceptanceParameters.History.Remark"
+          placeholder="{{'11018'| i18n}}"></textarea>
+      </div>
+    </div>
+    <!--满意度-->
+    <div class="form-group nomargin">
+      <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;">{{'11019'| i18n}}</div>
+      <!--Q1-->
+      <div class="col-xs-12 col-md-12 nopadding">
+        <p style="padding:0 5px;margin:8px">{{'11020'| i18n}}</p>
+      </div>
+      <div class="col-lg-12 col-md-12 margin-b-5">
+        <rating ng-model="Survey.v" max="5" on-hover="SetSurvey()" state-on="'glyphicon-star fa-2x Nt-yellow'"
+          state-off="'glyphicon-star-empty fa-2x Nt-yellow'"></rating>
+      </div>
+      <!--Q2-->
+      <div class="col-xs-12 col-md-12 nopadding">
+        <p style="padding:0 5px;margin:8px">{{'11021'| i18n}}</p>
+      </div>
+      <div class="col-lg-12 col-md-12 margin-b-5">
+        <rating ng-model="Survey1.v" max="5" on-hover="SetSurvey()" state-on="'glyphicon-star fa-2x Nt-yellow'"
+          state-off="'glyphicon-star-empty fa-2x Nt-yellow'"></rating>
+      </div>
+      <!--其他说明-->
+      <div class="col-xs-12 col-md-12 nopadding">
+        <textarea class="form-control border_bottom_only" rows="2" placeholder="{{'11022'| i18n}}" ng-model="AcceptanceParameters.Surveies[0].Remark"></textarea>
+      </div>
+    </div>
+  </div>
+  <div class="form-group NT_cancleBtn_area text-center" style="z-index: 999;">
+    <button type="submit" ng-click="Acceptance()" ng-disabled="acceptance_form.$invalid||isSend4Ajax" class="btn btn-primary NT_red_bg_04 NT_cancleBtn ng-cloak"
+      autocomplete="off" style="z-index:999;" ng-cloak>
+      <span ng-show="!isSend4Ajax">{{'2006'| i18n}}</span>
+      <i class="fa fa-1-5x fa-spinner fa-spin" ng-show="isSend4Ajax"></i>
+    </button>
+  </div>
+</form>
+<div class="NT_side_footer_case NT_blue_bg">
+  <button type="button" class="btn btn-primary NT_close_btn" ng-click="closeDenav('RepairDetail')">
+    {{'00001'| i18n}}
+    <i>
+      <img src="img/return_24.png" style="width:20px;">
+    </i>
+  </button>
+</div>
+<!--设施/设备选单-->
+<md-sidenav class="md-sidenav-right md-sidenav-right-list md-whiteframe-z2 ng-cloak" md-component-id="Area" ng-cloak
+  ng-init="isShowList=true">
+  <div case-search-equipment></div>
+</md-sidenav>
+
+<div quote-Detail></div>
+
+<script>
+  // $(function () {
+  //     $('input[name="Realdate"]').daterangepicker({
+  //         singleDatePicker: true,
+  //         showDropdowns: false,
+  //         format: 'YYYY/MM/DD'
+  //     });
+  //     $('input[name="Completedate"]').daterangepicker({
+  //         singleDatePicker: true,
+  //         showDropdowns: false,
+  //         format: 'YYYY/MM/DD',
+  //         "minDate": moment().format('YYYY/MM/DD')
+  //     });
+  // });
+</script>

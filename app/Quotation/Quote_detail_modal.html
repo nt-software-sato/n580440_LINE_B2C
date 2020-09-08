@@ -1,0 +1,21 @@
+<div quote-content></div>    
+<div class="NT_side_footer_case NT_blue_bg" ng-if="!ModalParameters.isEdit">
+    <button type="button" class="btn btn-primary NT_close_btn" onclick="history.go(-1)">
+      {{'00001'| i18n}}
+        <i><img src="img/return_24.png" style="width:20px;"></i>
+    </button>
+</div>
+<div class="NT_side_footer_case NT_blue_bg" ng-if="ModalParameters.isEdit">
+    <div class="col-xs-4 col-md-4 col-lg-4 nopadding">
+        <button type="button" class="btn NT_red_bg_04 noboder_radius" style="width:100%;" ng-click="OpenSign(3)">{{'01005'| i18n}}</button>
+    </div>
+    <div class="col-xs-4 col-md-4 col-lg-4 nopadding">
+        <button type="button" class="btn btn-primary noboder_radius" style="width:100%;" ng-click="OpenSign(2)">{{'01004'| i18n}}</button>
+    </div>        
+    <div class="col-xs-4 col-md-4 col-lg-4 nopadding">
+        <button type="button" class="btn btn-primary noboder_radius" style="width:100%;" onclick="history.go(-1)">{{'00004'| i18n}}</button>
+    </div>
+</div>
+<div quote-item-edit></div>
+<div quote-item-other-edit></div>  
+<div quote-sign-modal></div>

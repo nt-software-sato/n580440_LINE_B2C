@@ -1,0 +1,174 @@
+<div class="form-group NT_side_head nomargin sidenav_title nomargin NT_blue_bg_04">
+    <div class="col-xs-2 col-md-2"
+        ng-show="(CompanyId=='eb296708-6fc6-43f0-b506-0ca0fa91e1cd'&&StoreUser==0)||(CompanyId=='6c690014-2571-48db-ac5a-c6ba2572a3bb'&&StoreUser==0)">
+        <!-- 王品 5/23 -->
+        <label for="inputseatch_store" class="control-label nomargin lineheight_default text-center" style="width:100%;">
+            <i class="fa fa-plus fa-lg" style="cursor:pointer;" ng-click="openAddEquipment()"></i>
+        </label>
+    </div>
+    <div class=" input_search"
+        ng-class="{'col-xs-10 col-md-10':(CompanyId=='eb296708-6fc6-43f0-b506-0ca0fa91e1cd'&&StoreUser==0)||(CompanyId=='6c690014-2571-48db-ac5a-c6ba2572a3bb'&&StoreUser==0),'col-xs-12 col-md-12':CompanyId!=='eb296708-6fc6-43f0-b506-0ca0fa91e1cd'&&CompanyId!=='6c690014-2571-48db-ac5a-c6ba2572a3bb'&&StoreUser!==0}">
+        <div class="input-group">
+            <input type="text" class="form-control" ng-init="EQdata=''" ng-model="EQdata" placeholder="{{'11037'| i18n}}">
+            <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                <i class="fa fa-search fa-1-5x text-gray" style="margin-top:-18px;"></i>
+                </button>
+            </span>
+        </div>
+    </div>
+</div>
+<div class="NT_side_body_EQArea">
+    <md-content>
+        <md-tabs class="md-cyan" md-dynamic-height ng-cloak md-stretch-tabs="always">
+            <!-- 王品设备 -->
+            <md-tab id="tab0" label="{{'11038'| i18n}}" ng-if="isWPStoreUser||IsUItoWP">
+                    <md-content class="md-padding">
+                            <div class="panel panel-default" ng-repeat="Lists in EquipmentList[0].children | filter:EQdata">
+                                <!--类别-->
+                                <button class="panel-heading NT_green_bg_03 accordion-toggle collapsed" ng-show="isWPStoreUser" data-toggle="collapse" data-parent="#accordion_eq" data-target="#TYPE_{{$index}}" href="#TYPE_{{$index}}">
+                                    <h4 class="panel-title text_left">{{Lists.EquipmentTypeName}}</h4>
+                                </button>
+                                <!--内容-->
+                                <div id="TYPE_{{$index}}" class="panel-collapse collapse panel_collapse_listContainer"
+                                    ng-class="{'in':$index==0||EQdata!=''||!isWPStoreUser}">
+                                    <div class="panel-body panel_collapse_list">
+                                        <ul class="list-group" data-placement="top" data-toggle="tooltip" title="Choose_Area">
+                                            <li class="list-group-item"
+                                                ng-repeat="EquipmentItem in Lists.children | filter:EQdata"
+                                                ng-click="ShowArea(EquipmentItem)" ng-show="IsAutoSetPosition==false"
+                                                data-title="Choose_Area" data-toggle="modal" data-target="#Choose_Area">
+                                                [{{EquipmentItem.EquipmentCode}}]&nbsp;&nbsp;{{EquipmentItem.EquipmentName}}
+                                            </li>
+                                            <li class="list-group-item"
+                                                ng-repeat="EquipmentItem in Lists.children | filter:EQdata"
+                                                ng-click="ShowArea(EquipmentItem,Lists.EquipmentTypeName)"
+                                                ng-show="IsAutoSetPosition==true">
+                                                [{{EquipmentItem.EquipmentCode}}]&nbsp;&nbsp;{{EquipmentItem.EquipmentName}}
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </md-content>
+            </md-tab>
+            <!-- 85设备 -->
+            <md-tab id="tab1" label="{{'11038'| i18n}}" ng-if="!isWPStoreUser&&!IsUItoWP">
+                <md-content class="md-padding">
+                    <div class="panel panel-default">
+                        <!--类别-->
+                        <!-- <button class="panel-heading NT_green_bg_03 accordion-toggle collapsed" ng-show="isWPStoreUser" data-toggle="collapse" data-parent="#accordion_eq" data-target="#TYPE_{{$index}}" href="#TYPE_{{$index}}">
+                            <h4 class="panel-title text_left">{{Lists.ClassName}}</h4>
+                        </button> -->
+                        <!--内容-->
+                        <div id="TYPE_{{$index}}" class="panel-collapse collapse panel_collapse_listContainer"
+                            ng-class="{'in':$index==0||EQdata!=''||!isWPStoreUser}">
+                            <div class="panel-body panel_collapse_list">
+                                <ul class="list-group" data-placement="top" data-toggle="tooltip" title="Choose_Area">
+                                    <li class="list-group-item"
+                                        ng-repeat="EquipmentItem in EquipmentList[0].children | filter:EQdata"
+                                        ng-click="ShowArea(EquipmentItem)" ng-show="IsAutoSetPosition==false"
+                                        data-title="Choose_Area" data-toggle="modal" data-target="#Choose_Area">
+                                        [{{EquipmentItem.EquipmentCode}}]&nbsp;&nbsp;{{EquipmentItem.EquipmentName}}
+                                    </li>
+                                    <li class="list-group-item"
+                                        ng-repeat="EquipmentItem in EquipmentList[0].children | filter:EQdata"
+                                        ng-click="ShowArea(EquipmentItem,EquipmentList[0].ClassName)"
+                                        ng-show="IsAutoSetPosition==true">
+                                        [{{EquipmentItem.EquipmentCode}}]&nbsp;&nbsp;{{EquipmentItem.EquipmentName}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </md-content>
+            </md-tab>
+            <md-tab id="tab2" label="{{'11039'| i18n}}">
+                <md-content class="md-padding">
+                    <div class="panel panel-default">
+                        <!--类别-->
+                        <!--  <button class="panel-heading NT_green_bg_03 accordion-toggle collapsed"  data-toggle="collapse" data-parent="#accordion_eq" data-target="#TYPE_{{$index}}" href="#TYPE_{{$index}}">
+                            <h4 class="panel-title text_left">{{Lists.ClassName}}</h4>
+                        </button> -->
+                        <!--内容-->
+                        <!-- ng-class="{'in':$index==0||EQdata!=''}" -->
+                        <div id="TYPE_{{$index}}" class="panel-collapse collapse panel_collapse_listContainer in">
+                            <div class="panel-body panel_collapse_list">
+                                <ul class="list-group" data-placement="top" data-toggle="tooltip" title="Choose_Area">
+                                    <li class="list-group-item"
+                                        ng-repeat="EquipmentItem in EquipmentList[1].children | filter:EQdata"
+                                        ng-click="ShowArea(EquipmentItem,1)" ng-show="IsAutoSetPosition==false"
+                                        data-title="Choose_Area" data-toggle="modal" data-target="#Choose_Area">
+                                        [{{EquipmentItem.EquipmentCode}}]&nbsp;&nbsp;{{EquipmentItem.EquipmentName}}
+                                    </li>
+                                    <li class="list-group-item"
+                                        ng-repeat="EquipmentItem in EquipmentList[1].children | filter:EQdata"
+                                        ng-click="ShowArea(EquipmentItem,EquipmentList[1].ClassName)"
+                                        ng-show="IsAutoSetPosition==true">
+                                        [{{EquipmentItem.EquipmentCode}}]&nbsp;&nbsp;{{EquipmentItem.EquipmentName}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </md-content>
+            </md-tab>
+            <md-tab id="tab3" label="{{'11040'| i18n}}" ng-if="!isWPStoreUser&&!IsUItoWP">
+                <md-content class="md-padding">
+                    <div class="panel panel-default">
+                        <div id="TYPE_{{$index}}" class="panel-collapse collapse panel_collapse_listContainer in">
+                            <div class="panel-body panel_collapse_list">
+                                <ul class="list-group" data-placement="top" data-toggle="tooltip" title="Choose_Area">
+                                    <li class="list-group-item"
+                                        ng-repeat="EquipmentItem in EquipmentList[2].children | filter:EQdata"
+                                        ng-click="ShowArea(EquipmentItem)" ng-show="IsAutoSetPosition==false"
+                                        data-title="Choose_Area" data-toggle="modal" data-target="#Choose_Area">
+                                        [{{EquipmentItem.EquipmentCode}}]&nbsp;&nbsp;{{EquipmentItem.EquipmentName}}
+                                    </li>
+                                    <li class="list-group-item"
+                                        ng-repeat="EquipmentItem in EquipmentList[2].children | filter:EQdata"
+                                        ng-click="ShowArea(EquipmentItem,EquipmentList[2].ClassName)"
+                                        ng-show="IsAutoSetPosition==true">
+                                        [{{EquipmentItem.EquipmentCode}}]&nbsp;&nbsp;{{EquipmentItem.EquipmentName}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </md-content>
+            </md-tab>
+            <md-tab id="tab4" label="{{'11041'| i18n}}" ng-if="!isWPStoreUser&&!IsUItoWP">
+                <md-content class="md-padding">
+                    <div class="panel panel-default">
+                        <!--内容-->
+                        <div id="TYPE_{{$index}}" class="panel-collapse collapse panel_collapse_listContainer in">
+                            <div class="panel-body panel_collapse_list">
+                                <ul class="list-group" data-placement="top" data-toggle="tooltip" title="Choose_Area">
+                                    <li class="list-group-item"
+                                        ng-repeat="EquipmentItem in EquipmentList[3].children | filter:EQdata"
+                                        ng-click="ShowArea(EquipmentItem)" ng-show="IsAutoSetPosition==false"
+                                        data-title="Choose_Area" data-toggle="modal" data-target="#Choose_Area">
+                                        [{{EquipmentItem.EquipmentCode}}]&nbsp;&nbsp;{{EquipmentItem.EquipmentName}}
+                                    </li>
+                                    <li class="list-group-item"
+                                        ng-repeat="EquipmentItem in EquipmentList[3].children | filter:EQdata"
+                                        ng-click="ShowArea(EquipmentItem,EquipmentList[3].ClassName)"
+                                        ng-show="IsAutoSetPosition==true">
+                                        [{{EquipmentItem.EquipmentCode}}]&nbsp;&nbsp;{{EquipmentItem.EquipmentName}}
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </md-content>
+            </md-tab>
+        </md-tabs>
+    </md-content>
+</div>
+<div class="NT_side_footer NT_blue_bg">
+    <!--<button type="button" class="btn btn-default"><i class="fa fa-plus"></button>-->
+    <button type="button" class="btn btn-primary NT_close_btn" ng-click="closeDenav('Area')">
+      {{'00001'| i18n}}
+        <i><img src="img/return_24.png" style="width:20px;"></i>
+    </button>
+</div>

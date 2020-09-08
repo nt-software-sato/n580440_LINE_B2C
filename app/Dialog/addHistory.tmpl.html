@@ -1,0 +1,278 @@
+<md-dialog style="min-width:100%;min-height:100%;">
+  <div class="loading-mask" ng-show="isSubmit"></div>
+  <md-dialog-content class="sticky-container" style="padding-bottom:200px;">
+    <div class="NT_side_head_title nomargin NT_blue_bg" style="padding:5px;margin-bottom: 0px;">
+      <!--案件编号 + 状态-->
+      <div class="row nomargin" style="padding:0px;">
+        <div class="col-xs-12 col-md-12 nopadding lineheight_24def" style="margin:2px;">
+          <div class="col-xs-8 col-md-8 nopadding">
+            <h4 class="nomargin NT_detail_w_m">{{RepairInfo.CaseNo}}</h4>
+          </div>
+          <div class="col-xs-4 col-md-4 nopadding NT_red_bg_04 NT_detail_fontweight text-center">{{'11093'| i18n}}</div>
+        </div>
+        <!--设施设备 -->
+        <div class="col-xs-12 col-md-12 nopadding" style="margin:3px 2px 3px 2px;">
+          <div class="col-xs-8 col-md-8 nopadding NT_detail_fontweight">
+            <h3 class="nomargin NT_detail_w_l">[{{RepairInfo.EquipmentCode}}]&nbsp;&nbsp;{{RepairInfo.EquipmentName}}
+            </h3>
+          </div>
+          <div class="col-xs-4 col-md-4 nopadding NT_blue_bg_04 NT_detail_fontweight text-center">
+            {{RepairInfo.Priority}}
+          </div>
+        </div>
+        <!-- 区域-->
+        <div class="col-xs-12 col-md-12 nopadding" style="margin:0 2px 0 2px; ">
+          <div class="col-xs-12 col-md-12 nopadding NT_detail_fontweight">
+            <p class="text-left nomargin NT_detail_fontweight NT_detail_gray">
+              <span ng-repeat="Item in Equipmentpos" class="area_tag">
+                                {{Item.Region}}-{{Item.Position}}
+                            </span>
+
+            </p>
+          </div>
+        </div>
+        <!-- 报修原因与备注 -->
+        <div class="col-xs-12 col-md-12 nopadding" style="margin:3px 3px 3px 2px;">
+          <h4 class="nomargin NT_detail_w_m">{{CauseList}}</h4>
+        </div>
+        <div class="col-xs-12 col-md-12 nopadding text-right" style="margin:3px 3px 3px 2px;">
+          <h5 class="nomargin">{{CaseType.name}}
+            <i class="fa fa-pencil" aria-hidden="true"></i>
+          </h5>
+        </div>
+      </div>
+    </div>
+    <!-- 內容 -->
+    <form class="NT_side_body_apply">
+      <!-- 一般历程 -->
+      <div class="NT_side_body_acceptance" style="top:auto;" ng-hide="Parameters.StageId==-97||Parameters.StageId==-98">
+        <!--1.聯繫方式-->
+        <div class="form-group border_bottom nomargin text-center" style="min-height:72px;padding:0px;"
+          ng-show="Parameters.StageId!=12&&Parameters.StageId!=60">
+          <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:7px;">
+            <span style="color:red;">*&nbsp;</span>{{'11094'| i18n}}
+          </div>
+          <div class="btn-group" role="group" aria-label="...">
+            <button type="button" class="btn btn-default nt-btn-sm" style="width:auto;height:auto" ng-click="Parameters.CallInOrOut=0"
+                            ng-class="{'active':Parameters.CallInOrOut==0}" ng-disabled="Parameters.StageId==31">{{'11095'| i18n}}</button>
+            <button type="button" class="btn btn-default nt-btn-sm" style="width:auto;height:auto" ng-click="Parameters.CallInOrOut=1;Parameters.IsConnect=1;"
+                            ng-class="{'active':Parameters.CallInOrOut==1&&Parameters.IsConnect==1}" ng-disabled="Parameters.StageId==32||Parameters.StageId==33||Parameters.StageId==92">{{'11096'| i18n}}</button>
+            <button type="button" class="btn btn-default nt-btn-sm" style="width:auto;height:auto" ng-click="Parameters.CallInOrOut=1;Parameters.IsConnect=0;"
+                            ng-class="{'active':Parameters.CallInOrOut==1&&Parameters.IsConnect==0}" ng-disabled="Parameters.StageId==89||Parameters.StageId==32||Parameters.StageId==33||Parameters.StageId==92">{{'11097'| i18n}}</button>
+            <button type="button" class="btn btn-default nt-btn-sm" style="width:auto;height:auto" ng-click="Parameters.CallInOrOut=9;Parameters.IsB2bStaff=Parameters.IsB2bStaff==1?0:1;Parameters.IsEdiStaff=0"
+                            ng-class="{'active':Parameters.IsB2bStaff==1}" ng-disabled="Parameters.StageId!=30" ng-show="Parameters.StageId==30">B2B</button>
+            <!-- <button type="button" class="btn btn-default nt-btn-sm" style="width:auto;height:auto" ng-click="Parameters.CallInOrOut=9;Parameters.IsB2bStaff=0;Parameters.IsEdiStaff=1"
+                            ng-class="{'active':Parameters.IsEdiStaff==1}" ng-disabled="!isExchange" ng-show="Parameters.StageId==30">数据交换</button> -->
+          </div>
+        </div>
+        <!--2.選取維修商與據點-->
+        <div class="form-group border_bottom nomargin" style="min-height:90px;" ng-show="Parameters.StageId==30">
+          <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;">
+            <span style="color:red;">*&nbsp;</span>{{'11098'| i18n}}
+          </div>
+          <div class="row nopadding nomargin">
+            <div class="col-xs-10 col-md-10 col-lg-10">
+              <i class="fa fa-building" aria-hidden="true"></i>：{{Parameters.MaintainerName}}
+            </div>
+            <div class="col-xs-2 col-md-2 col-lg-2">
+              <button type="button" class="btn" style="width:auto;height:auto" ng-click="openMaintainer()">
+                                <i class="fa fa-wrench" aria-hidden="true"></i>
+                            </button>
+            </div>
+            <div class="col-xs-12 col-md-12 col-lg-12">
+              <i class="fa fa-map-marker" aria-hidden="true"></i>：{{Parameters.StrongholdName}}
+            </div>
+          </div>
+        </div>
+
+                <!--设备调拨-->
+                <div class="form-group border_bottom nomargin" style="min-height: 40px;"
+                    ng-show="Parameters.StageId==60">
+                    <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom: 5px;">
+                        <span style="color: red;">*&nbsp;</span>调拨来源
+                    </div>
+                    <div class="form-group ng-cloak" style="min-height: 35px;">
+                        <div class="col-xs-10 col-md-10" style="min-height: 30px;">
+                            <div class="row nomargin NT_list_breakv02">
+                                <p class="nopadding col-xs-12 col-md-12" ng-bind="MoveParameters.Source"
+                                    ng-show="MoveParameters.Source!=''">
+                                <p class="nopadding col-xs-12 col-md-12" ng-show="MoveParameters.Source==''">请选择来源单位
+                                </p>
+                            </div>
+                        </div>
+                        <div for="单位" class="col-xs-2 col-md-2 nopadding text-center">
+                            <button type="button" class="btn btn-default NT_blue_word_default NT_btn nopadding"
+                                style="border:0px;" ng-click="openDenav('Source')">
+                                <i class="fa fa-1-5x fa-sitemap NT_blue_word"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="form-group ng-cloak" style="min-height: 35px;">
+                        <div class="col-xs-10 col-md-10 ng-cloak">
+                            <div class="row nomargin">
+                                <p class="nopadding col-xs-12 col-md-12" ng-click="toggleRight('Area')"
+                                    ng-bind="MoveParameters.EquipmentName" ng-show="MoveParameters.EquipmentName!=''"></p>
+                                <p class="nopadding col-xs-12 col-md-12" ng-click="toggleRight('Area')"
+                                    ng-show="MoveParameters.EquipmentName==''" style="color: #999;">点击选择调拨设备</p>
+                            </div>
+                        </div>
+                        <div for="设施设备" class="col-xs-2 col-md-2 nopadding text-center">
+                            <button type="button" class="btn btn-default NT_blue_word_default NT_btn nopadding"
+                                ng-click="toggleRight('Area')">
+                                <i class="fa fa-1-5x fa-television NT_blue_word"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="row form-group m-l-5">
+                        <div class="col-xs-6 col-md-6 col-lg-6">
+                            <toggle ng-model="MoveParameters.IsClose"></toggle><span
+                                style="vertical-align:text-top;">本案结案</span>
+                        </div>
+                        <div class="col-xs-6 col-md-6 col-lg-6" ng-hide="true">
+                            <toggle ng-model="MoveParameters.IsMove"></toggle><span
+                                style="vertical-align:text-top;">设备转移</span>
+                        </div>
+                    </div>
+                    <div class="row nopadding NT_gray_bg_04 nomargin text-center" ng-show="MoveParameters.IsMove"
+                        style="margin-bottom: 5px;">
+                        <span style="color: red;">*&nbsp;</span>当前设备转移至
+                    </div>
+                    <div class="row nopadding nomargin" ng-show="MoveParameters.IsMove" style="min-height: 35px;">
+                        <div class="col-xs-10 col-md-10 col-lg-10" style="padding-top: 3px;">
+                            <i class="fa fa-map-marker"  style="margin-ringht: 5px;" aria-hidden="true"></i>{{MoveParameters.Target}}
+                        </div>
+                        <div class="col-xs-2 col-md-2 col-lg-2">
+                            <button type="button" class="btn btn-default NT_blue_word_default NT_btn nopadding" ng-click="openDenav('Target')">
+                                <i class="fa fa-1-5x fa-sitemap NT_blue_word" aria-hidden="true"></i>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+        <!--3.進度說明-->
+        <div class="form-group border_bottom nomargin" style="min-height:145px;">
+          <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;">
+            <span style="color:red;">*&nbsp;</span>{{'2074'| i18n}}
+          </div>
+          <textarea class="form-control" style="width:95%;margin-left:2.5%;margin-bottom:5px;" ng-model="Parameters.Remark" rows="5"
+                        placeholder="{{'11096'| i18n}}"></textarea>
+        </div>
+        <!--4.預計到店 -->
+        <div class="form-group nomargin" ng-hide="Parameters.StageId==34||Parameters.StageId==12||Parameters.StageId==60">
+          <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;">
+            {{'11097'| i18n}}
+          </div>
+          <div class="row nopadding nomargin" id="timepickerSignArea">
+            <div class="col-xs-6 col-md-6 col-lg-6 text-center" style="height:105px;padding:30px 15px;">
+              <input type="text" class="form-control nomargin" id="EstArrivalDate" name="EstArrivalDate" min="minDay" value="{{EstArrival.Date}}"
+                                placeholder="yyyy/mm/dd">
+                        </div>
+              <div class="col-xs-6 col-md-6 col-lg-6 nopadding" style="padding: 0 5%;height:105px;">
+                <fieldset ng-disabled="DateBLock.value">
+                  <timepicker ng-change="changed()" id="EstArrivalTime" hour-step="1" minute-step="5"
+                    show-meridian="ismeridian" ng-model="EstArrival.Time"></timepicker>
+                </fieldset>
+              </div>
+            </div>
+          </div>
+          <!--5.相關图片-->
+          <div class="form-group border_bottom nomargin" style="min-height:72px;padding:0px;" ng-hide="Parameters.StageId==60">
+            <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;">
+              {{'11098'| i18n}}
+            </div>
+            <div class="col-xs-10 col-md-10" style="min-height:72px;margin-bottom:6px;">
+              <span ng-repeat="item in imagesList.localIds" ng-show="imagesList.localIds.length>0" style="min-height:72px;">
+                            <img id="advPic{{$index}}" src="" style="margin-bottom:6px;">
+                            <button class="btn btn-danger img_delet" ng-click="RemoveImg($index)">
+                                <i class="fa fa-times"></i>
+                            </button>
+                        </span>
+            </div>
+            <div class="col-xs-2 col-md-2">
+              <button type="button" class="btn noshadow btn-default NT_blue_word" ng-click="chooseImage()">
+                            <i class="fa fa-1-5x fa-camera NT_blue_word"></i>
+                        </button>
+            </div>
+            <div style="clear:both;"></div>
+          </div>
+          <!--6.通知門店-->
+          <!-- <div class="form-group border_bottom nomargin text-center" style="min-height:72px;">
+                    <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;">
+                        通知门店
+                    </div>
+                    <div class="btn-group" role="group" aria-label="...">
+                        <button type="button" class="btn btn-default nt-btn-sm" style="width:auto;height:auto" ng-disabled="Parameters.StageId==100"
+                            ng-class="{'active':Parameters.Mail2Store==1}" ng-click="SetSendflag('Mail2Store')">电邮</button>
+                    </div>
+                </div> -->
+          <!--7.通知維修商-->
+          <!-- <div class="form-group border_bottom nomargin text-center" style="min-height:80px;">
+                    <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;">
+                        通知维修商
+                    </div>
+                    <div>
+                        <div class="btn-group" role="group" aria-label="...">
+                            <button type="button" class="btn btn-default nt-btn-sm" style="width:auto;height:auto" ng-class="{'active':Parameters.Mail2Maintainer==1}"
+                                ng-click="SetSendflag('Mail2Maintainer')">电邮</button>
+                            <button type="button" class="btn btn-default nt-btn-sm" style="width:auto;height:auto" ng-class="{'active':Parameters.Sms2Maintainer==1}"
+                                ng-click="SetSendflag('Sms2MaintainerA')">短信A</button>
+                            <button type="button" class="btn btn-default nt-btn-sm" style="width:auto;height:auto" ng-class="{'active':Parameters.Sms2Maintainer==2}"
+                                ng-click="SetSendflag('Sms2MaintainerB')">短信B</button>
+                        </div>
+                    </div>
+                    <div ng-show="Parameters.Mail2Maintainer==1">
+                        <select name="MailLists" style="width:250px;" multiple="multiple" ng-model="Parameters.MailList">
+                            <option></option>
+                        </select>
+                    </div>
+                    <div ng-show="Parameters.Sms2Maintainer!=0">
+                        <select name="SmsLists" style="width:250px;" multiple="multiple" ng-model="Parameters.SmsList">
+                            <option></option>
+                        </select>
+                    </div>
+                </div> -->
+        </div>
+        <!-- 申诉历程 -->
+        <div class="NT_side_body_acceptance" style="top:auto;"
+          ng-show="Parameters.StageId==-97||Parameters.StageId==-98">
+          <div class="form-group border_bottom nomargin" style="min-height:145px;">
+            <div class="row nopadding NT_gray_bg_04 nomargin text-center" style="margin-bottom:5px;">
+              <span style="color:red;">*&nbsp;</span>{{'11099'| i18n}}
+            </div>
+            <textarea class="form-control" style="width:95%;margin-left:2.5%;margin-bottom:5px;" ng-model="Parameters.Remark" rows="5"
+                        placeholder="{{'11100'| i18n}}"></textarea>
+          </div>
+        </div>
+    </form>
+  </md-dialog-content>
+    <!--门店-->
+    <md-sidenav class="md-sidenav-right md-sidenav-right-list md-whiteframe-z2 ng-cloak " md-component-id="Store"
+        id="Store" ng-cloak>
+        <div class="form-group NT_side_head nomargin sidenav_title nomargin NT_blue_bg_04">
+            <div class="input-group input_search">
+                <input type="text" class="form-control" ng-model="StoreSearch" placeholder="请输入单位关键字">
+                <span class="input-group-btn">
+                    <button class="btn btn-default" type="button">
+                        <i class="fa fa-search fa-1-5x text-gray" style="margin-top:-18px;"></i>
+                    </button>
+                </span>
+            </div>
+        </div>
+        <div case-search-store></div>
+    </md-sidenav>
+    <!--设施/设备选单-->
+    <md-sidenav class="md-sidenav-right md-sidenav-right-list md-whiteframe-z2 ng-cloak" md-component-id="Area" ng-cloak
+        ng-init="isShowList=true">
+        <div case-search-equipment></div>
+    </md-sidenav>
+  <div class="NT_side_footer_case NT_blue_bg">
+    <button type="button" class="btn btn-primary NT_close_btn" ng-disabled="isSubmit" ng-click="cancel()" tabindex="0">
+      {{'00003'| i18n}}
+            <i>
+                <img src="img/return_24.png" style="width:20px;">
+            </i>
+        </button>
+    <button type="button" class="btn btn-primary NT_close_btn" ng-click="ok();" tabindex="0">
+            <span>{{'00005'| i18n}}</span>
+        </button>
+  </div>
+</md-dialog>

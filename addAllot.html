@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="WeChat">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+        content="width=device-width,height=device-height, initial-scale=1,minimum-scale=1, maximum-scale=1, user-scalable=no">
+    <meta http-equiv="cache-control" content="no-cache" />
+    <title>设备调拨</title>
+    <!-- Angular Material CSS now available via Google CDN; version 0.10 used here -->
+    <link rel="stylesheet" href="js/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <!--<link rel="stylesheet" href="css/components-md.min.css">-->
+    <link rel="stylesheet" href="css/select/select2.min.css">
+    <link rel="stylesheet" href="css/select/select2-bootstrap.css">
+    <link rel="stylesheet" href="css/datepicker/daterangepicker.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/style_new.css">
+    <link rel="stylesheet" href="css/NT_color.css">
+    <style>
+        .ng-cloak {
+            display: none;
+        }
+    </style>
+</head>
+
+<body ng-controller="AddAllotCtrl" class="ng-cloak" ng-cloak>
+    <form id="add_allot_container" style="margin: 20px 15px 0 15px;" name="addForm" class="NT_side_body_apply">
+        <!--来源门店-->
+        <div class="form-group lineheight_default ng-cloak" ng-cloak>
+            <div class="col-xs-10 col-md-10 lineheight_default nopadding border_bottom_only">
+                <p class="lineheight_default NT_list_overflow nopadding nomargin NT_applyStore">
+                    <span ng-bind="Parameters.Source" ng-show="Parameters.Source!=''"></span>
+                    <span ng-show="Parameters.Source==''">请选择来源</span>
+                </p>
+            </div>
+            <div for="单位" class="col-xs-2 col-md-2 lineheight_default nopadding text-center border_bottom_only">
+                <button type="button" class="btn btn-default NT_blue_word_default NT_btn nopadding" style="border:0px;" ng-click="toggleRight('Source')">
+                    <i class="fa fa-1-5x fa-sitemap NT_blue_word"></i>
+                </button>
+            </div>
+        </div>
+            <!--设施/设备-->
+            <div class="form-group ng-cloak border_bottom_only" ng-cloak style="min-height:63px;">
+                <div class="col-xs-10 col-md-10 ng-cloak" ng-cloak style="min-height:63px;">
+                    <div class="row nomargin NT_list_breakv02">
+                        <p class="nopadding col-xs-12 col-md-12" ng-click="toggleRight('EQ')" ng-bind="EquipmentName"
+                            ng-show="EquipmentName!=''"></p>
+                        <p class="nopadding col-xs-12 col-md-12" ng-click="toggleRight('EQ')"
+                            ng-show="EquipmentName==''" style="color: #999;">点击选择调拨品项</p>
+                    </div>
+                </div>
+
+                <div for="设施设备" class="col-xs-2 col-md-2 lineheight_default nopadding text-center">
+                    <button type="button" class="btn btn-default NT_blue_word_default NT_btn nopadding" ng-click="toggleRight('EQ')">
+                        <i class="fa fa-1-5x fa-television NT_blue_word"></i>
+                    </button>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+        <!--目标门店-->
+        <div class="form-group lineheight_default ng-cloak" ng-cloak>
+            <div class="col-xs-10 col-md-10 lineheight_default nopadding border_bottom_only">
+                <p class="lineheight_default NT_list_overflow nopadding nomargin NT_applyStore">
+                    <span ng-bind="Parameters.Target" ng-show="Parameters.Target!=''"></span>
+                    <span ng-show="Parameters.Target==''">请选择目的地</span>
+                </p>
+            </div>
+            <div for="单位" class="col-xs-2 col-md-2 lineheight_default nopadding text-center border_bottom_only">
+                <button type="button" class="btn btn-default NT_blue_word_default NT_btn nopadding" style="border:0px;" ng-click="toggleRight('Target')">
+                    <i class="fa fa-1-5x fa-sitemap NT_blue_word"></i>
+                </button>
+            </div>
+        </div>
+
+
+            <!--其他說明-->
+            <div class="form-group border_bottom" style="min-height:80px;">
+                <div class="col-xs-11 col-md-11">
+                    <textarea class="form-control" ng-model="Parameters.Remark" rows="3" placeholder="调拨说明"></textarea>
+                </div>
+            </div>
+
+
+        <div class="form-group text-center">
+            <button type="submit" ng-click="isSubmit=true;Submit_Allot()" class="btn btn-primary NT_blue_bg NT_submitBtn ng-cloak" autocomplete="off"
+                ng-disabled="isSubmit" ng-cloak>
+                <span ng-show="!isSubmit">送出</span>
+                <i class="fa fa-1-5x fa-spinner fa-spin" ng-show="isSubmit"></i>
+            </button>
+        </div>
+    </form>
+    <!--门店-->
+    <md-sidenav class="md-sidenav-right md-sidenav-right-list md-whiteframe-z2 ng-cloak " md-component-id="Store"
+        id="Store" ng-cloak>
+        <div class="form-group NT_side_head nomargin sidenav_title nomargin NT_blue_bg_04">
+            <div class="input-group input_search">
+                <input type="text" class="form-control" ng-model="StoreSearch" placeholder="请输入单位关键字">
+                    <span class="input-group-btn">
+                <button class="btn btn-default" type="button">
+                        <i class="fa fa-search fa-1-5x text-gray" style="margin-top:-18px;"></i>
+                        </button>
+                </span>
+            </div>
+        </div>
+        <div case-search-store></div>
+    </md-sidenav>
+    <div case-search-store-advence></div>
+    <!--设施/设备选单-->
+    <md-sidenav class="md-sidenav-right md-sidenav-right-list md-whiteframe-z2 ng-cloak" md-component-id="EQ" ng-cloak
+        ng-init="isShowList=true">
+        <div case-search-equipment></div>
+    </md-sidenav>
+
+    <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+  <script src="js/select/select2.min.js"></script>
+  <script src="js/hammerJS/hammer.js"></script>
+  <script src="js/angular.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+  <script src="js/angular-animate.min.js"></script>
+  <script src="js/angular-touch.min.js"></script>
+  <script src="js/angular-aria.min.js"></script>
+  <script src="js/angular-cookies.js"></script>
+  <script src="js/angular-md5.js"></script>
+  <script src="js/underscore-min.js"></script>
+  <script src="js/sha1.js"></script>
+  <script src="js/messages.js"></script>
+  <script src="js/hammerJS/angular.hammer.js"></script>
+  <script src="js/timepicker/moment.js"></script>
+  <script src="js/timepicker/daterangepicker.js"></script>
+  <script src="js/timepicker/angular-daterangepicker.js"></script>
+  <script src="js/angular-material/angular-material.min.js"></script>
+
+  <!-- translate -->
+  <!-- <script src="js/angular-translate/angular-translate.js"></script>
+  <script src="js/angular-translate/loader-static-files.js"></script> -->
+  <script src="js/angular-translate/angular-translate.min.js"></script>
+  <script src="js/angular-translate/angular-translate-loader-static-files.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services/i18n.js"></script>
+    <script type="text/javascript" src="i10n/zh-cn.js"></script>
+    <script type="text/javascript" src="i10n/zh-tw.js"></script>
+  <script src="js/directives/NT_template.js"></script>
+  <script src="js/controllers/datepicker.js"></script>
+    <script src="js/controllers/AddAllot.js"></script>
+    <script src="js/scrollSmooth.js"></script>
+</body>
+
+</html>

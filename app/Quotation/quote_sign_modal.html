@@ -1,0 +1,50 @@
+<div id="quoted-sign-modal" class="modal fade" tabindex="-1" data-backdrop="static" data-keyboard="false">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+        <h4 class="modal-title">{{ModalParameters.TitleName}}</h4>
+      </div>
+      <div class="modal-body">
+        <form role="form">
+          <div class="row">
+            <div class="col-md-12">
+              <div class="form-group">
+                <textarea name="" id="" rows="3" ng-model="ParametersStr.Remark" class="form-control input-xs" placeholder="{{'11123'| i18n}}"></textarea>
+              </div>
+            </div>
+          </div>
+
+          <!--拍照-->
+          <div class="form-group border_bottom" style="min-height:72px;">
+            <div class="col-xs-10 col-md-10" style="min-height:72px;margin-bottom:6px;">
+              <span ng-repeat="item in imagesList.localIds" style="min-height:72px;">
+                                <img id="advPic{{$index}}" src="" style="margin-bottom:6px;">
+                                <!--<img src="img/volume.png" style="vertical-align: middle;max-width:72px;max-height:72px;" />-->
+                                <button class="btn btn-danger img_delet" ng-click="RemoveImg($index)">
+                                    <i class="fa fa-times"></i>
+                                </button>
+                            </span>
+            </div>
+            <div class="col-xs-2 col-md-2">
+              <button type="button" class="btn noshadow btn-default NT_blue_word" ng-click="chooseImage()">
+                                <i class="fa fa-1-5x fa-camera NT_blue_word"></i>
+                            </button>
+            </div>
+            <div style="clear:both;"></div>
+          </div>
+        </form>
+      </div>
+      <div class="modal-footer">
+        <div class="row nomargin">
+          <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+            <button type="button" class="btn NT_red_bg_04 noboder_radius" style="width:100%;"ng-click="ModalParameters.Cancel2Sign()">{{'00003'| i18n}}</button>
+          </div>
+          <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+            <button type="button" class="btn btn-primary noboder_radius" style="width:100%;" ng-click="ModalParameters.Quoted2Sign()" ng-disabled="isSend">{{'00005'| i18n}}</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

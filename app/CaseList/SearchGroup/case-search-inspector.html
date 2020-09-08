@@ -1,0 +1,31 @@
+<div class="form-group NT_body_list ng-cloak" ng-cloak>
+    <div class="NT_side_body_list panel-group" id="accordion_store" role="tablist" aria-multiselectable="true" ng-init="isSelected_Inspector=true">
+        <div class="panel panel-default noborder">
+            <button class="panel-heading NT_green_bg_03 accordion-toggle collapsed" data-toggle="collapse" data-target="#Inspector" href="#Inspector">
+                <h4 class="panel-title text_left">{{'11048'| i18n}}</h4>
+            </button>
+            <div id="Inspector" class="panel-collapse in collapse panel_collapse_listContainer" ng-class="{'in':$index==0}">
+                <div class="panel-body panel_collapse_list list_underline">
+                    <ul class="list-group nomargin">
+                        <!-- 20160224 mark ng-repeat="stores in InspectorItem.children|filter:InspectorSearch" ng-click="SetInspector(stores)"-->
+                        <li class="list-group-item border_bottom" ng-repeat="InspectorList in UnitLeve4data|filter:InspectorSearch" ng-click="isSelectLeve4(InspectorList)" ->
+                            {{InspectorList.Unit}}
+                            <span class="pull-right NT_choose_empty" ng-class="{'animated fadeIn':InspectorList.isSelected}">
+                                <i ng-class="{'fa fa-1-5x fa-check-circle':InspectorList.isSelected,'fa fa-1-5x fa-circle-thin':!InspectorList.isSelected}"></i>
+                            </span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="NT_side_footer NT_blue_bg">
+    <button type="button" class="btn btn-primary NT_close_btn" ng-click="closeDenav('Inspector')" style="width: 30%;">
+      {{'00001'| i18n}}
+        <i><img src="img/return_24.png" style="width:20px;"></i>
+    </button>
+</div>
+
+
+

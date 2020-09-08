@@ -1,0 +1,105 @@
+<!--  无按键时显示  -->
+<div class="alert alert-danger NT_gray_bg_03 NT_Loading" ng-show="!isShowDetail&&!isLoading">
+  <div without-allot="">
+  </div>
+</div>
+<!-- loading 圆圈  -->
+<div loading="">
+</div>
+<!--  案件  -->
+<div class="list-group-item border_bottom" ng-repeat="Item in List" ng-show="isShowDetail&&!isLoading" style="margin-top: 10px">
+  <div class="row nomargin nopadding">
+    <blockquote ng-click="OpenDetail(Item)">
+      <dl>
+        <dd class="NT_CaseNo">
+          <div class="row NT_CaseNoList">
+            <h4>
+              <span class="label" style="background-color: #659be0;margin-right: 2px;padding: 3px 5px;">
+                {{Item.MoveOrder.CaseNo}}
+              </span>
+              {{Item.MoveOrder.EquipmentName}}
+            </h4>
+          </div>
+        </dd>
+        <!--  <dt>
+          <h4 class="bold">{{Item.MoveOrder.EquipmentName}}
+            <span class="badge" style="background-color: #659be0;">{{Item.MoveOrder.CurrentStepName}}</span>
+          </h4>
+        </dt> -->
+      </dl>
+      <p class="text-left small_detail icon_search">
+        <span class="badge badge-primary">
+          寄
+        </span>
+        {{Item.MoveOrder.SourceUnit}} - 
+            {{Item.MoveOrder.SourceUser}}
+      </p>
+      <p class="text-left small_detail icon_search">
+        <span class="badge badge-error">
+          收
+        </span>
+        {{Item.MoveOrder.TargetUnit}} - 
+            {{Item.MoveOrder.TargetUser}}
+      </p>
+      <!--状态图-->
+      <div class="NT_Casebreadcrumb row w-full" style="margin-top: 5px;">
+        <ul id="breadcrumb">
+          <li>
+            <a class="complete" disabled="disabled">
+              待发货
+            </a>
+          </li>
+          <li>
+            <a ng-class="{'complete':Item.MoveOrder.CurrentStep>=1||Item.MoveOrder.CurrentStep==2}" ng-show="{{Item.MoveOrder.MoveType==1}}">
+              已发货
+            </a>
+            <a ng-class="{'complete':Item.MoveOrder.CurrentStep>=1||Item.MoveOrder.CurrentStep==2}" ng-show="{{Item.MoveOrder.MoveType==2}}">
+              师傅已取件
+            </a>
+          </li>
+          <li>
+            <a ng-class="{'complete':Item.MoveOrder.CurrentStep>=2,'process':Item.MoveOrder.CurrentStep==1}" ng-show="{{Item.MoveOrder.MoveType==1}}">
+              运输中
+            </a>
+            <a ng-class="{'complete':Item.MoveOrder.CurrentStep>=2,'process':Item.MoveOrder.CurrentStep==1}" ng-show="{{Item.MoveOrder.MoveType==2}}">
+              维修中
+            </a>
+          </li>
+          <li>
+            <a class="lastChild" ng-class="{'complete':Item.MoveOrder.CurrentStep==2}" ng-show="{{Item.MoveOrder.CurrentStep!=3&&Item.MoveOrder.MoveType==1}}">
+              已收货
+            </a>
+            <a class="lastChild" ng-class="{'complete':Item.MoveOrder.CurrentStep==4}" ng-show="{{Item.MoveOrder.CurrentStep!=3&&Item.MoveOrder.MoveType==2}}">
+              已返还
+            </a>
+          </li>
+          <li>
+            <a class="lastChild complete" ng-show="{{Item.MoveOrder.CurrentStep==3}}">
+              已取消
+            </a>
+          </li>
+        </ul>
+      </div>
+    </blockquote>
+      <div class="small_detail" ng-show="Item.MoveOrder.isEdit||Item.MoveOrder.isLinkRepair">
+        <div class="row">
+          <div class="col-xs-6 col-md-6">
+            <span class="badge bg-grey" ng-click="GetRepairDetail(Item.MoveOrder.RequisitionId)" ng-show="Item.MoveOrder.isLinkRepair" style="margin: 5px 2px;padding: 5px 10px;">
+              报修单详情
+            </span>
+          </div>
+          <div class="col-xs-6 col-md-6">
+            <span class="label pull-right" ng-class="{'bg-info': item.stepId!=3,'NT_red_bg_04':item.stepId==3}" ng-click="
+                Item.MoveOrder.isSubmit=true;addHistory4Allot(Item.MoveOrder.MoveOrderId,item.stepId,Item.MoveOrder.CompanyId)" ng-repeat="item in Item.MoveOrder.NextStepShow" ng-show="Item.MoveOrder.isEdit" style="margin: 5px 2px;padding: 5px 10px;">
+              {{item.stepName}}
+            </span>
+          </div>
+        </div>
+      </div>
+  </div>
+  <!--载入更多-->
+</div>
+<div class="list-group-item">
+  <div class="row nomargin nopadding" load-more="">
+  </div>
+</div>

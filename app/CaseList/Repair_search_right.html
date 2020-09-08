@@ -1,0 +1,121 @@
+ <!--门店关键字搜寻-->
+ <div class="form-group NT_side_head nomargin sidenav_title nomargin NT_blue_bg_05">
+    <div class="col-xs-10 col-md-10 nopadding">
+        <h4 class="modal-title">{{'11079'| i18n}}</h4>
+    </div>
+</div>
+<!-- <div class="form-group nomargin  nomargin NT_red_bg_03 text-center NT_directBtn" style="">
+    <div class="row nomargin" ng-click="gotoTransfer()">
+        <div class="col-xs-10 col-md-10 nopadding">变更单位或支援单位</div>
+        <div class="col-xs-2 col-md-2 nopadding"><i class="fa fa-caret-right"></i></div>
+    </div>
+</div> -->
+<!--门店选单-->
+<div class="form-group ng-cloak" ng-cloak ng-init="search_tabid='items'">
+    <div class="case-filter_body panel-group" role="tablist" aria-multiselectable="true">
+        <!--item-->
+        <div class="panel panel-default noborder" ng-show="search_tabid=='items'">
+          <div class="form-group">
+              <div class="form-group ng-cloak border_bottom_only">
+                <!-- 日期 -->
+                <div class="margin-r-10 filter-item">
+                    <label class="font-xxs font-yellow">{{'11080'| i18n}}</label>
+                  <div class="form-group">
+                    <div class="col-xs-5 col-md-5 nopadding form-group">
+                      <input type="text" ng-model="RequestTime.StartDate" id="date_begin" class="form-control date date-picker"
+                        style="width: 100%;" placeholder="{{'11081'| i18n}}" />
+                    </div>
+                    <div class="col-xs-2 col-md-2 text-center">~</div>
+                    <div class="col-xs-5 col-md-5 nopadding form-group">
+                      <input type="text" ng-model="RequestTime.EndDate" id="date_end" class="form-control date date-picker"
+                        style="width: 100%;" placeholder="{{'11082'| i18n}}" />
+                    </div>
+                  </div>
+                </div>                   
+                <div class="line pull-in"></div>
+              </div>                    
+              <div class="form-group ng-cloak border_bottom_only" ng-show="StoreUser==0">
+                <div class="margin-r-10 filter-item">
+                    <div>
+                      <label class="font-xxs">{{'11083'| i18n}}</label>                 
+                      <i class="fa fa-1-5x fa-sitemap pull-right text-green" data-toggle="modal" data-target="#SearchMuStore" ng-click="LoadMnti(0)"></i>
+                    </div>
+                    <div class="form-group">
+                      <span class="label bg-green"ng-repeat="StoreItem in StoreSelectedList" ng-show="StoreItem.Id!=''">
+                        {{StoreItem.Text}}
+                      </span>
+                    </div>                          
+                  </div>             
+                <div class="line pull-in"></div>
+              </div>
+              <div class="form-group ng-cloak border_bottom_only" ng-show="UnitIds.length>0">
+                <div class="margin-r-10 filter-item">
+                  <div>
+                    <label class="font-xxs">{{'2085'| i18n}}</label>                 
+                    <i class="fa fa-1-5x fa-wrench pull-right text-green" data-toggle="modal" data-target="#SearchMuStore" ng-click="LoadMnti(1)"></i>
+                  </div>
+                    <div class="form-group">
+                      <span class="label bg-green" ng-repeat="MaintainerItem in MaintainerSelectedList" ng-show="MaintainerItem.Id!=''">
+                        {{MaintainerItem.Text}}
+                      </span>
+                  </div>
+                </div>               
+                <div class="line pull-in"></div>
+              </div>
+              <div class="form-group ng-cloak border_bottom_only">
+                <!-- 案件类型 -->
+                <div class="margin-r-10 filter-item">
+                  <label class="font-xxs font-yellow">{{'11073'| i18n}}</label>
+                  <div class="form-group"> 
+                    <button class="btn m-b-xs" ng-class="{'btn-default':SearhParams.IsInspection!=2,'btn-success':SearhParams.IsInspection==2}" ng-click="setIsInspection(2)">{{'11049'| i18n}}</button>
+                    <button class="btn m-b-xs" ng-class="{'btn-default':SearhParams.IsInspection!=0,'btn-success':SearhParams.IsInspection==0}" ng-click="setIsInspection(0)">{{'11050'| i18n}}</button>
+                    <button class="btn m-b-xs" ng-class="{'btn-default':SearhParams.IsInspection!=1,'btn-success':SearhParams.IsInspection==1}" ng-click="setIsInspection(1)">{{'11051'| i18n}}</button>
+                    <button class="btn m-b-xs" ng-class="{'btn-default':SearhParams.IsInspection!=3,'btn-success':SearhParams.IsInspection==3}" ng-click="setIsInspection(3)">{{'11052'| i18n}}</button>
+                  </div>
+                </div>                      
+                <div class="line pull-in"></div>
+              </div>
+              <!-- 时限 -->
+              <div class="form-group ng-cloak border_bottom_only">
+                <div class="margin-r-10 filter-item">
+                  <label class="font-xxs font-yellow margin-b-0">{{'11084'| i18n}}</label>
+                  <div class="form-group">
+                      <button class="btn m-b-xs" ng-class="{'btn-default':!Emergency.Yes,'btn-success':Emergency.Yes}" ng-click="setEmergency('Yes')">{{'2057'| i18n}}</button>
+                      <button class="btn m-b-xs" ng-class="{'btn-default':!Emergency.Normal,'btn-success':Emergency.Normal}" ng-click="setEmergency('Normal')">{{'2058'| i18n}}</button>
+                      <button class="btn m-b-xs" ng-class="{'btn-default':!Emergency.DontCare,'btn-success':Emergency.DontCare}" ng-click="setEmergency('DontCare')">{{'11053'| i18n}}</button>
+                  </div>
+                </div>
+                <div class="line pull-in"></div>
+              </div>
+              <!-- 状态 -->
+              <div class="form-group ng-cloak border_bottom_only">
+                <div class="margin-r-10 filter-item">
+                    <label class="font-xxs font-yellow margin-b-0">{{'2042'| i18n}}</label>
+                    <div class="form-group">
+                      <button class="btn m-b-xs" ng-class="{'btn-default':!RequisitionStatus.OnProcess,'btn-success':RequisitionStatus.OnProcess}" ng-click="SetParams('OnProcess')">{{'2077'| i18n}}</button>
+                      <button class="btn m-b-xs" ng-class="{'btn-default':!RequisitionStatus.Filing,'btn-success':RequisitionStatus.Filing}" ng-click="SetParams('Filing')">{{'2004'| i18n}}</button>
+                      <button class="btn m-b-xs" ng-class="{'btn-default':!RequisitionStatus.Assignment,'btn-success':RequisitionStatus.Assignment}" ng-click="SetParams('Assignment')">{{'2003'| i18n}}</button>
+                      <button class="btn m-b-xs" ng-class="{'btn-default':!RequisitionStatus.InStore,'btn-success':RequisitionStatus.InStore}" ng-click="SetParams('InStore')">{{'11085'| i18n}}</button>
+                      <button class="btn m-b-xs" ng-class="{'btn-default':!RequisitionStatus.RawMaterialPending,'btn-success':RequisitionStatus.RawMaterialPending}" ng-click="SetParams('RawMaterialPending')">{{'11066'| i18n}}</button>
+                      <button class="btn m-b-xs" ng-class="{'btn-default':!RequisitionStatus.ReFactory,'btn-success':RequisitionStatus.ReFactory}" ng-click="SetParams('ReFactory')">返厂</button>
+                      <button class="btn m-b-xs" ng-class="{'btn-default':!RequisitionStatus.OnConfirm,'btn-success':RequisitionStatus.OnConfirm}" ng-click="SetParams('OnConfirm')">{{'11086'| i18n}}</button>
+                      <button class="btn m-b-xs" ng-class="{'btn-default':!RequisitionStatus.Acceptance,'btn-success':RequisitionStatus.Acceptance}" ng-click="SetParams('Acceptance')">{{'2006'| i18n}}</button>
+                      <button class="btn m-b-xs" ng-class="{'btn-default':!RequisitionStatus.Revocation,'btn-success':RequisitionStatus.Revocation}" ng-click="SetParams('Revocation')">{{'2008'| i18n}}</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="NT_side_footer NT_blue_bg">
+    <div class="row nomargin">
+        <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+            <button type="button" class="btn NT_red_bg_04 noboder_radius" data-dismiss="modal" style="width:100%;" ng-click="clearSelect2Values()">{{'11078'| i18n}}</button>
+        </div>
+        <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+            <button type="button" class="btn btn-primary noboder_radius " data-dismiss="modal" style="width:100%;" ng-click="gotoSearch()">{{'00002'| i18n}}</button>
+        </div>
+    </div>
+</div>
+

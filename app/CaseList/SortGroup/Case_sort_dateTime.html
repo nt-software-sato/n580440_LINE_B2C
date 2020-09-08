@@ -1,0 +1,45 @@
+<div class="row nomargin NT_dateSort" style="z-index:99">
+  <div class="col-xs-3 col-md-3 col-lg-3 nopadding">
+    <button class="btn NT_blue_bg_03 nopadding noboder_radius dropdown-toggle" style="width:100%;" id="TimeSet" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{inspectionName}}
+                <!-- 未選擇預設名稱"時限"  -->
+                <span class="caret"></span>
+            </button>
+    <ul class="dropdown-menu NT_timeSetMenu" aria-labelledby="TimeSet">
+      <li class="dropdown" ng-click="SetInspection(2,'全部')">{{'11049'| i18n}}</li>
+      <li class="dropdown" ng-click="SetInspection(0,'一般报修')">{{'11050'| i18n}}</li>
+      <li class="dropdown" ng-click="SetInspection(1,'一般保养')">{{'11051'| i18n}}</li>
+      <li class="dropdown" ng-click="SetInspection(3,'申诉案件')">{{'11052'| i18n}}</li>
+    </ul>
+  </div>
+  <div class="col-xs-3 col-md-3 col-lg-3 nopadding">
+    <button class="btn NT_blue_bg_03 nopadding noboder_radius dropdown-toggle" style="width:100%;" id="TimeSet" type="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+            {{emergencyName}}
+            <!-- 未選擇預設名稱"時限"  -->
+            <span class="caret"></span>
+        </button>
+    <ul class="dropdown-menu NT_timeSetMenu" aria-labelledby="TimeSet">
+      <li class="dropdown" ng-click="SetEmergency(9,'全部')">{{'11049'| i18n}}</li>
+      <li class="dropdown" ng-click="SetEmergency(0,'紧急')">{{'2057'| i18n}}</li>
+      <li class="dropdown" ng-click="SetEmergency(1,'一般')">{{'2058'| i18n}}</li>
+      <li class="dropdown" ng-click="SetEmergency(2,'日常')">{{'11053'| i18n}}</li>
+    </ul>
+  </div>
+
+  <div class="col-xs-3 col-md-3 col-lg-3 nopadding">
+    <button type="button" class="btn NT_blue_bg_03 nopadding noboder_radius" ng-show="showtag!=2" style="width:100%;" ng-click="reload4Time(0)">
+            {{'11054'| i18n}}&nbsp;
+            <span class="pull-right NT_choose_empty_w" ng-class="{'animated fadeIn':dateSort1}" ng-show="!OrderbyDateM">
+                <i ng-class="{'fa fa-caret-up':dateSort1,'fa fa-caret-down':!dateSort1}"></i>
+            </span>
+        </button>
+  </div>
+  <div class="col-xs-3 col-md-3 col-lg-3 nopadding" ng-show="showtag!=1">
+    <button type="button" class="btn NT_blue_bg_03 nopadding noboder_radius" style="width:100%;" ng-click="reload4Time(1)">
+      {{'11055'| i18n}}&nbsp;
+            <span class="pull-right NT_choose_empty_w" ng-class="{'animated fadeIn':dateSort2}" ng-show="OrderbyDateM">
+                <i ng-class="{'fa fa-caret-up':dateSort2,'fa fa-caret-down':!dateSort2}"></i>
+            </span>
+        </button>
+  </div>
+</div>

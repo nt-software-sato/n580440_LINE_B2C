@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html ng-app="WeChat" ng-controller="TransferCtrl" ng-cloak>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">
+    <!-- <title>{{'03021'| i18n}}</title> -->
+    <title translate="03021">我要調店</title>
+    <link rel="stylesheet" href="css/angular-material.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/select/select2.min.css">
+    <link rel="stylesheet" href="css/select/select2-bootstrap.css">
+    <link rel="stylesheet" href="css/NT_color.css">
+    <link rel="stylesheet" href="css/style.css">
+    <script src="js/angular.min.js"></script>
+    <style>
+        .ng-cloak {
+            display: none;
+        }
+    </style>
+
+</head>
+<body layout="column" style="background:rgb(0, 176, 255);" ng-cloak>
+    <div layout="row" class="inputdemoIcons ng-cloak" style="margin: 3% 2% 0 2%;" ng-cloak>
+        <md-whiteframe style="width: 98%;margin: 2px;">
+            <md-content layout-padding layout="row" layout-sm="column">
+                <form name="TransferForm">
+                    <md-input-container md-no-float style="margin:5px 0;">
+                        <md-icon class="fa fa-home text_center" style="color:#1E88E5;"></md-icon>
+                        <input ng-model="UnitInfo.UnitId" name="UnitId" type="text" placeholder="{{'2034'| i18n}}" required>
+                        <div ng-messages="TransferForm.UnitId.$error">
+                            <div ng-message="required">{{'02001'| i18n}}</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container md-no-float style="margin:5px 0;">
+                        <md-icon class="fa fa-key text_center" style="color:#1E88E5;"></md-icon>
+                        <input ng-model="UnitInfo.passCode" name="passCode" type="text" placeholder="{{'2065'| i18n}}" required>
+                        <div ng-messages="TransferForm.passCode.$error">
+                            <div ng-message="required">{{'02001'| i18n}}</div>
+                        </div>
+                    </md-input-container>
+                    <md-input-container style="margin: 3% 2% 0 2%;">
+                        <md-button class="NT_blue_bg_06" type="submit" ng-click="TransferSubmit()">{{'2061'| i18n}}</md-button>
+                    </md-input-container>
+                    <section layout="row" layout-sm="column" layout-align="center center" style="margin: 0 2% 2% 2%;" layout-wrap>
+                        <md-button ng-click="ToscanQRCode()" target="_blank">{{'2033'| i18n}}?</md-button>
+                    </section>
+                </form>
+            </md-content>
+        </md-whiteframe>
+    </div>
+
+    <!-- Angular Material Dependencies -->
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/select/select2.min.js"></script>
+    <script src="js/hammerJS/hammer.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-material.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+    <script src="js/angular-animate.min.js"></script>
+    <script src="js/angular-touch.min.js"></script>
+    <script src="js/angular-aria.min.js"></script>
+    <script src="js/angular-cookies.js"></script>
+    <script src="js/angular-md5.js"></script>
+    <script src="js/underscore-min.js"></script>
+    <script src="js/sha1.js"></script>
+    <script src="js/messages.js"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="js/timepicker/moment.js"></script>
+    <script src="js/timepicker/daterangepicker.js"></script>
+    <script src="js/timepicker/angular-daterangepicker.js"></script>
+    <script src="js/angular-translate/angular-translate.js"></script>
+    <script src="js/angular-translate/loader-static-files.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/services/i18n.js"></script>
+    <script type="text/javascript" src="i10n/zh-cn.js"></script>
+    <script type="text/javascript" src="i10n/zh-tw.js"></script>
+    <script src="js/controllers/Transfer.js"></script>
+    <script src="js/directives/hammer_direct.js"></script>
+</body>
+</html>

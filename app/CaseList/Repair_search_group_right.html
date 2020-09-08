@@ -1,0 +1,64 @@
+<!--门店关键字搜寻-->
+<!--  <div class="form-group NT_side_head nomargin sidenav_title nomargin NT_blue_bg_05">
+    <div class="col-xs-10 col-md-10 nopadding">
+        <h4 class="modal-title">请选择查询条件</h4>
+    </div>
+</div> -->
+
+<!--门店选单-->
+<div class="form-group ng-cloak" ng-cloak>
+  <div class="case-filter_body panel-group notop">
+    <!--item-->
+    <div class="panel panel-default noborder">
+      <div class="form-group">
+        <div class="form-group ng-cloak border_bottom_only">
+          <!-- 区域 -->
+          <div class="margin-r-10 filter-item">
+            <label class="font-xxs font-yellow">{{'11036'| i18n}}</label>
+            <div class="form-group">
+              <button class="btn m-b-xs"
+                      ng-repeat="item in RegionList"
+                      ng-class="{'btn-default':!GroupParames[item.RegionId],'btn-success':GroupParames[item.RegionId]}"
+                      ng-click="setIsInspection(item)">{{item.Region}}</button>
+              <!-- <button class="btn m-b-xs" ng-class="{'btn-default':SearhParams.IsInspection!=0,'btn-success':SearhParams.IsInspection==0}" ng-click="setIsInspection(0)">华南区</button>
+                    <button class="btn m-b-xs" ng-class="{'btn-default':SearhParams.IsInspection!=1,'btn-success':SearhParams.IsInspection==1}" ng-click="setIsInspection(1)">北方区</button> -->
+            </div>
+          </div>
+          <div class="line pull-in"></div>
+        </div>
+        <!-- 类型 -->
+        <div class="form-group ng-cloak border_bottom_only">
+          <div class="margin-r-10 filter-item">
+            <label class="font-xxs font-yellow margin-b-0">{{'11073'| i18n}}</label>
+            <div class="form-group">
+              <button class="btn m-b-xs" ng-class="{'btn-default':!Emergency.Yes,'btn-success':Emergency.Yes}" ng-click="setEmergency('Yes')">{{'11074'| i18n}}</button>
+              <button class="btn m-b-xs" ng-class="{'btn-default':!Emergency.Normal,'btn-success':Emergency.Normal}" ng-click="setEmergency('Normal')">{{'11075'| i18n}}</button>
+              <button class="btn m-b-xs" ng-class="{'btn-default':!Emergency.DontCare,'btn-success':Emergency.DontCare}" ng-click="setEmergency('DontCare')">{{'11076'| i18n}}</button>
+            </div>
+          </div>
+          <div class="line pull-in"></div>
+        </div>
+        <!-- 保养类型 -->
+        <div class="form-group ng-cloak border_bottom_only" ng-show="Emergency.DontCare&&IsUItoWP">
+          <div class="margin-r-10 filter-item">
+            <label class="font-xxs font-yellow margin-b-0">{{'11077'| i18n}}</label>
+            <div class="form-group">
+              <button ng-repeat="item in inspectionType" class="btn m-b-xs" ng-class="{'btn-default':!item.Selected,'btn-success':item.Selected}" ng-click="setInspectionType(item)">{{item.EquipmentSubTypeName}}</button>
+            </div>
+          </div>
+          <div class="line pull-in"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="NT_side_footer NT_blue_bg">
+  <div class="row nomargin">
+    <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+      <button type="button" class="btn NT_red_bg_04 noboder_radius" data-dismiss="modal" style="width:100%;" ng-click="clearSelect2GroupValues()">{{'11078'| i18n}}</button>
+    </div>
+    <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+      <button type="button" class="btn btn-primary noboder_radius " data-dismiss="modal" style="width:100%;" ng-click="gotoGroupSearch()">{{'00002'| i18n}}</button>
+    </div>
+  </div>
+</div>

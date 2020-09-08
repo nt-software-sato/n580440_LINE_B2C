@@ -1,0 +1,405 @@
+.NT_blue_bg {
+    background-color: #2196F3;
+    color: #fff;
+}
+
+.NT_blue_bg_01 {
+    background-color: #E3F2FD;
+    color: #fff;
+}
+
+.NT_blue_bg_02 {
+    background-color: #BBDEFB;
+    color: #fff;
+}
+
+.NT_blue_bg_03 {
+    background-color: #90CAF9;
+    color: #fff;
+}
+
+.NT_blue_bg_04 {
+    background-color: #64B5F6;
+    color: #fff;
+}
+
+.NT_blue_bg_05 {
+    background-color: #42A5F5;
+    color: #fff;
+}
+
+.NT_blue_bg_06 {
+    background-color: #1E88E5;
+    color: #fff;
+}
+
+.NT_blue_bg_07,
+.NT_blue_bg_07:hover {
+    background-color: #1976D2;
+    color: #fff;
+}
+
+.NT_blue_bg_08,
+.NT_blue_bg_08:hover {
+    background-color: #1565C0;
+    color: #fff;
+}
+
+.NT_blue_bg_09,
+.NT_blue_bg_09:hover {
+    background-color: #0D47A1;
+    color: #fff;
+}
+
+.NT_blue_word_default {
+    color: #2196F3;
+}
+
+.NT_blue_word_wh {
+    color: #64B5F6;
+    background-color: #fff;
+}
+
+.NT_blue_word {
+    color: #2196F3;
+}
+
+.NT_blue_word_02 {
+    background-color: #fff;
+    color: #BBDEFB;
+}
+
+.NT_blue_bg_05:active,
+.NT_blue_bg_05.active {
+    background-color: #1976D2;
+    color: #fff;
+}
+
+/************************************************************
+2.Red 淺-深  
+預設使用 - NT_red_bg
+目前使用範圍 - 
+ ‧各頁按鈕 - NT_red_bg_06
+ ‧各頁標頭 - NT_red_bg_04
+************************************************************/
+
+.NT_red_bg {
+    background-color: #F44336;
+    color: #fff;
+}
+
+.NT_red_bg_01 {
+    background-color: #FFEBEE;
+    color: #fff;
+}
+
+.NT_red_bg_02 {
+    background-color: #FFCDD2;
+    color: #fff;
+}
+
+.NT_red_bg_03 {
+    background-color: #EF9A9A;
+    color: #fff;
+}
+
+.NT_red_bg_04 {
+    background-color: #E57373;
+    color: #fff;
+}
+
+.NT_red_bg_05,
+.NT_red_bg_05:hover {
+    background-color: #EF5350;
+    color: #fff;
+}
+
+.NT_red_bg_06 {
+    background-color: #F44336;
+    color: #fff;
+}
+
+.NT_red_bg_07,
+.NT_red_bg_07:hover {
+    background-color: #E53935;
+    color: #fff;
+}
+
+.NT_red_bg_08,
+.NT_red_bg_08:hover {
+    background-color: #D32F2F;
+    color: #fff;
+}
+
+.NT_red_bg_09,
+.NT_red_bg_09:hover {
+    background-color: #C62828;
+    color: #fff;
+}
+
+.NT_red_bg_10 {
+    background-color: #B71C1C;
+    color: #fff;
+}
+
+/************************************************************
+3.Green 淺-深  
+預設使用 - NT_green_bg
+目前使用範圍 - 
+ ‧各頁按鈕 - NT_green_bg_06
+************************************************************/
+
+.NT_green_bg {
+    background-color: #8BC34A;
+    color: #fff;
+}
+
+.NT_green_bg_01 {
+    background-color: #F1F8E9;
+    color: #33691E;
+}
+
+.NT_green_bg_02 {
+    background-color: #DCEDC8;
+    color: #33691E;
+}
+
+.NT_green_bg_03 {
+    background-color: #C5E1A5;
+    color: #33691E;
+}
+
+.NT_green_bg_04 {
+    background-color: #AED581;
+    color: #fff;
+}
+
+.NT_green_bg_05 {
+    background-color: #9CCC65;
+    color: #fff;
+}
+
+.NT_green_bg_06 {
+    background-color: #7CB342;
+    color: #fff;
+}
+
+.NT_green_bg_07 {
+    background-color: #689F38;
+    color: #fff;
+}
+
+.NT_green_bg_08 {
+    background-color: #558B2F;
+    color: #fff;
+}
+
+.NT_green_bg_09 {
+    background-color: #33691E;
+    color: #fff;
+}
+
+.close.NT_mutiClose {
+    color: #33691E;
+}
+
+md-list-item.md-3-line>.md-avatar {
+    color: #7CB342;
+}
+
+/************************************************************
+4.Orange 淺-深  
+預設使用 - NT_orange_bg
+目前使用範圍 - 
+ ‧各頁按鈕 - NT_orange_bg_06
+************************************************************/
+
+.NT_orange_bg {
+    background-color: #FF9800;
+    color: #fff;
+}
+
+.NT_orange_bg_01 {
+    background-color: #FFF3E0;
+    color: #fff;
+}
+
+.NT_orange_bg_02 {
+    background-color: #FFE0B2;
+    color: #fff;
+}
+
+.NT_orange_bg_03 {
+    background-color: #FFCC80;
+    color: #fff;
+}
+
+.NT_orange_bg_04 {
+    background-color: #FFB74D;
+    color: #fff;
+}
+
+.NT_orange_bg_05 {
+    background-color: #FFA726;
+    color: #fff;
+}
+
+.NT_orange_bg_06 {
+    background-color: #FB8C00;
+    color: #fff;
+}
+
+.NT_orange_bg_07 {
+    background-color: #F57C00;
+    color: #fff;
+}
+
+.NT_orange_bg_08 {
+    background-color: #EF6C00;
+    color: #fff;
+}
+
+.NT_orange_bg_09 {
+    background-color: #E65100;
+    color: #fff;
+}
+
+/************************************************************
+5.teal
+目前使用範圍 - 
+驗收全選按鈕
+************************************************************/
+
+.NT_teal_bg {
+    background-color: #009688;
+    color: #fff;
+}
+
+.NT_teal_bg_01 {
+    background-color: #E0F2F1;
+    color: #fff;
+}
+
+.NT_teal_bg_02 {
+    background-color: #B2DFDB;
+    color: #fff;
+}
+
+.NT_teal_bg_03 {
+    background-color: #80CBC4;
+    color: #fff;
+}
+
+.NT_teal_bg_04 {
+    background-color: #4DB6AC;
+    color: #fff;
+}
+
+.NT_teal_bg_05 {
+    background-color: #26A69A;
+    color: #fff;
+}
+
+.NT_teal_bg_06 {
+    background-color: #00897B;
+    color: #fff;
+}
+
+.NT_teal_bg_07 {
+    background-color: #00796B;
+    color: #fff;
+}
+
+.NT_teal_bg_08 {
+    background-color: #00695C;
+    color: #fff;
+}
+
+.NT_teal_bg_09 {
+    background-color: #004D40;
+    color: #fff;
+}
+
+/************************************************************
+7.gray 
+目前使用範圍 - 
+驗收簽到按鈕
+************************************************************/
+
+.NT_gray_bg {
+    background-color: #9E9E9E;
+    color: #fff;
+}
+
+.NT_gray_bg_01 {
+    background-color: #FAFAFA;
+    color: #fff;
+}
+
+.NT_gray_bg_02 {
+    background-color: #F5F5F5;
+    color: #fff;
+}
+
+.NT_gray_bg_03 {
+    background-color: #EEEEEE;
+    color: #fff;
+}
+
+.NT_gray_bg_04 {
+    background-color: #E0E0E0;
+    color: #616161;
+}
+
+.NT_gray_bg_05 {
+    background-color: #BDBDBD;
+    color: #fff;
+}
+
+.NT_gray_bg_06 {
+    background-color: #757575;
+    color: #fff;
+}
+
+.NT_gray_bg_07 {
+    background-color: #616161;
+    color: #fff;
+}
+
+.NT_gray_bg_08 {
+    background-color: #424242;
+    color: #fff;
+}
+
+.NT_gray_bg_09 {
+    background-color: #212121;
+    color: #fff;
+}
+
+.NT_yellow_bg {
+    background-color: #FBC02D;
+    color: #fff;
+}
+
+.NT_yellow_bg.md-default-theme {
+    background-color: #FF8A65;
+    color: #fff;
+}
+
+.NT_white_bg,
+.NT_white_bg:hover {
+    background-color: #eeeeee;
+    color: black;
+}
+
+.NT_pink_bg {
+    background: #fce4ec;
+}
+
+.NT_pink_bg2 {
+    background: #f8bbd0;
+}
+
+.Nt-yellow {
+    color: #FBC02D
+}

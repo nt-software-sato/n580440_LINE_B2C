@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html ng-app="WeChat" ng-controller="PushListCtrl" ng-cloak>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <title>{{'03014'| i18n}}</title>
+  <link rel="stylesheet" href="css/angular-material.min.css">
+  <link rel="stylesheet" href="css/select/select2.min.css">
+  <link rel="stylesheet" href="css/select/select2-bootstrap.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="css/NT_color.css">
+  <link rel="stylesheet" href="css/ngGallery.css">
+  <link rel="stylesheet" href="css/style_new.css?v=20180223">
+  <!--列表用-->
+  <link rel="stylesheet" href="css/bootstrap-nav-wizard.css">
+  <link rel="stylesheet" href="css/all.css">
+</head>
+
+<body style="overflow:none;background-color:#CCCCCC;" ng-init="isLoading=true;isShowGoing=false;" ng-cloak="">
+
+  <div ng-show="isLoading" class="alert isLoading NT_blue_word_wh nomargin" ng-cloak>
+    <p class="text-center nomargin">
+      <span class="loader loader-quart"> </span>
+    </p>
+  </div>
+  <div class="container" style="margin:0 auto" ng-show="!isLoading&&!isShowGoing" ng-cloak>
+    <ul class="list-group">
+      <li class="list-group-item box-shadow m-t-30 p-y-0"
+        style="height:139px;border:1px solid black;box-shadow: 3px 3px 20px -1px #000;">
+        <div class="row text-white" style="height:136px; font-size: 14px">
+          <div class="col-xs-12 p-x-1" style="height:43px">
+            <div class="col-xs-2 p-0" style="background-color:#666666;height:43px">
+              <p class="p-t-5" style="background-color:#666666;">&nbsp;<br>&nbsp;</p>
+            </div>
+            <div class="col-xs-10 p-0" style="height:43px">
+
+              <div class="col-xs-3 p-t-5 p-l-5" style="background-color:#666666;height:43px">
+                <p style="font-size: 16px;text-align: center;">{{'2053'| i18n}}<br>{{'2054'| i18n}}</p>
+              </div>
+              <div class="col-xs-3 p-t-5" style="background-color:#666666;height:43px;">
+                <p style="font-size: 16px;text-align: center;">{{'2053'| i18n}}<br>{{'2006'| i18n}}</p>
+              </div>
+              <div class="col-xs-3 p-t-5" style="background-color:#666666;height:43px">
+                <p style="font-size: 16px;text-align: center;">{{'2053'| i18n}}<br>{{'2008'| i18n}}</p>
+              </div>
+              <div class="col-xs-3 p-t-5 p-l-5" style="background-color:#666666;height:43px">
+                <p style="font-size: 16px;text-align: center;">{{'2055'| i18n}}<br>{{'2056'| i18n}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 p-x-1 m-y-2" style="height:43px">
+            <div class="col-xs-2 bg-red p-0 border border-red" style="height:43px" ng-click="goToSearch();">
+              <p class="p-t-10" style="font-size: 20px;text-align: center;">{{'2057'| i18n}}</p>
+            </div>
+            <div class="col-xs-10 p-0" style="height:43px">
+
+              <div class="col-xs-3 p-t-10 p-l-5 border border-red" ng-click="goToSearch();"
+                style="background-color:#CCCC99;height:43px">
+                <p style="font-size: 20px;text-align: center;">{{CaseCountList.Emergency.New}}</p>
+              </div>
+              <div class="col-xs-3 p-t-10 border border-red" ng-click="goToSearch();"
+                style="background-color:#FF9966;height:43px;">
+                <p style="font-size: 20px;text-align: center;">{{CaseCountList.Emergency.Acceptance}}</p>
+              </div>
+              <div class="col-xs-3 p-t-10 border border-red" ng-click="goToSearch();"
+                style="background-color:#FFCC99;height:43px">
+                <p style="font-size: 20px;text-align: center;">{{CaseCountList.Emergency.Revocation}}</p>
+              </div>
+              <div class="col-xs-3 p-t-10 p-l-5 border border-red" ng-click="goToSearch();"
+                style="background-color:#CCCC99;height:43px">
+                <p style="font-size: 20px;text-align: center;">{{CaseCountList.Emergency.OnGoing}}</p>
+              </div>
+            </div>
+          </div>
+          <div class="col-xs-12 p-x-1 m-y-2" style="height:43px">
+            <div class="col-xs-2 bg-blue-light p-0 border border-blue" style="height:43px" ng-click="goToSearch();">
+              <p class="p-t-10" style="font-size: 20px;text-align: center;">{{'2058'| i18n}}</p>
+            </div>
+            <div class="col-xs-10 p-0" style="height:43px">
+              <div class="col-xs-3 p-t-10 p-l-5 border border-blue" ng-click="goToSearch();"
+                style="background-color:#6699CC;height:43px">
+                <p style="font-size: 20px;text-align: center;">{{CaseCountList.Normal.New}}</p>
+              </div>
+              <div class="col-xs-3 p-t-10 border border-blue" ng-click="goToSearch();"
+                style="background-color:#99CCCC;height:43px;">
+                <p style="font-size: 20px;text-align: center;">{{CaseCountList.Normal.Acceptance}}</p>
+              </div>
+              <div class="col-xs-3 p-t-10 border border-blue" ng-click="goToSearch();"
+                style="background-color:#99CCCC;height:43px">
+                <p style="font-size: 20px;text-align: center;">{{CaseCountList.Normal.Revocation}}</p>
+              </div>
+              <div class="col-xs-3 p-t-10 p-l-5 border border-blue" ng-click="goToSearch();"
+                style="background-color:#99CCCC;height:43px">
+                <p style="font-size: 20px;text-align: center;">{{CaseCountList.Normal.OnGoing}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <div class="container" style="margin:0 auto" ng-show="!isLoading&&isShowGoing" ng-cloak>
+    <ul class="list-group">
+      <li class="list-group-item box-shadow m-t-30 p-y-0"
+        style="height:93px;border:1px solid black;box-shadow: 3px 3px 20px -1px #000;">
+        <div class="row text-white" style="height:86px; font-size: 14px">
+          <div class="col-xs-12 p-x-1 m-y-1" style="height:43px">
+            <div class="col-xs-6 bg-red p-0 border border-red" style="height:43px" ng-click="goToSearch();">
+              <p class="p-t-10" style="font-size: 20px;text-align: center;">{{'2057'| i18n}}</p>
+            </div>
+            <div class="col-xs-6 p-0 bg-blue-light border border-blue" style="height:43px">
+              <p class="p-t-10" style="font-size: 20px;text-align: center;">{{'2058'| i18n}}</p>
+            </div>
+          </div>
+          <div class="col-xs-12 p-x-1 m-y-1" style="height:43px">
+            <div class="col-xs-6 p-0 border border-red" style="background-color:#FF9966;height:43px"
+              ng-click="goToSearch();">
+              <p class="p-t-5" style="text-align: center;">{{'2010'| i18n}}</p>
+              <p style="font-size: 20px;text-align: center;">{{CaseCountList.Emergency.OnGoing}}</p>
+            </div>
+            <div class="col-xs-6 p-0 border border-blue" style="background-color:#6699CC;height:43px"
+              ng-click="goToSearch();">
+              <p class="p-t-5" style="text-align: center;">{{'2010'| i18n}}</p>
+              <p style="font-size: 20px;text-align: center;">{{CaseCountList.Normal.OnGoing}}</p>
+            </div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/hammerJS/hammer.js"></script>
+  <script src="js/select/select2.min.js"></script>
+  <script src="js/angular.min.js"></script>
+  <script src="js/angular-material.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+  <script src="js/angular-animate.min.js"></script>
+  <script src="js/angular-touch.min.js"></script>
+  <script src="js/angular-aria.min.js"></script>
+  <script src="js/angular-cookies.js"></script>
+  <script src="js/angular-md5.js"></script>
+  <script src="js/underscore-min.js"></script>
+  <script src="js/sha1.js"></script>
+  <script src="js/messages.js"></script>
+  <script src="https://res.wx.qq.com/open/js/jweixin-1.2.0.js"></script>
+  <script src="js/hammerJS/angular.hammer.js"></script>
+  <script src="js/timepicker/moment.js"></script>
+  <script src="js/timepicker/daterangepicker.js"></script>
+  <script src="js/timepicker/angular-daterangepicker.js"></script>
+  <!-- i18n -->
+  <script src="js/angular-translate/angular-translate.js"></script>
+  <script src="js/angular-translate/loader-static-files.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services/i18n.js"></script>
+    <script type="text/javascript" src="i10n/zh-cn.js"></script>
+    <script type="text/javascript" src="i10n/zh-tw.js"></script>
+  <script src="js/directives/NT_template.js"></script>
+  <script src="js/controllers/datepicker.js"></script>
+  <script src="js/controllers/PushList.js"></script>
+  <script src="js/controllers/fabToolbarBasicUsage.js"></script>
+  <script src="js/directives/autoComplete.js"></script>
+  <script src="js/directives/starRating.js"></script>
+  <script src="js/directives/hammer_direct.js"></script>
+  <script src="js/scrollSmooth.js"></script>
+
+</body>
+
+</html>

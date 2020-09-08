@@ -1,0 +1,28 @@
+<div class="form-group border_bottom nomargin ng-cloak" ng-cloak>
+        <!-- <div sort-date-time showtag="3" callback="ForCallback()" emergency-name="{{EmergencyName}}" emergency-ids="EmergencyIds"
+          inspection-name="{{InspectionName}}" is-inspection="IsInspection" orderby-params="OrderbyParames"></div> -->
+          <div class="row nomargin NT_dateSort case-filter-bar NT_blue_bg_03" style="z-index:99">
+            <div class="col-l-3 col-md-3 col-xs-3">              
+              <button class="btn full-width nopadding noboder_radius dropdown-toggle NT_blue_bg_03" id="sortTimeSet" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                  {{'11087'| i18n}}
+                  <span class="caret"></span>
+              </button>
+              <ul class="dropdown-menu NT_timeSetMenu" aria-labelledby="sortTimeSet">
+                  <li class="dropdown" ng-class="{'text-blue': OrderByTime1.DESC}" ng-click="OrderbyTime('DateM','DESC')">{{'11088'| i18n}}</li>
+                  <li class="dropdown" ng-class="{'text-blue': OrderByTime1.ASC}" ng-click="OrderbyTime('DateM','ASC')">{{'11089'| i18n}}</li>
+                  <!-- <li class="divider"></li> -->
+                  <li class="dropdown" ng-class="{'text-blue': OrderByTime2.DESC}" ng-click="OrderbyTime('EstArrivalTime','DESC')">{{'11090'| i18n}}</li>
+                  <li class="dropdown" ng-class="{'text-blue': OrderByTime2.ASC}" ng-click="OrderbyTime('EstArrivalTime','ASC')">{{'11091'| i18n}}</li>
+              </ul>
+              <!-- <span style="margin-left:50px;margin-top:10px;" ng-class="{'text-white':!isOvertime,'text-red':isOvertime}" ng-click="setOvertime()">逾時</span> -->
+            </div>
+            <div class="col-l-5 col-md-5 col-xs-5 nopadding">
+              <div style="margin-left:50px;padding-top:12px;" ng-class="{'text-white':!isOvertime,'text-red':isOvertime}" ng-click="setOvertime()">{{'11065'| i18n}}</div>
+            </div>
+            <div class="col-l-4 col-md-4 col-xs-4" style="text-align:right;">
+                <button class="btn full-width NT_blue_bg_03 nopadding" ng-click="toggleDenav('Multi')">
+                    {{'11047'| i18n}} <span class="fa fa-filter"></span>
+                </button>
+            </div>
+          </div>
+      </div>

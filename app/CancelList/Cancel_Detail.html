@@ -1,0 +1,46 @@
+<div case-detail-top></div>
+<br>
+<form class="form-horizontal ng-cloak" name="acceptance_form" style="margin: 0 5px;" novalidate ng-cloak>
+    <div class="NT_side_body_acceptance NT_side_body_Cancel panel-group">
+        <div class="form-group">
+            <textarea class="form-control" rows="10" placeholder="{{'11029'| i18n}}" ng-model="RevocationParameters.History.Remark"></textarea>
+        </div>
+        <!-- 王品 5/23 -->
+        <div class="form-group" ng-show="IsUseHistoryQuote">
+            <!-- <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-true-value="0" ng-false-value="1" ng-model="RevocationParameters.History.IsNeedEvaluated">{{'11030'| i18n}}
+                </label>
+            </div>
+            <div class="checkbox">
+                <label>
+                    <input type="checkbox" ng-true-value="1" ng-false-value="0" ng-model="RevocationParameters.History.IsNeedEvaluated">产生费用
+                </label>
+            </div> -->
+            <md-checkbox md-no-ink ng-true-value="0" ng-false-value="1" ng-model="RevocationParameters.History.IsNeedEvaluated" class="md-primary">{{'11030'| i18n}}</md-checkbox>
+            <md-checkbox md-no-ink ng-true-value="1" ng-false-value="0" ng-model="RevocationParameters.History.IsNeedEvaluated" class="md-primary">{{'11031'| i18n}}</md-checkbox>
+        </div>
+        <div class="form-group" ng-show="RevocationParameters.History.IsNeedEvaluated==1">
+            <div class="input-group no-padding">
+                    <label class="font-xxs font-yellow">{{'11032'| i18n}}</label>
+                <input type="text" class="w-200" ng-model="TotalItem.UnitPrice" placeholder="{{'11033'| i18n}}">
+            </div>
+        </div>
+    </div>
+    <div class="form-group NT_cancleBtn_area text-center" style="z-index: 999;">
+        <button type="submit" ng-show="IsUseHistoryQuote" ng-click="Revocation()" class="btn btn-primary NT_red_bg_04 NT_cancleBtn" autocomplete="off" ng-disabled="RevocationParameters.History.Remark==''||isCancel||IsNumberDisabled||RevocationParameters.History.IsNeedEvaluated==-1">
+            <span ng-show="!isCancel">{{'00003'| i18n}}
+                <br>{{'2054'| i18n}}</span>
+            <i class="fa fa-1-5x fa-spinner fa-spin" ng-show="isCancel"></i>
+        </button>
+        <!-- 王品 5/23 -->
+        <button type="submit" ng-hide="IsUseHistoryQuote" ng-click="Revocation()" class="btn btn-primary NT_red_bg_04 NT_cancleBtn" autocomplete="off" ng-disabled="RevocationParameters.History.Remark==''||isCancel">
+            <span ng-show="!isCancel">{{'00003'| i18n}}
+                <br>{{'2054'| i18n}}</span>
+            <i class="fa fa-1-5x fa-spinner fa-spin" ng-show="isCancel"></i>
+        </button>
+    </div>
+</form>
+<div class="NT_side_footer_case NT_blue_bg">
+    <div case-go-back></div>
+</div>

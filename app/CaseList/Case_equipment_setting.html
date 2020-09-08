@@ -1,0 +1,92 @@
+<div class="modal fade" id="equipment_setting" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--选择的设备名称-->
+                <h4 class="modal-title custom_align" id="Heading">[{{RepairParameters.EquipmentCode}}]&nbsp;&nbsp;{{RepairParameters.EquipmentName}}</h4>
+            </div>
+            <div class="modal-body" style="max-height: 400px;overflow-y:scroll;">
+                <!-- 区域 -->
+
+                <div class="row border_bottom" style="margin-top:10px;" ng-repeat="items in SettingInfo">
+                    <div class="col-xs-1 col-md-1">
+                        {{$index+1}}
+                    </div>
+                    <div class="col-xs-9 col-md-9 nopadding">
+                        <div class="col-xs-12 col-md-12 nopadding">
+                            <div class="col-xs-2 col-md-2 nopadding">{{'11056'| i18n}}</div>
+                            <div class="col-xs-4 col-md-4 nopadding">
+                                <md-input-container md-no-float>
+                                    <input ng-model="items.nLong" type="text" required>
+                                </md-input-container>
+                            </div>
+                            <div class="col-xs-2 col-md-2 nopadding">mm</div>
+                        </div>
+                        <div class="col-xs-12 col-md-12 nopadding">
+                            <div class="col-xs-2 col-md-2 nopadding">{{'11057'| i18n}}</div>
+                            <div class="col-xs-4 col-md-4 nopadding">
+                                <md-input-container md-no-float>
+                                    <input ng-model="items.nWidth" type="text" required>
+                                </md-input-container>
+                            </div>
+                            <div class="col-xs-2 col-md-2 nopadding">mm</div>
+                        </div>
+                        <div class="col-xs-12 col-md-12 nopadding">
+                            <div class="col-xs-2 col-md-2 nopadding">{{'11058'| i18n}}</div>
+                            <div class="col-xs-4 col-md-4 nopadding">
+                                <md-input-container md-no-float>
+                                    <input ng-model="items.nHeight" type="text" required>
+                                </md-input-container>
+                            </div>
+                            <div class="col-xs-2 col-md-2 nopadding">mm</div>
+                        </div>
+                        <div class="col-xs-12 col-md-12 nopadding">
+                            <div class="col-xs-2 col-md-2 nopadding">{{'11026'| i18n}}</div>
+                            <div class="col-xs-4 col-md-4 nopadding">
+                                <md-input-container md-no-float>
+                                    <input ng-model="items.nCount" type="text" required>
+                                </md-input-container>
+                            </div>
+                            <div class="col-xs-2 col-md-2 nopadding">{{'11059'| i18n}}</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-1 col-md-1 nopadding" ng-show="SettingInfo.length>1">
+                        <i class="fa fa-close fa-2x text-danger" ng-click="removeItem4Setting($index)"></i>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-warning btn-lg" style="width: 100%;" ng-disabled="showConfirm" ng-click="showConfirmModal()">
+                  {{'00002'| i18n}}
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+
+<div class="modal fade" id="confirmAddSetting" tabindex="-1" role="dialog" data-backdrop="static" data-keyboard="false">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <!--选择的设备名称-->
+                <h4 class="modal-title custom_align" id="Heading">{{'11060'| i18n}}</h4>
+            </div>
+            <div class="modal-body">
+              {{'11061'| i18n}}
+            </div>
+            <div class="modal-footer ">
+                <button type="button" class="btn btn-warning btn-lg" style="width: 100%;" ng-click="confirmAddSetting(1)">
+                  {{'11062'| i18n}}
+                </button>
+                <button type="button" class="btn btn-success btn-lg" style="width: 100%;margin-left:0px;" ng-click="confirmAddSetting(0)">
+                  {{'11063'| i18n}}
+                </button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>

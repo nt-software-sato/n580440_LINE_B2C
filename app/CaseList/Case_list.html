@@ -1,0 +1,97 @@
+<!--  无按键时显示  -->
+<div class="alert alert-danger NT_gray_bg_03 NT_Loading" ng-show="!isShowDetail&&!isLoading">
+  <div without-case></div>
+</div>
+<!-- loading 圆圈  -->
+<div loading></div>
+
+<!--  案件  -->
+<div class="list-group-item border_bottom" ng-class="{'NT_pink_bg':RepairItem.IsOvertime==1&&IsUItoWP==false,'NT_pink_bg2':RepairItem.IsOvertime==1&&IsUItoWP==true}"
+  ng-repeat="RepairItem in RepairList | filter:Listdata" ng-click="GetDetail(RepairItem,'Detail',RepairItem.IsInspection)"
+  ng-show="isShowDetail&&!isLoading">
+  <div class="row nomargin nopadding">
+    <label class="checkbox-styled">
+      <span ng-class="{'swipe_color':RepairItem.Selected}">
+        <!--  ng-class="{'NT_border_L_red':RepairItem.IsOvertime}" -->
+        <blockquote>
+          <dl>
+            <dd class="NT_CaseNo">
+              <div class="row NT_CaseNoList">
+                <!--<div class="text-left" ng-class="{'NT_singnListCSS':NT_singnList==1,'':NT_singnList==0}">
+                                    {{RepairItem.CaseNo}} 
+                                </div-->
+                <span class="text-center NT_red_bg_04 p-x-5" ng-class="{'NT_red_bg_04':RepairItem.Emergency==0,'NT_gray_bg_04':RepairItem.Emergency==1||RepairItem.Emergency==2}">{{RepairItem.Priority}}</span>
+                {{RepairItem.CaseNo}}
+                <div class="text-center" ng-show="NT_singnList==1" ng-class="{'NT_singnListCSS':NT_singnList==1,'':NT_singnList==0}">
+                  <span class="pull-right NT_choose_empty" ng-class="{'animated fadeIn':isSelected_Store}">
+                    <i ng-class="{'fa fa-1-5x fa-check-circle':isSelected_Store,'fa fa-1-5x fa-circle-thin':!isSelected_Store}"></i>
+                  </span>
+                </div>
+              </div>
+            </dd>
+            <dt>
+              <h4 class="bold">[{{RepairItem.EquipmentCode}}]&nbsp;&nbsp;{{RepairItem.EquipmentName}}
+                <span class="badge" style="background-color: #659be0;" ng-show="RepairItem.IsEverGenericMaterialsDilemma==1">{{'2141'| i18n}}</span>
+              </h4>
+            </dt>
+          </dl>
+          <p class="text-left small_detail m-b-5">{{RepairItem.MaintainerNickname}}&nbsp;-&nbsp;
+            {{RepairItem.StrongholdName}}</p>
+          <!--状态图-->
+          <div class="NT_Casebreadcrumb row">
+            <ul id="breadcrumb">
+              <li><a class="complete" disabled="disabled">{{'2142'| i18n}}</a></li>
+              <li>
+                <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>1||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==1}">
+                  {{'2143'| i18n}}
+                </a>
+              </li>
+              <li>
+                <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>2||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==2}">
+                  {{'2144'| i18n}}
+                </a>
+              </li>
+              <li>
+                <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>3||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==3}">
+                  {{'2145'| i18n}}
+                </a>
+              </li>
+              <li>
+                <a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>4||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==4}">
+                  {{'2146'| i18n}}
+                </a>
+              </li>
+              <li>
+                <a class="lastChild" ng-show="{{RepairItem.GeneralStageId>=0}}" ng-class="{'':RepairItem.GeneralStageId!=4,'complete':RepairItem.GeneralStageId==5}">
+                  {{'2147'| i18n}}
+                </a>
+              </li>
+              <li>
+                <a class="lastChild" ng-show="{{RepairItem.GeneralStageId<0}}" ng-class="{'':GeneralStageId,'complete':RepairItem.StageId==-100,'process':RepairItem.StageId==-99}">
+                  {{'2148'| i18n}}
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <footer class="text-right NT_CaseFooter m-t-5">
+            <div class="row">
+              <div class="text-right">-</div>
+              <div class="text-right">{{RepairItem.Unit}}</div>
+              <div class="text-right">{{RepairItem.UserName}}</div>
+              <div class="text-right">{{RepairItem.DateM}}</div>
+            </div>
+          </footer>
+          <p class="text-right small_detail" style="margin: 5px;" ng-show="RepairItem.IsOvertime==1">{{'2149'| i18n}}
+            {{RepairItem.OverTime}} {{'2150'| i18n}}</p>
+        </blockquote>
+      </span>
+    </label>
+  </div>
+  <!--载入更多-->
+
+</div>
+
+<div class="list-group-item">
+  <div class="row nomargin nopadding" load-more></div>
+</div>

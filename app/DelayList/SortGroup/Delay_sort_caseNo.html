@@ -1,0 +1,37 @@
+<div class="row nomargin NT_CaseSort" ng-show="Delayer=='Store'||Delayer=='Maintainer'">
+    <div class="col-xs-4 col-md-4 col-lg-4 nopadding">
+        <button type="button" class="btn btn-sm NT_DelaysortBtn noboder_radius " style="width:100%;"  ng-click="SetEmergencyId(9)" ng-class="{'NT_blue_bg_05':EmergencyId==9,'NT_blue_bg_03':EmergencyId==0||EmergencyId==1}">
+            {{'11049'| i18n}}&nbsp;({{DelaySelectInfo.Count.Total}}) 
+        </button>
+    </div>
+    <div class="col-xs-4 col-md-4 col-lg-4 nopadding">
+        
+        <button type="button" class="btn btn-sm NT_DelaysortBtn noboder_radius " style="width:100%;" ng-click="SetEmergencyId(0)" ng-class="{'NT_blue_bg_05':EmergencyId==0,'NT_blue_bg_03':EmergencyId==1||EmergencyId==9}">
+            {{'2057'| i18n}}&nbsp;({{DelaySelectInfo.Count.Emergency}})
+        </button>
+    </div>
+    <div class="col-xs-4 col-md-4 col-lg-4 nopadding">
+        <button type="button" class="btn btn-sm NT_DelaysortBtn noboder_radius " style="width:100%;" ng-click="SetEmergencyId(1)" ng-class="{'NT_blue_bg_05':EmergencyId==1,'NT_blue_bg_03':EmergencyId==0||EmergencyId==9}">
+            {{'11092'| i18n}}&nbsp;({{DelaySelectInfo.Count.Normal}})
+        </button>
+    </div>
+</div>
+
+<div class="row nomargin NT_CaseSort" ng-show="Delayer=='MaintainerByAccept'||Delayer=='MaintainerByCheckIn'||Delayer=='MaintainerByFinish'" style="top:45px;">
+    <div class="col-xs-4 col-md-4 col-lg-4 nopadding">
+        <button type="button" class="btn btn-sm NT_DelaysortBtn noboder_radius NT_blue_bg_05" style="width:100%;">
+            {{'11049'| i18n}}&nbsp;({{DelaySelectInfo.Count.Total}}) 
+        </button>
+    </div>
+    <div class="col-xs-4 col-md-4 col-lg-4 nopadding">
+        
+        <button type="button" class="btn btn-sm NT_DelaysortBtn noboder_radius NT_blue_bg_05" style="width:100%;">
+            {{'2057'| i18n}}&nbsp;({{DelaySelectInfo.Count.Emergency}})
+        </button>
+    </div>
+    <div class="col-xs-4 col-md-4 col-lg-4 nopadding">
+        <button type="button" class="btn btn-sm NT_DelaysortBtn noboder_radius NT_blue_bg_05" style="width:100%;">
+            {{'11092'| i18n}}&nbsp;({{DelaySelectInfo.Count.Normal}})
+        </button>
+    </div>
+</div>

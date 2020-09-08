@@ -1,0 +1,110 @@
+#breadcrumb {
+  list-style: none;
+  display: inline-block;
+  margin: 0 ;
+/*   padding: 0 0 0 13px;*/
+    padding: 0;
+  -moz-box-sizing: border-box;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+    width: 100%;
+}
+
+#breadcrumb li {
+  float: left;
+}
+#breadcrumb li a {
+  color: #FFF;
+  background: #E0E0E0;
+  display: block;
+  text-decoration: none;
+  position: relative;
+  height: 30px;
+  line-height: 30px;
+  /*  padding: 0 10px 0 5px;*/
+  padding: 0px;
+  text-align: center;
+  margin-right: 23px;
+  font-size: 0.8em;
+}
+#breadcrumb li:nth-child(even) a {
+  background-color: #E0E0E0;
+}
+#breadcrumb li:nth-child(even) a:before {
+  border-color: #E0E0E0;
+  border-left-color: transparent;
+}
+#breadcrumb li:first-child a {
+  padding-left: 15px;
+  -moz-border-radius: 4px 0 0 4px;
+  -webkit-border-radius: 4px;
+  border-radius: 4px 0 0 4px;
+}
+#breadcrumb li:first-child a:before {
+  border: none;
+}
+#breadcrumb li:last-child a,#breadcrumb li a.lastChild{
+  padding-right: 15px;
+  -moz-border-radius: 0 4px 4px 0;
+  -webkit-border-radius: 0;
+  border-radius: 0 4px 4px 0;
+    margin-right: 3px;
+}
+
+#breadcrumb li a:before, #breadcrumb li a:after {
+  content: "";
+  position: absolute;
+  top: 0;
+  border: 0 solid #E0E0E0;
+  border-width: 15px 10px;
+  width: 0;
+  height: 0;
+}
+#breadcrumb li:last-child a:after,#breadcrumb li a.lastChild:after {
+  border: none;
+}
+#breadcrumb li a:before {
+  left: -20px;
+  border-left-color: transparent;
+}
+#breadcrumb li a:after {
+  left: 100%;
+  border-color: transparent;
+  border-left-color: #E0E0E0;
+}
+#breadcrumb li a:hover {
+  background-color: #E0E0E0;
+}
+#breadcrumb li a:hover:before {
+  border-color: #E0E0E0;
+  border-left-color: transparent;
+}
+#breadcrumb li a:hover:after {
+  border-left-color: #E0E0E0;
+}
+/*已完成*/
+/*#breadcrumb li a:active,#breadcrumb li a.active */
+#breadcrumb li a.complete{
+  background-color: #AED581;
+}
+/*#breadcrumb li a:active:before,#breadcrumb li a.active:before */
+#breadcrumb li a.complete:before{
+  border-color: #AED581;
+  border-left-color: transparent;
+}
+/*#breadcrumb li a:active:after,#breadcrumb li a.active:after */
+#breadcrumb li a.complete:after{
+  border-left-color: #AED581;
+}
+
+/*進行中*/
+#breadcrumb li a.process{
+  background-color: #FFCC80;
+}
+#breadcrumb li a.process:before{
+  border-color: #FFCC80;
+  border-left-color: transparent;
+}
+#breadcrumb li a.process:after{
+  border-left-color: #FFCC80;
+}

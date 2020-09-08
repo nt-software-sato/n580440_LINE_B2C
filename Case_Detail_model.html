@@ -1,0 +1,433 @@
+
+
+  <div class="form-group border_bottom nomargin ng-cloak" style="background-color:#086A87;align-content: center;"  ng-cloak>
+      <!-- <div case-search></div> -->
+      <div class="col-xs-6 p-0" style="background-color:#086A87;">
+      <img src="img/logo/580440_NT.png" style="height: 42px;" /></div>
+      <div class="col-xs-6 p-0" align="right" style="background-color:#086A87;">
+      <img src="img/logo/580440_580440.png" style="height: 42px;" /></div>
+    </div><div class="NT_side_head_title nomargin NT_blue_bg" style="padding:5px;margin-bottom: 0px;">
+  <!--案件编号 + 状态-->
+  <div class="row nomargin" style="padding: 0px;margin-bottom: 5px;">
+    <div class="col-xs-12 col-md-12 nopadding lineheight_24def" style="margin:2px;">
+      <div class="col-xs-8 col-md-8 nopadding">
+        <h4 class="nomargin NT_detail_w_m">{{RepairInfo.CaseNo}}</h4>
+      </div>
+
+      <div class="col-xs-4 col-md-4 nopadding NT_red_bg_04 NT_detail_fontweight text-center ">{{RepairInfo.ClosedNo}}
+      </div>
+    </div>
+    <!--设施设备 + 销案密码-->
+    <div class="col-xs-12 col-md-12 nopadding" style="margin:3px 2px 3px 2px;">
+      <div class="col-xs-8 col-md-8 nopadding NT_detail_fontweight">
+        <h3 class="nomargin NT_detail_w_l">[{{RepairInfo.EquipmentCode}}]&nbsp;&nbsp;{{RepairInfo.EquipmentName}}</h3>
+      </div>
+      <div class="col-xs-4 col-md-4 nopadding NT_blue_bg_04 NT_detail_fontweight text-center" ng-show="RepairInfo.IsRetail != 1">
+        {{RepairInfo.Priority}}
+      </div>
+      <div class="col-xs-4 col-md-4 nopadding NT_blue_bg_04 NT_detail_fontweight text-center" ng-show="RepairInfo.IsRetail == 1">
+        <!-- 散戶報修不會有priority -->
+        {{RepairInfo.Brand}}
+      </div>
+    </div>
+    <!-- 区域-->
+    <div class="col-xs-12 col-md-12 nopadding" style="margin:0 2px 0 2px; ">
+      <div class="col-xs-12 col-md-12 nopadding NT_detail_fontweight">
+        <p class="text-left nomargin NT_detail_fontweight NT_detail_gray">
+          <span ng-repeat="Item in Equipmentpos" class="area_tag">
+            {{Item.Region}}-{{Item.Position}}
+          </span>
+
+        </p>
+      </div>
+    </div>
+    <!-- 报修原因与备注 -->
+    <div class="col-xs-12 col-md-12 nopadding" style="margin:3px 3px 3px 2px;">
+      <h4 class="nomargin NT_detail_w_m l-h-1x">{{CauseList}}</h4>
+    </div>
+    <!-- 申訴+歷程 按鈕 -->
+    <div>
+      <div class="col-xs-12 col-md-12 text-right nopadding">
+        <span ng-show="RepairInfo.Maintenance!=1 || !WPCaseAppealBtnIsDisabled">
+          <!-- 结案待确认申诉(王品) -->
+          <md-button class="md-warn md-raised md-hue-2" style="margin:5px;" aria-label="appeal1" ng-click="showConfirmationAppeal('1')"
+            ng-disabled="WPCaseAppealBtnIsDisabled" ng-show="RepairInfo.StageId==36&&hasConfirmCaseAppealPermissions">{{'2094'| i18n}}
+            <i class="fa fa-ban" ng-show="WPCaseAppealBtnIsDisabled"></i>
+          </md-button>
+          <!-- 费用申诉(王品) -->
+          <md-button class="md-warn md-raised md-hue-2" style="margin:5px;" aria-label="appeal2" ng-click="showConfirmationAppeal('2')"
+            ng-disabled="WPQuoteAppealBtnIsDisabled" ng-show="RepairInfo.StageId==36&&hasQuoteAppealPermissions">{{'2095'| i18n}}
+            <i class="fa fa-ban" ng-show="WPQuoteAppealBtnIsDisabled"></i>
+          </md-button>
+          <!-- 结案申诉(王品/85) -->
+          <md-button class="md-warn md-raised md-hue-2" style="margin:5px;" aria-label="appeal" ng-click="showAppeal($event)"
+            ng-disabled="AppealBtnIsDisabled" ng-show="RepairInfo.StageId==100">{{'2096'| i18n}}
+            <i class="fa fa-ban" ng-show="AppealBtnIsDisabled"></i>
+          </md-button>
+        </span>
+        <!-- 历程新增(王品) -->
+        <md-button class="md-fab md-mini md-primary" aria-label="+" ng-click="showListBottomSheet($event)" ng-show="hasAddForHistoryPermissions&&IsToAddForHistory">
+          <i class="fa fa-plus"></i>
+        </md-button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="NT_side_body_caselist panel-group">
+  <form class="form-horizontal">
+    <!--照片 预设只显示三张 剩下的进入Case_Detail_gallery.html页面才列出 ng-show="IsThumbs" -->
+    <div class="form-group nomargin" style="margin:0 5px" ng-show="IsThumbs_Request">
+      <section class="NT_gallery">
+        <!-- 相片 -->
+        <img style="padding:5px;height:100px;width:100px;" alt="..." ng-src="{{Thumb.FilePath}}" ng-click="previewImage($index,ThumbList)"
+          class="thumb m-b m-l-xs" ng-repeat="Thumb in ThumbList">
+      </section>
+    </div>
+    <div class="form-group nomargin" style="margin:0 5px" ng-show="IsThumbs_Response">
+      <section class="NT_gallery">
+        <ng-gallery images="ThumbList_Response"></ng-gallery>
+      </section>
+    </div>
+    <!--音档-->
+    <div class="form-group" style="padding:0 5px;" ng-show="isShowVoice">
+      <button class="btn btn-default NT_btn_modal NT_blue_bg_03 noboder_radius" ng-click="play()" style="padding-bottom:6px;"
+        type="button">
+        {{'2070'| i18n}}&nbsp;&nbsp;
+        <i class="fa -2x fa-play" ng-show="!playing"></i>
+        <i class="fa fa-pause" ng-show="playing"></i>
+      </button>
+    </div>
+    <!--输入明细-->
+    <div class="form-group nomargin" ng-controller="TimepickerDemoCtrl" id="timepickerArea">
+      <div class="row nomargin">
+        <!-- 门店资料 + 维修商 -->
+        <div class="col-xs-12 col-md-12 post-header-line">
+          <p class="container nomargin nopadding" style="margin-left:0px;">
+            <!-- 门店 -->
+            <span class="col-xs-6 col-md-6 nopadding l-h-1x">
+              <i class="fa fa-home"></i>&nbsp;{{RepairInfo.Unit}}
+            </span>
+            <!-- 连络电话 -->
+            <span class="col-xs-6 col-md-6 nopadding">
+              <!-- 散戶或門店的電話 -->
+              <i class="fa fa-phone"></i>&nbsp;{{userInfo.tel}}
+            </span>
+          </p>
+          <hr style="margin:8px 0;">
+          <p class="l-h-1x">
+            <!-- 散戶或門店的地址 -->
+            <i class="fa fa-map-marker"></i>&nbsp;{{userInfo.address}}</p>
+          <hr style="margin:8px 0;">
+          <p>
+            <i class="fa fa-user"></i>&nbsp;{{RepairInfo.UserName}}</p>
+          <hr style="margin:8px 0;">
+          <p class="l-h-1x">
+            <i class="fa fa-wrench"></i>&nbsp;{{RepairInfo.MaintainerName}} -{{RepairInfo.StrongholdName}} </p>
+        </div>
+        <!--  最新预计到店时间 可显示 or 隐藏-->
+        <div class="col-xs-12 col-md-12 m-t-5">
+          <div class="alert alert-danger NT_red_bg_03" style="margin-bottom: 0px;padding: 5px;font-size: 0.9em;">
+            <i class="fa fa-bell"></i>
+            <strong>
+              {{'2097'| i18n}}
+              <p class="text-center nomargin">{{RepairInfo.EstArrivalTime}} </p>
+            </strong>
+          </div>
+        </div>
+      </div>
+    </div>
+    <hr style="margin:8px 0;">
+    <div class="" style="padding-bottom: 1px;">
+      <div class="row overview nomargin">
+        <div class="col-xs-4 col-md-4 user-pad text-center " style="padding-right:0;">
+          <h4 class="nomargin NT_green_bg_05" style="padding:3px 0;">A - D</h4>
+        </div>
+        <div class="col-xs-8 col-md-8 user-pad text-center" style="padding-left:0;">
+          <h4 class="nomargin NT_green_bg_05" style="padding:3px 0;">&nbsp;{{RepairInfo.IntervalAD}}</h4>
+        </div>
+      </div>
+    </div>
+    <div class="form-group nomargin">
+      <div class="row overview nomargin">
+        <div class="col-xs-4 col-md-4 user-pad text-center" style="padding-right:1px;">
+          <h4 class="nomargin NT_green_bg_03 border_bottom_w" style="padding:3px 0;">A - B</h4>
+          <h4 class="nomargin NT_green_bg_03" style="padding:3px 0;">&nbsp;{{RepairInfo.IntervalAB}}</h4>
+        </div>
+        <div class="col-xs-4 col-md-4 user-pad text-center" style="padding-left:1px;padding-right:1px;">
+          <h4 class="nomargin NT_green_bg_03 border_bottom_w" style="padding:3px 0;">B - C</h4>
+          <h4 class="nomargin NT_green_bg_03" style="padding:3px 0;">&nbsp;{{RepairInfo.IntervalBC}}</h4>
+        </div>
+        <div class="col-xs-4 col-md-4 user-pad text-center" style="padding-left:1px;">
+          <h4 class="nomargin NT_green_bg_03 border_bottom_w" style="padding:3px 0;">C - D</h4>
+          <h4 class="nomargin NT_green_bg_03" style="padding:3px 0;">&nbsp;{{RepairInfo.IntervalCD}}</h4>
+        </div>
+      </div>
+    </div>
+    <hr style="margin:8px 0;">
+    <div class="form-group nomargin" ng-show="hasUseQuotePermissions">
+      <div class="row overview nomargin">
+        <div class="col-xs-3 col-md-3 user-pad text-center" style="padding-right:2px;">
+          <h4 class="nomargin NT_green_bg_03 border_bottom_w" style="padding:3px 0;">{{'2098'| i18n}} <br>{{'2099'| i18n}}</h4>
+          <h4 class="nomargin NT_green_bg_03" style="padding:3px 0;">&nbsp;{{QuoteInfo.ApplyPrice}}</h4>
+        </div>
+        <div class="col-xs-3 col-md-3 user-pad text-center" style="padding-left:2px;padding-right:2px;">
+          <h4 class="nomargin NT_green_bg_03 border_bottom_w" style="padding:3px 0;">{{'2100'| i18n}}
+            <br>{{'2099'| i18n}}</h4>
+          <h4 class="nomargin NT_green_bg_03" style="padding:3px 0;">&nbsp;{{QuoteInfo.ApprovePrice}}</h4>
+        </div>
+        <div class="col-xs-3 col-md-3 user-pad text-center" style="padding-left:2px;padding-right:2px;">
+          <h4 class="nomargin NT_green_bg_03 border_bottom_w" style="padding:3px 0;">{{'2101'| i18n}}
+            <br>{{'2102'| i18n}}</h4>
+          <h4 class="nomargin NT_green_bg_03" style="padding:3px 0;">&nbsp;{{QuoteInfo.OnGoingPrice}}</h4>
+        </div>
+        <div class="col-xs-3 col-md-3 user-pad text-center" style="padding-left:2px;">
+          <h4 class="nomargin NT_green_bg_03 border_bottom_w" style="padding:3px 0;">{{'2102'| i18n}}
+            <br>{{'2103'| i18n}}</h4>
+          <h4 class="nomargin NT_green_bg_03" style="padding:3px 0;">&nbsp;{{QuoteInfo.FailedPrice}}</h4>
+        </div>
+      </div>
+    </div>
+    <hr style="margin:8px 0;" ng-show="hasUseQuotePermissions">
+    <div class="form-group nomargin" ng-show="hasUseQuotePermissions">
+      <div class="row overview nomargin">
+        <div class="col-xs-3 col-md-3 user-pad text-center" style="padding-right:2px;">
+          <h4 class="nomargin NT_green_bg_03 border_bottom_w" style="padding:3px 0;">{{'2104'| i18n}}
+            <br>{{'2099'| i18n}}</h4>
+          <h4 class="nomargin NT_green_bg_03" style="padding:3px 0;">&nbsp;{{PayInfo.QuotePrice}}</h4>
+        </div>
+        <div class="col-xs-3 col-md-3 user-pad text-center" style="padding-left:2px;padding-right:2px;">
+          <h4 class="nomargin NT_green_bg_03 border_bottom_w" style="padding:3px 0;">+{{'2105'| i18n}}
+            <br>{{'2099'| i18n}}</h4>
+          <h4 class="nomargin NT_green_bg_03" style="padding:3px 0;">&nbsp;{{PayInfo.SupplyPrice}}</h4>
+        </div>
+        <div class="col-xs-3 col-md-3 user-pad text-center" style="padding-left:2px;padding-right:2px;">
+          <h4 class="nomargin NT_green_bg_03 border_bottom_w" style="padding:3px 0;">={{'2098'| i18n}}
+            <br>{{'2099'| i18n}}</h4>
+          <h4 class="nomargin NT_green_bg_03" style="padding:3px 0;">&nbsp;{{PayInfo.ApplyPrice}}</h4>
+        </div>
+        <div class="col-xs-3 col-md-3 user-pad text-center" style="padding-left:2px;">
+          <h4 class="nomargin NT_green_bg_03 border_bottom_w" style="padding:3px 0;">{{'2106'| i18n}}
+            <br>{{'2099'| i18n}}</h4>
+          <h4 class="nomargin NT_green_bg_03" style="padding:3px 0;">&nbsp;{{PayInfo.CheckedPrice}}</h4>
+        </div>
+      </div>
+    </div>
+    <div class="form-group nomargin" ng-show="hasUseQuotePermissions">
+      <div class="row overview nomargin">
+        <div class="col-xs-4 col-md-4 user-pad text-center " style="padding-right:0;">
+          <h4 class="nomargin NT_green_bg_05" style="padding:3px 0;">{{'2107'| i18n}}</h4>
+        </div>
+        <div class="col-xs-8 col-md-8 user-pad text-center" style="padding-left:0;">
+          <h4 class="nomargin NT_green_bg_05" style="padding:3px 0;">&nbsp;{{PayInfo.ProcessName}}</h4>
+        </div>
+      </div>
+    </div>
+    <hr style="margin:8px 0;" ng-show="hasUseQuotePermissions">
+    <!-- 进度 -->
+    <!--
+           进度表
+           颜色分配
+           NT_gray_bg_04  ----- 未完成
+           NT_blue_bg_03  ----- 进行中
+           NT_teal_bg_03  ----- 完成collapse
+        -->
+    <div class="row overview nomargin" id="timelineArea">
+      <p class="NT_detail_grayblack" style="margin:10px 15px;">{{'2071'| i18n}}</p>
+      <button class="btn btn-default NT_btn_modal nopadding nooutline" type="button" data-toggle="collapse" data-target="#collapseExample"
+        aria-expanded="false" aria-controls="collapseExample" ng-click="change_openicon()">
+        <div class="col-xs-11 col-md-11 user-pad text-center ">
+          <h5 class="NT_blue_bg_03 nomargin" style="padding:3px;height:28px;">
+            {{RepairInfo.GeneralStage}}
+          </h5>
+        </div>
+        <!-- 收合控制icon -->
+        <div class="col-xs-1 col-md-1 user-pad text-left nopadding">
+          <p class="NT_detail_blue" ng-class="fade" ng-show="CollapseState" style="margin-left:-5px;">
+            {{'2072'| i18n}}
+          </p>
+          <i class="fa fa-caret-down NT_blue_word" ng-class="fade" ng-show="!CollapseState"></i>
+        </div>
+      </button>
+    </div>
+    <div ng-show="!CollapseState" class="m-t-5">
+      <div class="wrapper">
+        <ul class="cbp_tmtimeline inDeatail">
+          <li ng-repeat="Items in _TableData">
+            <time class="cbp_tmtime NT_time_title" style="margin-bottom: 10px;" datetime="Items.ResponseTime">
+              <span class="word_break NT_time_word">
+                {{Items.Stage}}
+              </span>
+            </time>
+            <div class="NT_teal_bg_03 cbp_tmicon_d "></div>
+            <div class="cbp_tmlabel_d  NT_teal_bg_03">
+              <div class="md-list-item-text" style="padding:5px 0;font-size:13px;">
+                <!-- 设备调拨 -->
+                <span ng-show="(Items.StageId==60||Items.StageId==61)&&Items.MoveOrderId!=null">设备调拨：
+                  <a href="javascript:;" ng-click="openMoveOrderDetail(Items.MoveOrderId)">调拨单详情</a>
+                </br>
+                </span>
+
+                <!-- 到店时间 -->
+                <span ng-show="Items.StageId==100||Items.StageId==36||Items.StageId==50">{{'2108'| i18n}}：{{Items.RealArrivalTime}}</br>
+                </span>
+                <!-- 到店时间 End -->
+
+                <!-- 完修离店时间 -->
+                <span ng-show="Items.StageId==100||Items.StageId==36||Items.StageId==50">{{'2109'| i18n}}：{{Items.CompleteTime}}</br>
+                </span>
+                <!-- 完修离店时间 End -->
+
+                <!-- 门店确认人员 -->
+                <span ng-show="Items.StageId==36&&IsUseConfirmStaff==true">{{'2110'| i18n}}：{{Items.ConfirmUserId}}</br>
+                </span>
+                <span ng-show="Items.StageId==36&&IsUseConfirmStaff==true">{{'2111'| i18n}}：{{Items.ConfirmUserName}}</br>
+                </span>
+                <span ng-show="Items.StageId==36&&IsUseConfirmStaff==true">{{'2112'| i18n}}：{{Items.ConfirmInfo}}</br>
+                </span>
+                <!-- 门店确认人员 End -->
+
+                <!-- 实际维修品项 -->
+                <span ng-show="(Items.StageId==100||Items.StageId==36) && (Items.Fixed != null && Items.Fixed.length != 0)">{{'2113'| i18n}}：{{Items.Fixed}}</br>
+                </span>
+                <!-- 实际维修品项 End -->
+                {{}}
+                <!-- 维修人员名称 -->
+                <span ng-show="(Items.StageId==100||Items.StageId==36) && (Items.WorkerName != null && Items.WorkerName.length != 0)">{{'2114'| i18n}}：{{Items.WorkerName}}</br>
+                </span>
+                <!-- 维修人员名称 End -->
+
+                <!-- 维修人员电话 -->
+                <span ng-show="(Items.StageId==100||Items.StageId==36) && (Items.WorkerPhoneNo != null && Items.WorkerPhoneNo.length != 0)">{{'2115'| i18n}}：{{Items.WorkerPhoneNo}}</br>
+                </span>
+                <!-- 维修人员电话 End -->
+
+                <!-- 门店验收人员 -->
+                <span ng-show="(Items.StageId==100)">{{'2116'| i18n}}：{{Items.UserName}}</br>
+                </span>
+                <!-- 门店验收人员 End -->
+
+                <!-- 故障原因(web) -->
+                <span ng-show="Items.Instructions!==''&&Items.Instructions!==null">
+                  <span ng-show="(Items.StageId==45)||(Items.StageId==36)||(Items.StageId==100)">{{'2117'| i18n}}：{{Items.Instructions}}</br>
+                  </span>
+                </span>
+                <!-- 故障原因(web) End -->
+
+                <!-- 故障原因(多選) -->
+                <span>
+                  <span ng-show="Items.StageId==36 && RepairInfo.Maintenance!==1">{{'2117'| i18n}}：{{Items.Causes}}</br>
+                  </span>
+                </span>
+                <!-- 故障原因(多選) End -->
+
+                <!-- 故障原因補充 -->
+                <span>
+                  <span ng-show="Items.StageId==36 && RepairInfo.Maintenance!==1">{{'2118'| i18n}}：{{Items.CauseDescription}}</br>
+                  </span>
+                </span>
+                <!-- 故障原因補充 End -->
+
+                <p class="list_title_gray" ng-show="(Items.StageId==91&&RepairInfo.Maintenance!==1)||(Items.StageId==100&&RepairInfo.Maintenance!==1)||(Items.StageId==36&&RepairInfo.Maintenance!==1) || (Items.StageId==91&&IsUItoWP)||(Items.StageId==100&&IsUItoWP)||(Items.StageId==36&&IsUItoWP)">{{'2119'| i18n}}：</p>
+                <span ng-show="(Items.StageId==91&&RepairInfo.Maintenance!==1)||(Items.StageId==100&&RepairInfo.Maintenance!==1)||(Items.StageId==36&&RepairInfo.Maintenance!==1) || (Items.StageId==91&&IsUItoWP)||(Items.StageId==100&&IsUItoWP)||(Items.StageId==36&&IsUItoWP)"
+                  ng-repeat="component in Items.IComponents">
+                  <p>{{component.Name}} * {{component.Count}} </br>
+                  </p>
+                </span>
+
+                <p class="list_title_gray" ng-show="(Items.StageId==45&&RepairInfo.Maintenance!==1) || (Items.StageId==45&&IsUItoWP)">{{'2120'| i18n}}：</p>
+                <span ng-show="(Items.StageId==45&&RepairInfo.Maintenance!==1) || (Items.StageId==45&&IsUItoWP)"
+                  ng-repeat="component in Items.IEvaluated">
+                  <p>{{component.Name}}（{{component.UnitPrice}} * {{component.Count}}）</br>
+                  </p>
+                </span>
+
+
+                <p class="list_title_gray">{{'2074'| i18n}}：</p>
+                <p ng-bind-html="deliberatelyTrustDangerousSnippet(Items.Remark)"></p>
+                <p class="list_title_gray">{{'2121'| i18n}}：</p>
+                <p>{{Items.EstArrivalTime}}</p>
+
+                <!--  相册  -->
+                <div class="Img_wrapper" ng-show="Items.Thumbnail.length>0||Items.Thumbnail.length>0">
+                  <div class="container">
+                    <!-- <ng-gallery class="NT_smallGallery" images="Items.Thumbnail"></ng-gallery> -->
+                    <!-- 相片 -->
+                    <img style="padding:5px;height:100px;width:100px;" alt="..." ng-src="{{Thumb.FilePath}}" ng-click="previewImage($index,Items.Thumbnail)"
+                      class="thumb m-b m-l-xs" ng-show="Thumb.Source != 51" ng-repeat="Thumb in Items.Thumbnail">
+                    <!-- 工單 -->
+                    <div ng-show="Thumb.Source == 51" ng-repeat="Thumb in Items.Thumbnail">
+                      <span style="position: absolute;color:red;font-size: 12px;margin: 5px">
+                        {{'2122'| i18n}}
+                      </span>
+                      <img style="padding:5px;height:100px;width:100px;" alt="..." ng-src="{{Thumb.FilePath}}" ng-click="previewImage($index,Items.Thumbnail)"
+                        class="thumb m-b m-l-xs">
+                    </div>
+                    <div class="box" ng-show="Items.Voice.length>0">
+                      <button class="btn btn-default NT_btn_modal NT_blue_bg_03 noboder_radius" ng-show="Items.Voice.length>0 && Items.Voice[0].IsPlay==false"
+                        ng-click="PlayVoice(Items.Voice[0],Items.Voice[0].FilePath,$index)" style="padding-bottom:6px;"
+                        type="button">
+                        {{'2076'| i18n}}&nbsp;&nbsp;
+                        <i class="fa -2x fa-play" ng-show="!playing"></i>
+                      </button>
+                      <button class="btn btn-default NT_btn_modal NT_blue_bg_03 noboder_radius" ng-show="Items.Voice.length>0 && Items.Voice[0].IsPlay==true"
+                        ng-click="StopVoice(Items.Voice[0])" style="padding-bottom:6px;" type="button">
+                        {{'2076'| i18n}}&nbsp;&nbsp;
+                        <i class="fa fa-pause"></i>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+                <!--  相册 end  -->
+                <!--回复人-->
+                <p class="text-right list_title_gray list_footer">
+                  - &nbsp;{{Items.CreatedUser}} &nbsp;&nbsp;{{Items.ResponseTime}}
+                </p>
+              </div>
+
+            </div>
+          </li>
+          <li class="row">
+            <div style="text-align: center;margin: 20px 0;height:5px;">
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </form>
+</div>
+
+
+<script type="text/ng-template" id="bottom-sheet-list-template.html">
+  <md-bottom-sheet class="md-list md-has-header">
+        <md-subheader>{{'2123'| i18n}}</md-subheader>
+        <!-- <md-list>
+            <md-list-item ng-repeat="item in items" style="padding-left: 0px;padding-right: 0px;">
+                <md-button class="md-grid-item-content" style="background-color:#4dd0e1;color:white;" ng-click="listItemClick($index)">
+                    <div class="md-grid-text" style="font-size: 15px;font-weight:bold;"> {{ item.name }} </div>
+                </md-button>
+            </md-list-item>
+        </md-list> -->        
+        <div ng-cloak>
+          <md-list>
+            <md-list-item ng-repeat="item in items">
+              <md-button
+                  ng-click="listItemClick($index)"
+                  md-autofocus="$index == 2"
+                  class="md-list-item-content">
+                <md-icon class="{{item.icon}}"></md-icon>
+                <span class="md-inline-list-icon-label">{{ item.name }}</span>
+              </md-button>
+            </md-list-item>
+          </md-list>
+        </div>
+    </md-bottom-sheet>
+</script>
+
+
+<div quote-Detail></div>
+<!--设备调拨详情-->
+<md-sidenav class="md-sidenav-right md-sidenav-right-list md-whiteframe-z2" md-component-id="MoveDetail"
+  id="MoveDetail" ng-cloak>
+  <div allot-detail style="overflow:none;" class="NT_side_body_detail panel-group"></div>
+</md-sidenav>

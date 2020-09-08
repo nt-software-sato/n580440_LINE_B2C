@@ -1,0 +1,44 @@
+<!--单位关键字搜寻-->
+<!--<div class="form-group NT_side_head nomargin sidenav_title nomargin NT_blue_bg_04">
+    <div case-search-store-top></div>
+</div>-->
+<!--   调店或支援按鈕,點選後轉頁至调店或支援頁面    -->
+<div class="form-group nomargin sidenav_title nomargin NT_red_bg_03 text-center NT_directBtn" style="">
+  <div class="row nomargin" ng-click="gotoTransfer()">
+    <div class="col-xs-10 col-md-10 nopadding">{{'11043'| i18n}}</div>
+    <div class="col-xs-2 col-md-2 nopadding"><i class="fa fa-caret-right"></i></div>
+  </div>
+</div>
+<!--单位选单-->
+<div class="form-group NT_body_list ng-cloak" ng-cloak>
+  <div class="NT_side_body_list panel-group" id="accordion_store" role="tablist" aria-multiselectable="true"
+    ng-init="isSelected_Store=true">
+    <!--repeat单位-->
+    <!-- 20160224 mark ng-repeat="StoreItem in StoreList|filter:StoreSearch"               -->
+    <div class="panel panel-default noborder">
+      <button class="panel-heading NT_green_bg_03 accordion-toggle collapsed" data-toggle="collapse" data-target="#Unit" href="#Unit">
+                <h4 class="panel-title text_left">{{'2081'| i18n}}</h4>
+            </button>
+      <div id="Unit" class="panel-collapse in collapse panel_collapse_listContainer" ng-class="{'in':$index==0}">
+        <div class="panel-body panel_collapse_list list_underline">
+          <ul class="list-group nomargin">
+            <!-- 20160224 mark ng-repeat="stores in StoreItem.children|filter:StoreSearch" ng-click="SetStore(stores)"-->
+            <li class="list-group-item border_bottom" ng-repeat="StoreList in UnitLeve4data|filter:StoreSearch"
+              ng-click="isSelectLeve4(StoreList)" ng-show="StoreList.Assign==1">
+              {{StoreList.Unit}}
+              <span class="pull-right NT_choose_empty" ng-class="{'animated fadeIn':StoreList.isSelected}">
+                                <i ng-class="{'fa fa-1-5x fa-check-circle':StoreList.isSelected,'fa fa-1-5x fa-circle-thin':!StoreList.isSelected}"></i>
+                            </span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="NT_side_footer NT_blue_bg">
+  <button type="button" class="btn btn-primary NT_close_btn" ng-click="closeDenav('Store')" style="width: 30%;">
+    {{'00001'| i18n}}
+        <i><img src="img/return_24.png" style="width:20px;"></i>
+    </button>
+</div>

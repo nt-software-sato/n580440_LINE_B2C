@@ -1,0 +1,124 @@
+<md-dialog aria-label="Mango (Fruit)" style="min-width:100%;min-height:100%;">
+    <div class="loading-mask" ng-show="isSubmit">
+        <!-- <i class="fa fa-1-5x fa-spinner fa-spin" ng-show="isSubmit"></i> -->
+    </div>
+    <md-dialog-content class="sticky-container" style="padding-bottom:200px;">
+        <div class="NT_side_head_title nomargin NT_blue_bg" style="padding:5px;">
+            <!--案件编号 + 状态-->
+            <div class="row nomargin" style="padding:0px;">
+                <div class="col-xs-12 col-md-12 nopadding lineheight_24def" style="margin:2px;">
+                    <div class="col-xs-8 col-md-8 nopadding">
+                        <h4 class="nomargin NT_detail_w_m">{{RepairInfo.CaseNo}}</h4>
+                    </div>
+                    <div class="col-xs-4 col-md-4 nopadding NT_red_bg_04 NT_detail_fontweight text-center">{{'11093'| i18n}}</div>
+                </div>
+                <!--设施设备 -->
+                <div class="col-xs-12 col-md-12 nopadding" style="margin:3px 2px 3px 2px;">
+                    <div class="col-xs-8 col-md-8 nopadding NT_detail_fontweight">
+                        <h3 class="nomargin NT_detail_w_l">[{{RepairInfo.EquipmentCode}}]&nbsp;&nbsp;{{RepairInfo.EquipmentName}}</h3>
+                    </div>
+                    <div class="col-xs-4 col-md-4 nopadding NT_blue_bg_04 NT_detail_fontweight text-center">
+                        {{RepairInfo.Priority}}
+                    </div>
+                </div>
+                <!-- 区域-->
+                <div class="col-xs-12 col-md-12 nopadding" style="margin:0 2px 0 2px; ">
+                    <div class="col-xs-12 col-md-12 nopadding NT_detail_fontweight">
+                        <p class="text-left nomargin NT_detail_fontweight NT_detail_gray">
+                            <span ng-repeat="Item in Equipmentpos" class="area_tag">
+                                {{Item.Region}}-{{Item.Position}}
+                            </span>
+
+                        </p>
+                    </div>
+                </div>
+                <!-- 报修原因与备注 -->
+                <div class="col-xs-12 col-md-12 nopadding" style="margin:3px 3px 3px 2px;">
+                    <h4 class="nomargin NT_detail_w_m">{{CauseList}}</h4>
+                </div>
+            </div>
+        </div>
+        <!-- 申诉内容 -->
+        <form class="NT_side_body_apply">
+            <!--其他报修說明-->
+            <div class="form-group border_bottom" style="min-height:145px;padding:0px;">
+                <div class="col-xs-12 col-md-12">
+                    <textarea class="form-control" style="margin-top:10px;margin-bottom:10px;" ng-model="Data.AppealCause" rows="5" placeholder="{{'11100'| i18n}}"></textarea>
+                </div>
+            </div>
+            <!--语音档-->
+            <div class="form-group border_bottom" style="min-height:50px;padding:0px;">
+                <div class="col-xs-10 col-md-10" style="min-height:48px;">
+                    <span ng-click="playVoice()" ng-show="Record.localId!=''">
+                        <img src="img/volume.png" style="vertical-align: middle;max-width:20px;max-height:20px;" ng-show="!isplayVoice" />
+                        <img src="img/volume.gif" style="vertical-align: middle;max-width:20px;max-height:20px;" ng-show="isplayVoice" />
+                    </span>
+                </div>
+                <div class="col-xs-2 col-md-2" ng-show="!isStart" style="min-height:48px;">
+                    <button type="button" class="btn noshadow btn-default NT_blue_word nopadding" ng-click="startRecord()">
+                        <i class="fa fa-1-5x  fa-microphone   NT_blue_word"></i>
+                    </button>
+                </div>
+                <div class="col-xs-2 col-md-2" ng-show="isStart">
+                    <button type="button" class="btn noshadow btn-default NT_blue_word nopadding" ng-click="stopRecord()">
+                        <i class="fa fa-1-5x  fa-microphone faa-pulse animated NT_blue_word"></i>
+                    </button>
+                </div>
+            </div>
+            <!--整体图片-->
+            <div class="form-group border_bottom" style="min-height:72px;padding:0px;">
+                <div class="col-xs-10 col-md-10" style="min-height:72px;margin-bottom:6px;">
+                    <span ng-show="imagesList.WholeIds.length==0" style="color:#999;">{{'11101'| i18n}}</span>
+                    <span ng-repeat="item in imagesList.WholeIds" ng-show="imagesList.WholeIds.length>0" style="min-height:72px;">
+                        <img id="wholePic{{$index}}" src="" style="margin-bottom:6px;">
+                        <button class="btn btn-danger img_delet" ng-click="RemoveWhole($index)">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </span>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <button type="button" class="btn noshadow btn-default NT_blue_word" ng-click="chooseWhole()">
+                        <i class="fa fa-1-5x fa-camera NT_blue_word"></i>
+                    </button>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <!--局部图片-->
+            <div class="form-group border_bottom" style="min-height:72px;padding:0px;">
+                <div class="col-xs-10 col-md-10" style="min-height:72px;margin-bottom:6px;">
+                    <span ng-show="imagesList.localIds.length==0" style="color:#999;">{{'11102'| i18n}}</span>
+                    <span ng-repeat="item in imagesList.localIds" ng-show="imagesList.localIds.length>0" style="min-height:72px;">
+                        <img id="advPic{{$index}}" src="" style="margin-bottom:6px;">
+                        <button class="btn btn-danger img_delet" ng-click="RemoveImg($index)">
+                            <i class="fa fa-times"></i>
+                        </button>
+                    </span>
+                </div>
+                <div class="col-xs-2 col-md-2">
+                    <button type="button" class="btn noshadow btn-default NT_blue_word" ng-click="chooseImage()">
+                        <i class="fa fa-1-5x fa-camera NT_blue_word"></i>
+                    </button>
+                </div>
+                <div style="clear:both;"></div>
+            </div>
+            <!-- <div class="form-group text-center" style="position:fixed;bottom:30px;width:100%;">
+                <button type="submit" ng-click="isSubmit=true;ok();" class="btn btn-primary NT_blue_bg NT_submitBtn ng-cloak" autocomplete="off"
+                    ng-disabled="isSubmit" ng-cloak>
+                    <span ng-show="!isSubmit">送出</span>
+                    <i class="fa fa-1-5x fa-spinner fa-spin" ng-show="isSubmit"></i>
+                </button>
+            </div> -->
+        </form>
+    </md-dialog-content>
+    <div class="NT_side_footer_case NT_blue_bg">
+        <button type="button" class="btn btn-primary NT_close_btn" ng-disabled="isSubmit" ng-click="cancel()" tabindex="0">
+          {{'00003'| i18n}}
+            <i>
+                <img src="img/return_24.png" style="width:20px;">
+            </i>
+        </button>
+        <button type="button" class="btn btn-primary NT_close_btn" ng-disabled="isSubmit" ng-click="isSubmit=true;ok();" tabindex="0">
+            <span>{{'00005'| i18n}}</span>
+        </button>
+    </div>
+</md-dialog>

@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html ng-app="WeChat" ng-controller="gotoDelayCtrl" ng-cloak>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="format-detection" content="telephone=no">
+  <title>{{'03011'| i18n}}</title>
+  <link rel="stylesheet" href="css/angular-material.min.css">
+  <link rel="stylesheet" href="css/select/select2.min.css">
+  <link rel="stylesheet" href="css/select/select2-bootstrap.css">
+  <link rel="stylesheet" href="css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+  <link href="css/datepicker/daterangepicker.css" rel="stylesheet">
+  <link rel="stylesheet" href="css/NT_color.css">
+  <link rel="stylesheet" href="css/style_new.css">
+  <link rel="stylesheet" href="css/bootstrap-nav-wizard.css">
+  <style>
+    .ng-cloak {
+      display: none;
+    }
+
+    .tabContent {
+      width: 100%;
+      color: #666;
+      position: absolute;
+      z-index: 1;
+    }
+
+    .tabContent ul {
+      width: 100%;
+      padding: 20px;
+      margin-right: -20px;
+    }
+
+    .tabContent ul li {
+      width: 100%;
+      display: block;
+      overflow: hidden;
+      padding-bottom: 40px;
+      margin-bottom: 40px;
+      border-bottom: #eee solid 1px;
+      -webkit-transition: all .8s ease;
+      -moz-transition: all .8s ease;
+      transition: all .8s ease;
+      font-size: 1em;
+      font-weight: 700;
+    }
+
+    .tabContent ul li span:nth-child(1) {
+      width: 90%;
+    }
+  </style>
+</head>
+
+<body style="overflow:none;"
+  ng-init="longPressSta=false;swipeState=false;isShowDelayList=true;isShowStore=false;dateSort=false;NT_delayNoColor=true;isShowDelayList=true;ShowMaintainerList=true;DelayListName='';showDelayTab='All';isSelected_Modal=true;">
+  <form id="acceptanceForm" name="myForm" style="margin-top:0px;overflow:none;">
+    <div class="row NT_blue_bg_04 nomargin " ng-show="showDelayTab=='All'">
+      <div class="col-xs-12 col-md-12 nopadding lineheight_default">
+        &nbsp;&nbsp;{{'2083'| i18n}}
+      </div>
+    </div>
+
+    <div class="form-group NT_side_body_list Delaypage ng-cloak" ng-cloak>
+      <div class="tabContent activeTab">
+        <ul>
+          <li ng-click="gotoDelayList(0)">
+            <span class="pull-left">
+                            <i class="fa fa-1-5x fa-sitemap NT_blue_word"></i>
+                            &nbsp;&nbsp;&nbsp;{{'2084'| i18n}}
+                        </span>
+            <span class="pull-right"><i class="fa fa-angle-right"></i></span>
+          </li>
+          <li ng-click="gotoDelayList(1)">
+            <span class="pull-left">
+                            <i class="fa fa-1-5x fa-wrench NT_blue_word"></i>
+                            &nbsp;&nbsp;&nbsp;{{'2085'| i18n}}
+                        </span>
+            <span class="pull-right"><i class="fa fa-angle-right"></i></span>
+          </li>
+          <li ng-click="gotoDelayList(2)" ng-show="IsShowMoreMaintainerList">
+            <span class="pull-left">
+                            <i class="fa fa-1-5x fa-envelope-o NT_blue_word"></i>
+                            &nbsp;&nbsp;&nbsp;{{'2086'| i18n}}
+                        </span>
+            <span class="pull-right"><i class="fa fa-angle-right"></i></span>
+          </li>
+          <li ng-click="gotoDelayList(3)" ng-show="IsShowMoreMaintainerList">
+            <span class="pull-left">
+                            <i class="fa fa-1-5x fa-truck NT_blue_word"></i>
+                            &nbsp;&nbsp;&nbsp;{{'2087'| i18n}}
+                        </span>
+            <span class="pull-right"><i class="fa fa-angle-right"></i></span>
+          </li>
+          <li ng-click="gotoDelayList(4)" ng-show="IsShowMoreMaintainerList">
+            <span class="pull-left">
+                            <i class="fa fa-1-5x fa-calendar-check-o NT_blue_word"></i>
+                            &nbsp;&nbsp;&nbsp;{{'2088'| i18n}}
+                        </span>
+            <span class="pull-right"><i class="fa fa-angle-right"></i></span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </form>
+
+
+  <!--引用js-->
+  <script src="js/jquery-1.11.3.min.js"></script>
+  <script src="js/select/select2.min.js"></script>
+  <script src="js/hammerJS/hammer.js"></script>
+  <script src="js/angular.min.js"></script>
+  <script src="js/bootstrap.min.js"></script>
+  <script src="js/angular-animate.min.js"></script>
+  <script src="js/angular-touch.min.js"></script>
+  <script src="js/angular-aria.min.js"></script>
+  <script src="js/angular-cookies.js"></script>
+  <script src="js/angular-md5.js"></script>
+  <script src="js/angular-material.min.js"></script>
+  <script src="js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+  <script src="js/underscore-min.js"></script>
+  <script src="js/sha1.js"></script>
+  <script src="js/messages.js"></script>
+  <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+  <script src="js/hammerJS/angular.hammer.js"></script>
+  <script src="js/timepicker/moment.js"></script>
+  <script src="js/timepicker/daterangepicker.js"></script>
+  <script src="js/timepicker/angular-daterangepicker.js"></script>
+  <script src="js/angular-translate/angular-translate.js"></script>
+  <script src="js/angular-translate/loader-static-files.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/app.js"></script>
+  <script src="js/services/i18n.js"></script>
+    <script type="text/javascript" src="i10n/zh-cn.js"></script>
+    <script type="text/javascript" src="i10n/zh-tw.js"></script>
+  <script src="js/directives/NT_template.js"></script>
+  <script src="js/controllers/datepicker.js"></script>
+  <script src="js/controllers/Delaylist.js"></script>
+  <script src="js/directives/autoComplete.js"></script>
+  <script src="js/directives/starRating.js"></script>
+  <script src="js/scrollSmooth.js"></script>
+  <script src="js/directives/hammer_direct.js"></script>
+
+</body>
+
+</html>

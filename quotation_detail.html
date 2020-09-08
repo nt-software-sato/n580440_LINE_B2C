@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html ng-app="WeChat" ng-controller="QuotationDetailCtrl" ng-cloak>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" /> 
+    <meta name="viewport" content="width=device-width,height=device-height, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" /> 
+    <meta http-equiv="Pragma" content="no-cache" /> 
+    <meta http-equiv="Expires" content="0" />
+    <title>{{'03017'| i18n}}</title>
+    <link rel="stylesheet" href="css/angular-material.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/NT_color.css">
+     <link rel="stylesheet" href="css/ngGallery.css">
+    <link rel="stylesheet" href="css/style_new.css">
+    <!--列表用-->
+    <link rel="stylesheet" href="css/bootstrap-nav-wizard.css">
+    <style>
+        .ng-cloak {
+            display: none;
+        }
+    </style>
+</head>
+<body style="overflow:none;">
+
+    <div quote-content></div>    
+    <div class="NT_side_footer_case NT_blue_bg" ng-if="!ModalParameters.isEdit">
+        <button type="button" class="btn btn-primary NT_close_btn" onclick="history.go(-1)">
+          {{'00001'| i18n}}
+            <i><img src="img/return_24.png" style="width:20px;"></i>
+        </button>
+    </div>
+    <div class="NT_side_footer_case NT_blue_bg" ng-if="ModalParameters.isEdit">
+        <div class="col-xs-4 col-md-4 col-lg-4 nopadding">
+            <button type="button" class="btn NT_red_bg_04 noboder_radius" style="width:100%;" ng-click="OpenSign(3)">{{'01005'| i18n}}</button>
+        </div>
+        <div class="col-xs-4 col-md-4 col-lg-4 nopadding">
+            <button type="button" class="btn btn-primary noboder_radius" style="width:100%;" ng-click="OpenSign(2)">{{'01004'| i18n}}</button>
+        </div>        
+        <div class="col-xs-4 col-md-4 col-lg-4 nopadding">
+            <button type="button" class="btn btn-primary noboder_radius" style="width:100%;" onclick="history.go(-1)">{{'00004'| i18n}}</button>
+        </div>
+    </div>
+    <div quote-item-edit></div>
+    <div quote-item-other-edit></div>  
+    <div quote-sign-modal></div>
+
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/hammerJS/hammer.js"></script>
+    <script src="js/select/select2.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-material.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+    <script src="js/angular-animate.min.js"></script>
+    <script src="js/angular-touch.min.js"></script>
+    <script src="js/angular-aria.min.js"></script>
+    <script src="js/angular-cookies.js"></script>
+    <script src="js/angular-md5.js"></script>
+    <script src="js/underscore-min.js"></script>
+    <script src="js/sha1.js"></script>
+    <script src="js/messages.js"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="js/hammerJS/angular.hammer.js"></script>
+    <script src="js/timepicker/moment.js"></script>
+    <script src="js/timepicker/daterangepicker.js"></script>
+    <script src="js/timepicker/angular-daterangepicker.js"></script>
+    <!-- i18n -->
+    <script src="js/angular-translate/angular-translate.js"></script>
+    <script src="js/angular-translate/loader-static-files.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/services/i18n.js"></script>
+    <script type="text/javascript" src="i10n/zh-cn.js"></script>
+    <script type="text/javascript" src="i10n/zh-tw.js"></script>
+    <script src="js/directives/NT_template.js"></script>
+    <script src="js/controllers/datepicker.js"></script>
+    <script src="js/controllers/QuoteDetail.js"></script>
+    <script src="js/services/quotationFactory.js"></script>
+    <script src="js/controllers/fabToolbarBasicUsage.js"></script>
+    <script src="js/directives/autoComplete.js"></script>
+    <script src="js/directives/starRating.js"></script>
+    <script src="js/directives/hammer_direct.js"></script>
+    <script src="js/scrollSmooth.js"></script>
+</body>
+</html>

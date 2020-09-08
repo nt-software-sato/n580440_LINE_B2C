@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html ng-app="WeChat" ng-controller="OvertimeRepairCtrl" ng-cloak>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <title>逾时案件查询</title>
+    <link rel="stylesheet" href="css/angular-material.min.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/NT_color.css">
+    <link rel="stylesheet" href="css/ngGallery.css">
+    <link rel="stylesheet" href="css/style_new.css">
+    <!--列表用-->
+    <link rel="stylesheet" href="css/bootstrap-nav-wizard.css">
+    <style>
+        .ng-cloak {
+            display: none;
+        }
+    </style>
+</head>
+<body style="overflow:none;" ng-init="longPressSta=true;swipeState=false;CollapseState=false;">
+    <form id="acceptanceForm" name="myForm" style="margin-top:0px;overflow:none;">
+        <div class="form-group border_bottom NT_side_head nomargin ng-cloak" ng-cloak>
+            <div class="row nomargin NT_blue_bg_04">
+                <div class="col-xs-9 col-md-9 nopadding">
+                    <p class="lineheight_default NT_head_title NT_list_overflow">
+                        {{Unit}}
+                    </p>
+                </div>
+                <!--门店查询btn-->
+                <div class="col-xs-3 col-md-3 NT_blue_bg_05 nopadding">
+                    <button class="btn btn-primry NT_blue_bg_05 nopadding" type="submit" style="width:100%;" ng-click="toggleDenav('Store')">
+                        <i class="fa fa-1-5x fa-sitemap"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <div class="form-group NT_side_body_search">
+            <div class="list-group ng-cloak" ng-cloak>
+                <div class="alert alert-danger NT_gray_bg_03" ng-show="!isShowDetail&&!isLoading" style="margin-bottom: 0px;padding: 5px;color:#999;">
+                  <p class="text-center nomargin"><i class="fa fa-frown-o"></i> &nbsp;&nbsp;未找到符合条件的报修单&nbsp;!</p>  
+                </div>
+                <div ng-show="isLoading" class="alert isLoading NT_blue_word_wh nomargin">
+                     <p class="text-center nomargin">
+                         <span class="loader loader-quart"> </span>
+                    </p>
+                </div>   
+                <div class="list-group-item border_bottom ng-cloak" ng-show="isShowDetail&&!isLoading" ng-click="GetDetail(RepairItem.RequisitionId,'Detail')" ng-repeat="RepairItem in RepairList | filter:Listdata" ng-cloak>
+                    <blockquote>
+                        <dl>
+                            <dd>{{RepairItem.CaseNo}}</dd>
+                            <dt><h4 class="bold">[{{RepairItem.EquipmentCode}}]&nbsp;&nbsp;{{RepairItem.EquipmentName}}</h4></dt>
+                        </dl>
+                        <p class="text-left small_detail" ng-show="RepairItem.MaintainerNickname!=null">{{RepairItem.MaintainerNickname}}&nbsp;-&nbsp; {{RepairItem.StrongholdName}}</p>
+                        <div class="row">
+                            <ul id="breadcrumb">
+								<li><a class="complete" disabled="disabled">申请</a></li>
+								<li>
+									<a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>1||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==1}">
+										立案
+									</a>
+								</li>
+								<li>
+									<a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>2||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==2}">
+                                        派工
+									</a>
+								</li>
+								<li>
+									<a ng-class="{'':GeneralStageId,'complete':RepairItem.GeneralStageId>4||RepairItem.GeneralStageId<0,'process':RepairItem.GeneralStageId==3||RepairItem.GeneralStageId==4}">
+										厂商到店
+									</a>
+								</li>
+								<li>
+									<a class="lastChild" ng-show="{{RepairItem.GeneralStageId>=0}}" ng-class="{'':RepairItem.GeneralStageId!=4,'complete':RepairItem.GeneralStageId==5,'process':RepairItem.GeneralStageId==4}">
+										结案
+									</a>
+								</li>
+								<li>
+									<a class="lastChild" ng-show="{{RepairItem.GeneralStageId<0}}" ng-class="{'':GeneralStageId,'complete':RepairItem.StageId==-100,'process':RepairItem.StageId==-99}">
+										撤销
+									</a>
+								</li>
+							</ul>
+                        </div>
+                        <footer class="text-right">{{RepairItem.Unit}}&nbsp;&nbsp; {{RepairItem.UserName}}</footer>
+                    </blockquote>
+                </div>
+                <div class="list-group-item NT_load_more_area">
+                    <!--载入中参考-->
+                    <button type="button" class="btn btn-primary NT_blue_bg_04 NT_load_more_btn Searchpage" ng-disabled="isLoading" ng-show="isShowMore" ng-click="LoadMore()">
+                        <i class="fa fa-1-5x fa-refresh" ng-class="{'fa-spin':isLoading}"></i>
+                    </button>
+                </div>
+            </div>             
+        </div>
+        <div class="NT_side_footer_search">
+            <div class="btn-group pull-left NT_blue_bg_05" style="width:100%;">
+                <label class="btn btn-primry NT_blue_bg_05 nopadding lineheight_default" ng-model="RequisitionStatus.Draft" style="border-radius:0px;width:25%;" btn-checkbox>申请</label>
+                <label class="btn btn-primry NT_blue_bg_05 nopadding lineheight_default" ng-model="RequisitionStatus.OnTheRoad" style="border-radius:0px;width:25%;" btn-checkbox>进行中</label>
+                <label class="btn btn-primry NT_blue_bg_05 nopadding lineheight_default" ng-model="RequisitionStatus.Acceptance" style="border-radius:0px;width:25%;" btn-checkbox>结案</label>
+                <label class="btn btn-primry NT_blue_bg_05 nopadding lineheight_default" ng-model="RequisitionStatus.Revocation" style="border-radius:0px;width:25%;" btn-checkbox>撤销</label>
+            </div>
+        </div>
+    </form>
+        
+    <!--    門店-->    
+    <md-sidenav class="md-sidenav-right md-sidenav-right-list md-whiteframe-z2 ng-cloak " md-component-id="Store" id="Store" ng-cloak>
+        <!--门店关键字搜寻-->
+        <div class="form-group NT_side_head nomargin sidenav_title nomargin NT_blue_bg_04">
+            <div class="col-xs-2 col-md-2 nopadding ">
+                <label for="inputseatch_store" class="control-label nomargin lineheight_default text-center" style="width:100%;"><i class="fa fa-search"></i></label>
+            </div>
+            <div class="col-xs-10 col-md-10 nopadding input_search">
+                <input type="text" class="form-control NT_blue_bg_04" ng-model="StoreSearch" placeholder="请输入门店关键字...">
+            </div>
+        </div>
+        <!--门店选单-->
+        <div class="form-group NT_body_list ng-cloak" ng-cloak>
+            <div class="NT_side_body_list panel-group" id="accordion_store" role="tablist" aria-multiselectable="true">
+                <!--repeat门店-->
+                <div class="panel panel-default noborder" ng-repeat="StoreItem in StoreList|filter:StoreSearch">
+                    <button class="panel-heading NT_green_bg_03 accordion-toggle collapsed" data-toggle="collapse" data-target="#{{StoreItem.Unit}}" href="#{{StoreItem.Unit}}">
+                    <h4 class="panel-title text_left">{{StoreItem.Unit}}</h4>
+                    </button>
+                    <div id="{{StoreItem.Unit}}" class="panel-collapse collapse panel_collapse_listContainer" ng-class="{'in':$index==0}">
+                        <div class="panel-body panel_collapse_list list_underline">
+                            <ul class="list-group nomargin">
+                                <li class="list-group-item border_bottom" ng-repeat="stores in StoreItem.children|filter:StoreSearch" ng-click="SetStore(stores)">
+                                    {{stores.Unit}}
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="NT_side_footer NT_blue_bg">
+            <button type="button" class="btn btn-primary NT_close_btn"  ng-click="closeDenav('Store')" style="width: 30%;">
+                 返回
+                 <i><img src="img/return_24.png" style="width:20px;"></i>
+            </button>
+        </div>
+    </md-sidenav> 
+    
+    <!--案件详情-->
+    <md-sidenav class="md-sidenav-right md-sidenav-right-list-all md-whiteframe-z2 ng-cloak " md-component-id="RepairDetail" id="RepairDetail" ng-cloak>
+        <div case-content ng-controller="DetailCtrl" style="overflow:none;" class="NT_side_body_detail panel-group"></div>
+        <div class="NT_side_footer_case NT_blue_bg"><!---->
+            <button type="button" class="btn btn-primary NT_close_btn" ng-click="closeDenav('RepairDetail')">
+                返回
+                <i><img src="img/return_24.png" style="width:20px;"></i>
+            </button>
+        </div>
+    </md-sidenav>
+
+    <!-- JS -->
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/hammerJS/hammer.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-material.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+    <script src="js/angular-animate.min.js"></script>
+    <script src="js/angular-touch.min.js"></script>
+    <script src="js/angular-aria.min.js"></script>
+    <script src="js/angular-cookies.js"></script>
+    <script src="js/angular-md5.js"></script>
+    <script src="js/underscore-min.js"></script>
+    <script src="js/sha1.js"></script>
+    <script src="js/messages.js"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="js/hammerJS/angular.hammer.js"></script>
+    <script src="js/timepicker/moment.js"></script>
+    <script src="js/timepicker/daterangepicker.js"></script>
+    <script src="js/timepicker/angular-daterangepicker.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/directives/NT_template.js"></script>
+    <script src="js/controllers/datepicker.js"></script>
+    <script src="js/controllers/Search.js"></script>
+    <script src="js/controllers/AddHistory.js?v=20180424"></script>
+    <script src="js/controllers/Detail.js" charset="utf-8"></script>
+    <script src="js/controllers/fabToolbarBasicUsage.js"></script>
+    <script src="js/directives/autoComplete.js"></script>
+    <script src="js/directives/starRating.js"></script>
+    <script src="js/directives/hammer_direct.js"></script>
+    <script src="js/scrollSmooth.js"></script>
+</body>
+</html>

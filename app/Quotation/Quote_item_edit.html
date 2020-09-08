@@ -1,0 +1,81 @@
+<div class="modal fade" id="itemEdit" tabindex="-1" role="dialog" aria-labelledby="edit" aria-hidden="true">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<!--选择的设备名称-->
+                <h4 class="modal-title custom_align" id="Heading">{{'11111'| i18n}}</h4>
+			</div>
+			<div class="modal-body">
+                <md-content layout-padding layout="row" layout-sm="column">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div class="form-group ng-cloak"ng-cloak>
+                                <div class="input-group select2-bootstrap-append" style="width: 100%;">
+                                    <select id="ComponentList" class="form-control select2" style="width:100%;" ng-model="DetailsMain[ModalParameters.editIdx].ComponentId" ng-change="SetEquipment(DetailsMain,ModalParameters.editIdx)">
+                                        <option>{{'11114'| i18n}}</option>
+                                        <option ng-repeat="Components in ComponentList" value="{{Components.ComponentId}}">{{Components.ComponentName}}</option>
+                                    </select> 
+                                </div>            
+                            </div>
+                        </div>
+                        <div class="col-xs-6">
+                            <md-input-container md-no-float>
+                                <label>{{'11115'| i18n}}</label>
+                                <input type="text" md-placeholder="{{'11115'| i18n}}" ng-model="DetailsMain[ModalParameters.editIdx].ComponentManufacturer">
+                            </md-input-container>
+                        </div>
+                        <div class="col-xs-6">                        
+                            <md-input-container md-no-float>
+                                <label>{{'11116'| i18n}}</label>
+                                <input type="text" md-placeholder="{{'11116'| i18n}}" ng-model="DetailsMain[ModalParameters.editIdx].ComponentModel">
+                            </md-input-container>
+                        </div>
+                        <div class="col-xs-6">                    
+                            <md-input-container md-no-float>
+                                <label>{{'11117'| i18n}}</label>
+                                <input type="text" md-placeholder="{{'11117'| i18n}}规格" ng-model="DetailsMain[ModalParameters.editIdx].ComponentSpec">
+                            </md-input-container>
+                        </div>
+                        <div class="col-xs-6">                 
+                            <md-input-container md-no-float>
+                                <label>{{'2081'| i18n}}</label>
+                                <input type="text" md-placeholder="{{'2081'| i18n}}" ng-model="DetailsMain[ModalParameters.editIdx].ComponentUnit">
+                            </md-input-container>
+                        </div>
+                        <div class="col-xs-6">
+                            <md-input-container md-no-float>
+                                <label>{{'11118'| i18n}}</label>
+                                <input type="text" md-placeholder="{{'11118'| i18n}}" ng-model="DetailsMain[ModalParameters.editIdx].ComponentUnitPrice">
+                            </md-input-container>
+                        </div>
+                        <div class="col-xs-6">
+                            <md-input-container md-no-float>
+                                <label>{{'11026'| i18n}}</label>
+                                <input type="text" md-placeholder="{{'11026'| i18n}}" ng-model="DetailsMain[ModalParameters.editIdx].Count">
+                            </md-input-container>
+                        </div>
+                        <!--<div class="col-xs-12 padding-r-0">
+                            <div class="input-icon right">
+                                <i class="fa fa-exclamation-circle font-red-soft" uib-popover-template="dynamicPopover.templateUrl" popover-title="{{dynamicPopover.title}}" ng-click="modifyPopoverData(DetailsMain[ModalParameters.editIdx].Guide)">
+                                </i>
+                                <input type="text" class="form-control input-sm" placeholder="金额" value=""  ng-model="DetailsMain[ModalParameters.editIdx].Price" ng-change="checkField('Main')"/>
+                            </div>
+                        </div>-->
+                        
+                        <!--备注说明-->
+                        <div class="form-group border_bottom" style="min-height:80px;">
+                            <div class="col-xs-12 col-md-12">
+                                <textarea class="form-control"ng-model="DetailsMain[ModalParameters.editIdx].Remark" rows="3" placeholder="{{'11119'| i18n}}"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                </md-content>
+			</div>
+			<div class="modal-footer ">
+				<button type="button" class="btn btn-warning btn-lg" data-dismiss="modal" ng-click="ModalParameters.calculateRow()" style="width: 100%;">
+					{{'00002'| i18n}}
+				</button>
+			</div>
+		</div>
+	</div>
+</div>

@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html ng-app="WeChat" ng-controller="InstallationCtrl" ng-cloak>
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <meta name="format-detection" content="telephone=no">
+    <!-- <title translate="03012"></title> -->
+  <title>{{'03012'| i18n}}</title>
+    <link rel="stylesheet" href="css/angular-material.min.css">
+    <link rel="stylesheet" href="css/select/select2.min.css">
+    <link rel="stylesheet" href="css/select/select2-bootstrap.css">
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="css/NT_color.css">
+    <link rel="stylesheet" href="css/ngGallery.css">
+    <link rel="stylesheet" href="css/style_new.css">
+    <!--列表用-->
+    <link rel="stylesheet" href="css/bootstrap-nav-wizard.css">
+    <style>
+        .ng-cloak {
+            display: none;
+        }
+
+        .select2-container--default .select2-selection--multiple,
+        .select2-container--default .select2-results>.select2-results__options,
+        .select2-container--open .select2-dropdown {
+            margin-left: -9px !important;
+            padding: 0 8px;
+        }
+    </style>
+</head>
+
+<body style="overflow:none;" ng-init="isLoading=true;">
+    <div class="list-group">
+        <!--  无按键时显示  -->
+        <div class="alert alert-danger NT_gray_bg_03 NT_Loading" ng-show="!isShowDetail&&!isLoading">
+            <!-- <div without-case></div> -->
+        </div>
+        
+        <!-- loading 圆圈  -->
+        <div loading></div>
+
+        <!--  案件  -->
+        <div class="list-group-item border_bottom ng-cloak" ng-repeat="RepairItem in RepairList | filter:Listdata" ng-click="GetDetail(RepairItem,'Detail')"
+            ng-show="isShowDetail&&!isLoading">
+            <div class="row nomargin nopadding">
+                <label class="checkbox-styled">
+                    <span ng-class="{'swipe_color':RepairItem.Selected}">
+                        <blockquote>
+                            <dl>
+                                <dd class="NT_CaseNo">
+                                    <div class="row NT_CaseNoList">
+                                        <span class="text-center NT_red_bg_04" ng-show="RepairItem.Status==1">{{'2044'| i18n}}</span>
+                                        <span class="text-center NT_gray_bg_04" ng-show="RepairItem.Status==5">{{'2045'| i18n}}</span>
+                                        <span class="text-center">{{RepairItem.MaintainerName}}</span>
+                                    </div>
+                                </dd>
+                                <dt>
+                                    <h4 class="bold">{{RepairItem.Name}}</h4>
+                                </dt>
+                            </dl>
+                            <p class="text-left small_detail">{{RepairItem.Stronghold}}&nbsp;-&nbsp; {{RepairItem.CreatedUser}}</p>
+                            <footer class="text-right NT_JournalFooter">
+                                <div class="row text-right" style="margin-left: 5px;">
+                                    <div class="text-right">{{RepairItem.EstStartTime}}</div>
+                                    <div class="text-right">-</div>
+                                    <div class="text-left">{{RepairItem.EstEndTime}}</div>
+                                </div>
+                            </footer>
+                            <p class="text-right small_detail" style="margin: 5px;" ng-show="RepairItem.IsOvertime==1">{{'2046'| i18n}} {{RepairItem.OverTime}} {{'2047'| i18n}}</p>
+                        </blockquote>
+                    </span>
+                </label>
+            </div>
+        </div>
+    </div>
+
+    <!-- 查看更多按钮 -->
+    <div class="list-group-item" style="height: 50px;">
+        <div class="row nomargin nopadding">
+            <button type="button" class="btn btn-primary NT_blue_bg_04 NT_load_more_btn Searchpage" ng-disabled="isLoading" ng-click="LoadMore()"
+                ng-show="isShowMore">
+                {{'2048'| i18n}}
+            </button>
+        </div>
+    </div>
+
+    <script src="js/jquery-1.11.3.min.js"></script>
+    <script src="js/hammerJS/hammer.js"></script>
+    <script src="js/select/select2.min.js"></script>
+    <script src="js/angular.min.js"></script>
+    <script src="js/angular-material.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/ui-bootstrap-tpls-0.13.3.min.js"></script>
+    <script src="js/angular-animate.min.js"></script>
+    <script src="js/angular-touch.min.js"></script>
+    <script src="js/angular-aria.min.js"></script>
+    <script src="js/angular-cookies.js"></script>
+    <script src="js/angular-md5.js"></script>
+    <script src="js/underscore-min.js"></script>
+    <script src="js/sha1.js"></script>
+    <script src="js/messages.js"></script>
+    <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js"></script>
+    <script src="js/hammerJS/angular.hammer.js"></script>
+    <script src="js/timepicker/moment.js"></script>
+    <script src="js/timepicker/daterangepicker.js"></script>
+    <script src="js/timepicker/angular-daterangepicker.js"></script>
+    <!-- i18n -->
+    <script src="js/angular-translate/angular-translate.js"></script>
+    <script src="js/angular-translate/loader-static-files.js"></script>
+    <script src="js/config.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/services/i18n.js"></script>
+    <script type="text/javascript" src="i10n/zh-cn.js"></script>
+    <script type="text/javascript" src="i10n/zh-tw.js"></script>
+    <script src="js/directives/NT_template.js"></script>
+    <script src="js/controllers/datepicker.js"></script>
+    <script src="js/controllers/Installation.js"></script>
+    <script src="js/controllers/fabToolbarBasicUsage.js"></script>
+    <script src="js/directives/autoComplete.js"></script>
+    <script src="js/directives/starRating.js"></script>
+    <script src="js/directives/hammer_direct.js"></script>
+    <script src="js/scrollSmooth.js"></script>
+
+</body>
+
+</html>

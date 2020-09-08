@@ -1,0 +1,90 @@
+<div class="modal-header NT_blue_bg_04 nopadding" style="padding-bottom:0px;">
+    <div class="row">
+        <div class="col-xs-12 col-md-12 nt-flex-center" style="height:50px;">
+            <h4>{{'11034'| i18n}}</h4>
+        </div>
+    </div>
+</div>
+
+<!--修改内容-->
+<div class="modal-body" style="height:400px;overflow:scroll;">
+    <div class="loading-mask" ng-show="isSubmit"></div>
+    <form name="Equipmentform">
+        <div class="panel-body ng-cloak padding-0" ng-cloak>
+            <div class="row">
+                <div class="col-xs-12 col-md-12 col-lg-12">
+                    <div class="row">
+                        <div class="col-xs-12 col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <input class="form-control w-200" required="" ng-model="equipment.EquipmentName" placeholder="{{'11035'| i18n}}" type="text">
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <div layout-padding>
+                                    <div class="btn-group" data-toggle="buttons">
+                                        <label class="btn btn-primary checkbox_btn NT_blue_bg_04 active" ng-repeat="item in EquipmentTypeList.EquipmentTypeClass"
+                                            btn-radio="{{item.EquipmentClass}}" ng-click="setEquipmentTypeClass(item)" ng-model="equipment.EquipmentTypeClass"
+                                            class="btn btn-default">{{item.EquipmentClassName}}
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <select style="width:100%" name="TypeName" ng-model="equipment.EquipmentTypeId" required>
+                                    <option></option>
+                                    <option ng-show="equipment.EquipmentClass!==''" ng-repeat="item in EquipmentTypeList.EquipmentTypeName | filter:{'EquipmentClass':equipment.EquipmentTypeClass}"
+                                        value="{{item.EquipmentTypeId}}">{{item.EquipmentTypeName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <select style="width:100%" name="SubTypeName" ng-model="equipment.EquipmentSubTypeId" required>
+                                    <option></option>
+                                    <option ng-show="equipment.EquipmentTypeId!==''" ng-repeat="item in EquipmentTypeList.EquipmentSubTypeName | filter:{'EquipmentTypeId':equipment.EquipmentTypeId}"
+                                        value="{{item.EquipmentSubTypeId}}">{{item.EquipmentSubTypeName}}</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="col-xs-12 col-md-12 col-lg-12">
+                            <div class="form-group">
+                                <select ng-model="Position" class="form-control" name="Position" ng-options="m.PositionId as m.Position for m in Equipmentpos | orderBy:['SortNo']"
+                                    required multiple>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-xs-9 col-md-9 text-left">
+                    <span  ng-show="imagesList.localIds.length>0" style="min-height:100px;">
+                        <img id="advPic01" src="" style="margin-bottom:6px;">
+                        <a class="btn btn-danger img_delet" ng-click="RemoveImg(0)">
+                            <i class="fa fa-times"></i>
+                        </a>
+                    </span>
+                </div>
+                <div class="col-xs-3 col-md-3">
+                    <button type="button" class="btn noshadow btn-default NT_blue_word" ng-click="chooseImage()">
+                        <i class="fa fa-1-5x fa-camera NT_blue_word"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>
+
+
+<div class="row nopadding nomargin">
+    <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+        <button type="button" id="closeFixed" class="btn NT_red_bg_04 noboder_radius" style="width:100%;" data-dismiss="modal" ng-click="btnCancel()">{{'01006'| i18n}}</button>
+    </div>
+    <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+        <button type="button" class="btn btn-success noboder_radius" style="width:100%;" ng-disabled="Equipmentform.$invalid" ng-click="btnOk()">{{'00002'| i18n}}</button>
+    </div>
+</div>
+

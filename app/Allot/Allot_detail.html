@@ -1,0 +1,68 @@
+<div class="modal-header NT_blue_bg_04 nopadding" style="padding-bottom:0px;">
+  <div class="row">
+    <div class="col-xs-12 col-md-12 nt-flex-center" style="height:50px;">
+      <h4>调拨详情</h4>
+    </div>
+  </div>
+</div>
+
+<div class="modal-body">
+  <div class="row">
+    <div class="col-xs-12 col-md-12 h-xxs">
+    <h4>#{{moveOrder.CaseNo}}
+      <span class="pull-right">{{moveOrder.EquipmentName}}
+      </span></h4>
+  </div>
+      
+  </div>
+  <div class="well m-t bg-light lter no-radius">
+    <div class="row">
+      <div class="col-xs-4">
+        <p class="text-base m-b-5 l-h-1x">{{moveOrder.SourceUnit}}</p>
+        <p class="text-info-lt">{{moveOrder.SourceUser}}</p>
+      </div>
+      <div class="col-xs-4 no-padder m-t-5">
+        <div class="m-t">
+          <div class="text-center">
+            <span class="hidden-folded">{{moveOrder.CurrentStepName}}</span>
+          </div>
+          <progressbar value="100" class="progress-xxs m-t-10 dk" type="info" style="height:2px;"></progressbar>
+        </div>
+      </div>
+      <div class="col-xs-4">
+        <p class="text-base m-b-5 l-h-1x">{{moveOrder.TargetUnit}}</p>
+        <p class="text-info-lt">{{moveOrder.TargetUser}}</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <ul class="timeline">
+      <li class="tl-header">
+        <div class="badge bg-info">{{moveOrder.MoveTypeName}}</div>
+      </li>
+      <li ng-class="item.tlType" ng-repeat="item in moveHist">
+        <div ng-class="item.tlSubType">
+          <span class="tl-date">{{item.StepTime}}</span>
+          <div class="tl-content panel padder b-a">
+            <span class="arrow left pull-up hidden-left"></span>
+            <span class="arrow right pull-up visible-left"></span>
+            <div class="text-lt">{{item.UserName}}</div>
+            <div class="text-lt pull-right">{{item.CreatedTime}}</div>
+          </div>
+        </div>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="NT_side_footer_case NT_blue_bg">
+  <button type="button" class="btn btn-primary NT_close_btn" ng-click="closeDenav('MoveDetail')">
+    {{'00001'| i18n}}
+    <i><img src="img/return_24.png" style="width:20px;"></i>
+  </button>
+  <button type="button" class="btn NT_close_btn" ng-class="{'btn-primary': item.stepId!=3,'btn-danger':item.stepId==3}" ng-disabled="isSubmit" ng-click="
+                moveOrder.isSubmit=true;addHistory4Allot(moveOrder.MoveOrderId,item.stepId,moveOrder.CompanyId)" ng-repeat="item in moveOrder.NextStepShow" ng-show="moveOrder.isEdit">
+      {{item.stepName}}
+        </button>
+</div>

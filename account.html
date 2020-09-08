@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<html ng-app="WeChat" ng-cloak="" ng-controller="AuthCtrl">
+  <head>
+    <meta charset="utf-8">
+      <meta content="initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0" name="viewport">
+        <title>
+          {{'2027'| i18n}}
+        </title>
+        <!-- <title translate="2027"></title> -->
+        <link href="css/angular-material.min.css" rel="stylesheet"/>
+        <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css" rel="stylesheet"/>
+        <link href="css/style.css" rel="stylesheet"/>
+        <link href="css/NT_color.css" rel="stylesheet"/>
+        <link href="css/style_new.css" rel="stylesheet"/>
+        <!-- Angular Material Dependencies -->
+        <script src="js/jquery-1.11.3.min.js">
+        </script>
+        <script src="js/hammerJS/hammer.js">
+        </script>
+        <script src="js/angular.min.js">
+        </script>
+        <script src="js/bootstrap.min.js">
+        </script>
+        <script src="js/angular-animate.min.js">
+        </script>
+        <script src="js/angular-touch.min.js">
+        </script>
+        <script src="js/angular-aria.min.js">
+        </script>
+        <script src="js/angular-cookies.js">
+        </script>
+        <script src="js/angular-md5.js">
+        </script>
+        <script src="js/angular-material.min.js">
+        </script>
+        <script src="js/ui-bootstrap-tpls-0.13.3.min.js">
+        </script>
+        <script src="js/underscore-min.js">
+        </script>
+        <script src="js/sha1.js">
+        </script>
+        <script src="js/messages.js">
+        </script>
+        <script src="js/hammerJS/angular.hammer.js">
+        </script>
+        <script src="js/timepicker/moment.js">
+        </script>
+        <script src="js/timepicker/daterangepicker.js">
+        </script>
+        <script src="js/timepicker/angular-daterangepicker.js">
+        </script>
+        <script src="https://res.wx.qq.com/open/js/jweixin-1.0.0.js">
+        </script>
+        <!-- i18n -->
+        <script src="js/angular-translate/angular-translate.js">
+        </script>
+        <script src="js/angular-translate/loader-static-files.js">
+        </script>
+        <script src="i10n/zh-cn.js" type="text/javascript">
+        </script>
+        <script src="i10n/zh-tw.js" type="text/javascript">
+        </script>
+        <script src="js/config.js">
+        </script>
+        <script src="js/app.js">
+        </script>
+        <script src="js/services/i18n.js">
+        </script>
+        <!--驗證 js-->
+        <script src="js/controllers/Auth.js">
+        </script>
+        <script src="js/directives/hammer_direct.js">
+        </script>
+        <script src="js/scrollSmooth.js">
+        </script>
+        <style>
+          .ng-cloak {
+            display: none;
+        }
+
+        md-checkbox {
+            width: 70%;
+            color: #F2572D;
+            text-align: center;
+            margin: 4px 8px 15px 8px;
+            padding: 5px;
+        }
+
+        md-checkbox.md-default-theme .md-icon {
+            margin-left: 5px;
+            border-color: #F2572D;
+            background: #fff;
+        }
+
+        md-checkbox.md-default-theme.md-checked .md-icon {
+            background: #F2572D;
+        }
+
+        md-checkbox.md-default-theme.md-checked {
+            background: #F2572D;
+            color: #fff;
+        }
+        </style>
+      </meta>
+    </meta>
+  </head>
+</html>
+<body layout="column" ng-cloak="" style="background:rgb(0, 176, 255);">
+  <div class="inputdemoIcons ng-cloak" layout="row" ng-cloak="" ng-hide="!isShowLogin" style="margin: 3% 2% 0 2%;">
+    <md-whiteframe class="md-whiteframe-z1" style="width: 98%;margin: 2px;">
+      <md-content layout="row" layout-padding="" layout-sm="column">
+        <form name="StoreForm">
+          <div>
+            <div flex="50" flex-xs="" style="margin-bottom:15px;">
+              <section layout="row" layout-align="center center">
+                <md-button class="left md-raised md-button" ng-class="{'md-warn':bind2Store}" ng-click="bind2Store=true;">
+                  {{'2014'| i18n}}
+                </md-button>
+                <md-button class="md-raised md-button right" ng-class="{'md-warn':!bind2Store}" ng-click="bind2Store=false;">
+                  {{'2015'| i18n}}
+                </md-button>
+              </section>
+            </div>
+            <md-input-container class="md-icon-float" style="display:none;">
+              <i class="fa fa-weixin">
+              </i>
+              <label>
+                {{'2016'| i18n}}
+              </label>
+              <md-icon class="name">
+              </md-icon>
+              <input disabled="" ng-model="openIDStr" type="text">
+              </input>
+            </md-input-container>
+            <div ng-show="bind2Store">
+              <md-input-container md-no-float="" style="margin:5px 0;">
+                <md-icon class="fa fa-home text_center" style="color:#1E88E5;">
+                </md-icon>
+                <input name="UnitId" ng-model="UserInfo.UnitId" placeholder="{{'2017'| i18n}}" required="" type="text">
+                  <div ng-messages="StoreForm.UnitId.$error&&bind2Store">
+                    <div ng-message="required">
+                      {{'02001'| i18n}}
+                    </div>
+                  </div>
+                  <md-icon class="fa fa-qrcode fa-2x NT_QRBtn" ng-click="ToscanQRCode()">
+                  </md-icon>
+                </input>
+              </md-input-container>
+              <md-input-container md-no-float="" style="margin:5px 0;">
+                <md-icon class="fa fa-key text_center" style="color:#1E88E5;">
+                </md-icon>
+                <input name="passCode" ng-model="UnitInfo.passCode" placeholder="{{'2018'| i18n}}" required="" type="text">
+                  <div ng-messages="StoreForm.passCode.$error&&bind2Store">
+                    <div ng-message="required">
+                      {{'02001'| i18n}}
+                    </div>
+                  </div>
+                </input>
+              </md-input-container>
+              <md-input-container md-no-float="" style="margin:5px 0;">
+                <md-icon class="fa fa-user text_center" style="color:#1E88E5;">
+                </md-icon>
+                <input name="UserName" ng-model="UserInfo.UserName" placeholder="{{'2019'| i18n}}" required="" type="text">
+                  <div ng-messages="StoreForm.UserName.$error&&bind2Store">
+                    <div ng-message="required">
+                      {{'02001'| i18n}}
+                    </div>
+                  </div>
+                </input>
+              </md-input-container>
+              <md-input-container md-no-float="" style="margin:5px 0;padding: 10px 0;">
+                <md-icon class="fa fa-lock text_center" style="color:#1E88E5;">
+                </md-icon>
+                <input name="UserId" ng-model="UserInfo.UserId" ng-pattern="/^[a-zA-Z0-9_-]{2,50}$/" placeholder="{{'2020'| i18n}}" required="" type="text">
+                </input>
+              </md-input-container>
+              <md-input-container md-no-float="" style="margin:5px 0;padding: 8px 20px;">
+                <div class="NT_alert" ng-show="StoreForm.UserId.$invalid&&bind2Store&&UserInfo.UserId!=''">
+                  {{'2021'| i18n}}
+                </div>
+                <div class="NT_alert" ng-messages="StoreForm.UserId.$error&&bind2Store">
+                  <div ng-message="required">
+                    {{'02001'| i18n}}
+                  </div>
+                </div>
+              </md-input-container>
+              <md-input-container md-no-float="" style="margin:5px 0;">
+                <md-icon class="fa fa-phone text_center" style="color:#1E88E5;">
+                </md-icon>
+                <input name="userPhone" ng-model="UserInfo.Contacts[0].Info" placeholder="{{'2022'| i18n}}" required="" type="text">
+                  <div ng-show="isUsed">
+                    {{'2023'| i18n}}
+                  </div>
+                  <div ng-messages="StoreForm.userPhone.$error&&bind2Store">
+                    <div ng-message="required">
+                      {{'02001'| i18n}}
+                    </div>
+                  </div>
+                </input>
+              </md-input-container>
+              <div style="padding: 2px 2px 26px;">
+                <i class="fa fa-users" style="width:28px;height:28px;color:#1E88E5;text-align: center;">
+                </i>
+                <span style="display:inline;">
+                  {{'2024'| i18n}}
+                </span>
+                <span ng-click="isUnitManager.value=1" style="margin:0px 3px 0px 3px;">
+                  <input ng-model="isUnitManager.value" ng-value="1" type="radio">
+                    {{'02002'| i18n}}
+                  </input>
+                </span>
+                <span ng-click="isUnitManager.isUnitManager=0">
+                  <input ng-model="isUnitManager.value" ng-value="0" type="radio">
+                    {{'02003'| i18n}}
+                  </input>
+                </span>
+              </div>
+            </div>
+            <!--  ng-show="!bind2Store" -->
+            <div ng-show="!bind2Store">
+              <md-input-container md-no-float="" style="margin:5px 0;">
+                <md-icon class="fa fa-user text_center" style="color:#1E88E5;">
+                </md-icon>
+                <input name="username" ng-model="UserInfo02.UserId" placeholder="{{'2025'| i18n}}" required="" type="text">
+                  <div ng-messages="StoreForm.username.$error&&!bind2Store">
+                    <div ng-message="required">
+                      {{'02001'| i18n}}
+                    </div>
+                  </div>
+                </input>
+              </md-input-container>
+              <md-input-container md-no-float="" style="margin:5px 0;">
+                <md-icon class="fa fa-lock text_center" style="color:#1E88E5;">
+                </md-icon>
+                <input name="password" ng-model="UserInfo02.Password" placeholder="{{'2026'| i18n}}" required="" type="password">
+                  <div ng-messages="StoreForm.password.$error&&!bind2Store">
+                    <div ng-message="required">
+                      {{'02001'| i18n}}
+                    </div>
+                  </div>
+                </input>
+              </md-input-container>
+            </div>
+            <md-input-container style="margin: 3% 2% 0 2%;">
+              <md-button class="NT_blue_bg_06" ng-click="AccountSubmit()" ng-disabled="StoreForm.UserId.$invalid&&bind2Store" type="submit">
+                {{'2027'| i18n}}
+              </md-button>
+            </md-input-container>
+          </div>
+        </form>
+      </md-content>
+    </md-whiteframe>
+  </div>
+</body>

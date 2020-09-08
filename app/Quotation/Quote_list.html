@@ -1,0 +1,39 @@
+<!--  无按键时显示  -->
+<div class="alert alert-danger NT_gray_bg_03 NT_Loading" ng-show="!isShowDetail&&!isLoading">
+    <div without-case></div>
+</div>
+<!-- loading 圆圈  -->
+<div loading></div>
+
+<!--  案件  -->
+<div class="list-group-item border_bottom" ng-repeat="QuotesItem in RepairList | filter:Listdata" ng-click="pageObj.toDetail(QuotesItem)" ng-show="isShowDetail&&!isLoading">
+    <div class="row nomargin nopadding" >
+        <label class="checkbox-styled">
+            <span ng-class="{'swipe_color':QuotesItem.Selected}">
+                <blockquote>
+                    <dl>
+                        <dd class="NT_CaseNo">
+                            <div class="row NT_CaseNoList">
+                                <div>
+                                    <span class="text-center NT_blue_bg_04">{{QuotesItem.ResultStr}}</span>
+                                    {{QuotesItem.QuotationNo}}
+                                </div>                                
+                                <div class="text-center">
+                                    <span class="pull-right NT_choose_empty">
+                                        <span class="text-center NT_red_bg_04">{{QuotesItem.TotalPrice}}</span>
+                                    </span>
+                                </div>
+                            </div>
+                        </dd>
+                    </dl>
+                    <p class="text-left small_detail">{{QuotesItem.MaintainerNickname}}&nbsp;-&nbsp; {{QuotesItem.StrongholdName}}</p>
+                    <p class="text-left small_detail">-&nbsp;&nbsp;{{QuotesItem.Unit}}&nbsp;&nbsp;{{QuotesItem.CreatedTime}}</p>
+                </blockquote>
+            </span>
+        </label>
+    </div> 
+</div>
+
+<div class="list-group-item" style="height: 50px;">
+    <div class="row nomargin nopadding" load-more></div>
+</div>

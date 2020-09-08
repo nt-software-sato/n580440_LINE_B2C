@@ -1,0 +1,59 @@
+<!--門店 区域/省 清單-->
+<div class="modal fade" id="SearchAdvence" role="dialog" aria-labelledby="SearchAdvenceModalLabel" ng-init="tabid='area';isSelected=true;isSelected2=false;tabname='区域'">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header NT_blue_bg_04">
+                <!--  tabname會依照篩選的項目名稱做變化 -->
+                <h4 class="modal-title" id="EQModalLabel">
+                    {{tabname}}
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                </h4>
+            </div>
+            <div class="modal-body nopadding">
+                <div>
+                    <div class="panel-body panel_collapse_list list_underline" style="overflow: hidden;">
+                        <!-- 第一层 -->
+                        <div ng-show="tabid=='area'">
+                            <ul class="list-group nomargin" style="height:300px;min-height:300px;overflow-x: hidden;overflow-y: scroll;padding-bottom:10px;">
+                                <li class="list-group-item border_bottom" ng-click="isSelectLeve2(UnitItem)" ng-repeat="UnitItem in Unitdata[1]|filter:StoreSearch">
+                                    {{UnitItem.Unit}}
+                                    <!-- 被選取的icon -->
+                                    <span class="pull-right NT_choose_empty" ng-class="{'animated fadeIn':UnitItem.isSelected}">
+                                        <i ng-class="{'fa fa-1-5x fa-check-circle':UnitItem.isSelected,'fa fa-1-5x fa-circle-thin':!UnitItem.isSelected}"></i>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                        <!-- 第二层 -->
+                        <div ng-show="tabid=='depart'">
+                            <ul class="list-group nomargin" style="height:300px;min-height:300px;overflow-x: hidden;overflow-y: scroll;padding-bottom:10px;">
+                                <li class="list-group-item border_bottom" ng-click="isSelectLeve3(UnitItem)" ng-repeat="UnitItem in UnitLeve3data">
+                                    {{UnitItem.Unit}}
+                                    <span class="pull-right NT_choose_empty" ng-class="{'animated fadeIn':UnitItem.isSelected}">
+                                        <i ng-class="{'fa fa-1-5x fa-check-circle':UnitItem.isSelected,'fa fa-1-5x fa-circle-thin':!UnitItem.isSelected}"></i>
+                                    </span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <div class="row nopadding nomargin">
+                    <!--PS. 如果只有一層則不顯示下一步 -->
+                    <div class="col-xs-6 col-md-6 col-lg-6 nopadding" ng-show="tabid=='area'">
+                        <button type="button" class="btn btn-success  noboder_radius " style="width:100%;" ng-click="tabid='depart';tabname='分部'">下一步</button>
+                    </div>
+                    <!--PS. 進入第二層後顯示上一步 -->
+                    <div class="col-xs-6 col-md-6 col-lg-6 nopadding" ng-show="tabid=='depart'">
+                        <button type="button" class="btn btn-success  noboder_radius " style="width:100%;" ng-click="tabid='area';tabname='区域'">上一步</button>
+                    </div>
+                    <!-- 點選篩選後將帶出上列第一層第二層條件篩選後的門店  -->
+                    <div class="col-xs-6 col-md-6 col-lg-6 nopadding">
+                        <button type="button" class="btn NT_red_bg_04 noboder_radius" data-dismiss="modal" style="width:100%;" ng-click="reLoadLeve4()">筛选</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
