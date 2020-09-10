@@ -1,4 +1,4 @@
-var WeChat = angular.module('WeChat', [
+  var WeChat = angular.module('WeChat', [
   'pascalprecht.translate',
   'angular-md5',
   'ngMaterial',
@@ -195,15 +195,15 @@ var GetPreMonth = function (fmt) {
 // localStorage.setItem('Passport', 'XhF5BeKzIlOqCYH0Kb5LN2b7dkgVkCJ0BxfKNXCyA0%2BpXV5TBUofBXbsGQ%2Fu5WMOpbNCgYICK0XRxyUzU7zVWypr00esLJB8cidodMiNgMo5%2F%2Bof1vrxEOpE9iOwSs5miQvGrhhHGG%2BgemqbMqpjw0%2F3NHd0RpDV36bY7adImD9SFc%2BMKcdSyD7h8t%2Bp5pY%2FPEBGm4Gt%2BKTNl8rFXpet05CwMUmA6USApvU7LxRChxvcDO%2FdCkN%2FsLpWMT2mY3ZjWS77KQCcOkKo9HLJWCIE4kG4bfCln%2BxM7zyK9Fk2nxkldC3Xhg0KoW7cTTbiRWXwo7w2yumIovMCtXtyY1bBTknDpFCLZRdaM8Mxp9dW2Le74yLg2YcA%2FIR3MruotoyY9k3k%2BizdJPVTlI4xnGrIfpIvQW%2Fv8OT4olyjfpZEQPh%2Bc1ByPoavVkf2xbaTxm6%2Fml91hTHqYn6N02airL8UMu45PnF05opUPFQgRvq%2FPAjxF5YVN%2FGjkZb6I2gUoQwR00zBrgzNT%2FrQY%2FJ62yVYFg%3D%3D');
 
 
-document.cookie = "UserId=0000308;";
-document.cookie = "UnitId=wp_hdq;";
-document.cookie = "Unit=华东区;";
-document.cookie = "UserName=梁同峰;";
-document.cookie = "CompanyId=eb296708-6fc6-43f0-b506-0ca0fa91e1cd;";
-document.cookie = "StoreUser=0;";
-document.cookie = "Updated=1;";
-document.cookie = "Passport=XhF5BeKzIlOqCYH0Kb5LN80C1Uxn2BestS7okVquJXaZK5lGOMfUQUT32mq1ZJhPyrFW%2FO7r64SGjzDY%2BUGhhFkwUJ8CbpP9Zy7ppnxEm%2FLQlsOpuCVDUa6aw64NeTu1MbB6U9dCNm1cSLXM7zm119%2BsJm3a1iSavyEEOjgDlywH2yNJtpmCMi8wMcEJpQ6fIOTWn4On6DrDLzmbjazfboz3USp%2FUEPSpKIl66LRm%2FLWXF1ri%2FTkdO1TvGhBk3giSbYx5E%2FqjcXGxHBmDzBH%2BAChDb0ymz7%2BVyQVynWs2N3UWOpZtFLq1v48MpJgoLBLDfZLxQIw9Y2v0oyb8c0aibEOgu7eLRgZo54aLqYdBgJx2sy4ZlkNsOOqdN531MHM%2BDfNPYFdv6CjYSiLReKypTxMkAwXtV%2F%2BTkLWYovdavPGZOqk4DXM%2FwIuzUpA%2FUxn9o0ItZKjvXSdmvcs50ZljsGhnN0wNRZmKSe5TPs8JZ5k5uJTjE2dZ56RdO7unUhyK7Y7clCi5Nygj%2FkRWPV2Pw%3D%3D";
-localStorage.setItem('Passport', 'XhF5BeKzIlOqCYH0Kb5LN80C1Uxn2BestS7okVquJXaZK5lGOMfUQUT32mq1ZJhPyrFW%2FO7r64SGjzDY%2BUGhhFkwUJ8CbpP9Zy7ppnxEm%2FLQlsOpuCVDUa6aw64NeTu1MbB6U9dCNm1cSLXM7zm119%2BsJm3a1iSavyEEOjgDlywH2yNJtpmCMi8wMcEJpQ6fIOTWn4On6DrDLzmbjazfboz3USp%2FUEPSpKIl66LRm%2FLWXF1ri%2FTkdO1TvGhBk3giSbYx5E%2FqjcXGxHBmDzBH%2BAChDb0ymz7%2BVyQVynWs2N3UWOpZtFLq1v48MpJgoLBLDfZLxQIw9Y2v0oyb8c0aibEOgu7eLRgZo54aLqYdBgJx2sy4ZlkNsOOqdN531MHM%2BDfNPYFdv6CjYSiLReKypTxMkAwXtV%2F%2BTkLWYovdavPGZOqk4DXM%2FwIuzUpA%2FUxn9o0ItZKjvXSdmvcs50ZljsGhnN0wNRZmKSe5TPs8JZ5k5uJTjE2dZ56RdO7unUhyK7Y7clCi5Nygj%2FkRWPV2Pw%3D%3D');
+// document.cookie = "UserId=0000308;";
+// document.cookie = "UnitId=wp_hdq;";
+// document.cookie = "Unit=华东区;";
+// document.cookie = "UserName=梁同峰;";
+// document.cookie = "CompanyId=eb296708-6fc6-43f0-b506-0ca0fa91e1cd;";
+// document.cookie = "StoreUser=0;";
+// document.cookie = "Updated=1;";
+// document.cookie = "Passport=XhF5BeKzIlOqCYH0Kb5LN80C1Uxn2BestS7okVquJXaZK5lGOMfUQUT32mq1ZJhPyrFW%2FO7r64SGjzDY%2BUGhhFkwUJ8CbpP9Zy7ppnxEm%2FLQlsOpuCVDUa6aw64NeTu1MbB6U9dCNm1cSLXM7zm119%2BsJm3a1iSavyEEOjgDlywH2yNJtpmCMi8wMcEJpQ6fIOTWn4On6DrDLzmbjazfboz3USp%2FUEPSpKIl66LRm%2FLWXF1ri%2FTkdO1TvGhBk3giSbYx5E%2FqjcXGxHBmDzBH%2BAChDb0ymz7%2BVyQVynWs2N3UWOpZtFLq1v48MpJgoLBLDfZLxQIw9Y2v0oyb8c0aibEOgu7eLRgZo54aLqYdBgJx2sy4ZlkNsOOqdN531MHM%2BDfNPYFdv6CjYSiLReKypTxMkAwXtV%2F%2BTkLWYovdavPGZOqk4DXM%2FwIuzUpA%2FUxn9o0ItZKjvXSdmvcs50ZljsGhnN0wNRZmKSe5TPs8JZ5k5uJTjE2dZ56RdO7unUhyK7Y7clCi5Nygj%2FkRWPV2Pw%3D%3D";
+// localStorage.setItem('Passport', 'XhF5BeKzIlOqCYH0Kb5LN80C1Uxn2BestS7okVquJXaZK5lGOMfUQUT32mq1ZJhPyrFW%2FO7r64SGjzDY%2BUGhhFkwUJ8CbpP9Zy7ppnxEm%2FLQlsOpuCVDUa6aw64NeTu1MbB6U9dCNm1cSLXM7zm119%2BsJm3a1iSavyEEOjgDlywH2yNJtpmCMi8wMcEJpQ6fIOTWn4On6DrDLzmbjazfboz3USp%2FUEPSpKIl66LRm%2FLWXF1ri%2FTkdO1TvGhBk3giSbYx5E%2FqjcXGxHBmDzBH%2BAChDb0ymz7%2BVyQVynWs2N3UWOpZtFLq1v48MpJgoLBLDfZLxQIw9Y2v0oyb8c0aibEOgu7eLRgZo54aLqYdBgJx2sy4ZlkNsOOqdN531MHM%2BDfNPYFdv6CjYSiLReKypTxMkAwXtV%2F%2BTkLWYovdavPGZOqk4DXM%2FwIuzUpA%2FUxn9o0ItZKjvXSdmvcs50ZljsGhnN0wNRZmKSe5TPs8JZ5k5uJTjE2dZ56RdO7unUhyK7Y7clCi5Nygj%2FkRWPV2Pw%3D%3D');
 
 // var __Passport = "dFSpJ67930WuTjZ8p2o6cMx4N9IZpa%2Bqjjgt8bfnyEQxf%2FZQ%2FB2PrHtb7F6%2FYHRls2kLfVPMU2WIj6CyqEtonWDNldKYqFnFZBs8fgk%2Ft6ue7vPjafrAbaI%2B%2F0I5jImA4AbmHMAUMcZ021buQbVumTKz%2FGKKTrylHCR%2Bs0pfUQIQQfpVlC7UX%2F%2BjNovRlHQ57%2FbVithkJTb8ACxmgreI3lZGF1luU%2F9ASH7LbsHeVoALpKiNrKi0y6%2BY65WBs8jXSkFQ1qn4QcxoO0oH4%2B9Oqs8%2BJwhacL8vwvAow2X7fcrtAURo9ngjWWxNQTqGGrw9J7ZFAb1HShLXRivOlIbOey2aALWvx0lPl%2FkIxIodQGXL8VM%2FrPx3QMKgzvL%2FJvRRLvXnLFhWcDi%2FibKXoNcd5BZGh%2BUPBdVQ4v6M%2Fw65jW5bPWM4EggI4pm5EdStQitYMY1kNyi6%2BK1DG3t5ojd8273HgWMJqAtQrDAcWhupzoMwODFBDGyxHr%2FZ7sLG7vRh";
 // document.cookie = "UserId=ZNKJ001;";

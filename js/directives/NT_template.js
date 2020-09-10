@@ -35,7 +35,7 @@ WeChat.directive('caseContent', function() {
         orderbyParams: '=',
         callback: '&'
       },
-      templateUrl: '../app/CaseList/SortGroup/Case_sort_dateTime.html?v=' + lastTime,
+      templateUrl: './app/CaseList/SortGroup/Case_sort_dateTime.html?v=' + lastTime,
       link: function(scope, element, attrs) {
         scope.dateSort1 = true;
         scope.dateSort2 = false;
@@ -119,7 +119,7 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/Case_loadMore.html?v=' + lastTime,
+      templateUrl: './app/CaseList/Case_loadMore.html?v=' + lastTime,
       link: function(scope, element, attrs) {} //DOM manipulation
     }
   }).directive('withoutCase', function() { //沒有案件時提示區塊
@@ -133,21 +133,21 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/SearchGroup/Case_Search_top.html?v=' + lastTime,
+      templateUrl: './app/CaseList/SearchGroup/Case_Search_top.html?v=' + lastTime,
       link: function(scope, element, attrs) {}
     }
   }).directive('caseSearchShow', function() { //門店 維修商 設施設備篩 上方藍色輸入欄位
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/SearchGroup/Case_Search_Show.html?v=' + lastTime,
+      templateUrl: './app/CaseList/SearchGroup/Case_Search_Show.html?v=' + lastTime,
       link: function(scope, element, attrs) {}
     }
   }).directive('caseSearchGroupRight', function() { //門店 維修商 設施設備篩 上方藍色輸入欄位
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/Repair_search_group_right.html?v=' + lastTime,
+      templateUrl: './app/CaseList/Repair_search_group_right.html?v=' + lastTime,
       link: function(scope, element, attrs) {
         scope.setIsInspection = function(region) {
           var isExist = false;
@@ -210,7 +210,7 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/Repair_search_right.html?v=' + lastTime,
+      templateUrl: './app/CaseList/Repair_search_right.html?v=' + lastTime,
       link: function(scope, element, attrs) {
         scope.setIsInspection = function(v) {
           scope.SearhParams.IsInspection = v;
@@ -273,7 +273,7 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/Repair_sort_toolbar.html?v=' + lastTime,
+      templateUrl: './app/CaseList/Repair_sort_toolbar.html?v=' + lastTime,
       link: function(scope, element, attrs) {
         scope.isOvertime = false;
         scope.OrderByTime1 = {
@@ -367,7 +367,7 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/SearchGroup/Case_search_muti.html?v=' + lastTime,
+      templateUrl: './app/CaseList/SearchGroup/Case_search_muti.html?v=' + lastTime,
       link: function(scope, element, attrs) {
         scope.gotoTransfer = function() {
           location.replace(PathStr + "QRcode.html");
@@ -378,7 +378,7 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/SearchGroup/Case_search_store.html?v=' + lastTime,
+      templateUrl: './app/CaseList/SearchGroup/Case_search_store.html?v=' + lastTime,
       link: function(scope, element, attrs) {
         scope.gotoTransfer = function() {
           location.replace(PathStr + "QRcode.html");
@@ -389,140 +389,140 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/SearchGroup/Case_search_maintainer.html?v=' + lastTime,
+      templateUrl: './app/CaseList/SearchGroup/Case_search_maintainer.html?v=' + lastTime,
       link: function($scope, element, attrs) {}
     }
   }).directive('caseSearchEquipment', function() { //綜合查詢 設施設備篩選用
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/SearchGroup/Case_search_equipment.html?v=' + lastTime,
+      templateUrl: './app/CaseList/SearchGroup/Case_search_equipment.html?v=' + lastTime,
       link: function($scope, element, attrs) {}
     }
   }).directive('caseSearchStoreAdvence', function() { //門店 進階篩選用
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/SearchGroup/Case_search_store_advence.html?v=' + lastTime,
+      templateUrl: './app/CaseList/SearchGroup/Case_search_store_advence.html?v=' + lastTime,
       link: function($scope, element, attrs) {}
     }
   }).directive('caseSearchStoreTop', function() { //門店 篩選上方藍色bar
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/SearchGroup/Case_search_store_top.html?v=' + lastTime,
+      templateUrl: './app/CaseList/SearchGroup/Case_search_store_top.html?v=' + lastTime,
       link: function($scope, element, attrs) {}
     }
   }).directive('caseSearchEquipmentAdd', function() { //新增报修设备
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/SearchGroup/Case_search_equipment_add.html?v=' + lastTime,
+      templateUrl: './app/CaseList/SearchGroup/Case_search_equipment_add.html?v=' + lastTime,
       link: function($scope, element, attrs) {}
     }
   }).directive('caseSearchEquipmentAdvence', function() { //綜合查詢 設施設備篩選用
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/SearchGroup/Case_search_equipment_advence.html?v=' + lastTime,
+      templateUrl: './app/CaseList/SearchGroup/Case_search_equipment_advence.html?v=' + lastTime,
       link: function($scope, element, attrs) {}
     }
   }).directive('caseSearchMutitAdvence', function() { //綜合查詢用
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/SearchGroup/Case_search_muti_advence.html?v=' + lastTime,
+      templateUrl: './app/CaseList/SearchGroup/Case_search_muti_advence.html?v=' + lastTime,
       link: function($scope, element, attrs) {}
     }
   }).directive('caseEquipmentSetting', function() { //新增报修设备
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/Case_equipment_setting.html?v=' + lastTime,
+      templateUrl: './app/CaseList/Case_equipment_setting.html?v=' + lastTime,
       link: function($scope, element, attrs) {}
     }
   }).directive('caseSearchMutiHead', function() { //查詢頁上方藍色bar
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/SearchGroup/Case_search_muti_head.html?v=' + lastTime,
+      templateUrl: './app/CaseList/SearchGroup/Case_search_muti_head.html?v=' + lastTime,
       link: function($scope, element, attrs) {}
     }
   }).directive('caseSearchMutiModelHead', function() { //查詢頁上方藍色bar(Model)
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/SearchGroup/Case_search_muti_modelhead.html?v=' + lastTime,
+      templateUrl: './app/CaseList/SearchGroup/Case_search_muti_modelhead.html?v=' + lastTime,
       link: function($scope, element, attrs) {}
     }
   }).directive('caseSearchMutiModelBody', function() { //查詢頁body(Model)
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/SearchGroup/Case_search_muti_modelBody.html?v=1.0.1',
+      templateUrl: './app/CaseList/SearchGroup/Case_search_muti_modelBody.html?v=1.0.1',
       link: function($scope, element, attrs) {}
     }
   }).directive('caseSearchMutiModelFooter', function() { //查詢頁footer(Model)
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/SearchGroup/Case_search_muti_modelFooter.html?v=' + lastTime,
+      templateUrl: './app/CaseList/SearchGroup/Case_search_muti_modelFooter.html?v=' + lastTime,
       link: function($scope, element, attrs) {} //DOM manipulation
     }
   }).directive('caseList', function() { //案件清單
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/Case_list.html?v=' + lastTime,
+      templateUrl: './app/CaseList/Case_list.html?v=' + lastTime,
       link: function(scope, element, attrs) {}
     }
   }).directive('caseDetailTop', function() { //案件詳情上方藍色區塊內容
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/Case_Detail_top.html?v=' + lastTime,
+      templateUrl: './app/CaseList/Case_Detail_top.html?v=' + lastTime,
       link: function($scope, element, attrs) {}
     }
   }).directive('caseGoBack', function() { //案件詳情回上一頁
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/Case_goBack.html?v=' + lastTime,
+      templateUrl: './app/CaseList/Case_goBack.html?v=' + lastTime,
       link: function($scope, element, attrs) {}
     }
   }).directive('cancelCaseDetail', function() { //撤銷案件詳情
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CancelList/Cancel_Detail.html?v=' + lastTime,
+      templateUrl: './app/CancelList/Cancel_Detail.html?v=' + lastTime,
       link: function($scope, element, attrs) {}
     }
   }).directive('acceptanceCaseDetail', function() { //銷案案件詳情
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/AcceptanceList/Acceptance_Detail.html?v=' + lastTime,
+      templateUrl: './app/AcceptanceList/Acceptance_Detail.html?v=' + lastTime,
       link: function($scope, element, attrs) {}
     }
   }).directive('caseFooter', function() { //案件footer
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/CaseList/Case_footer.html?v=' + lastTime,
+      templateUrl: './app/CaseList/Case_footer.html?v=' + lastTime,
       link: function($scope, element, attrs) {}
     }
   }).directive('delayCase', function() { //逾時排行榜維修商清單
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/DelayList/Delay_Case.html?v=' + lastTime,
+      templateUrl: './app/DelayList/Delay_Case.html?v=' + lastTime,
       link: function(scope, element, attrs) {}
     }
   }).directive('delayCaseMatainer', function() { //逾時排行榜維修商清單
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/DelayList/Delay_Case_matainer.html?v=' + lastTime,
+      templateUrl: './app/DelayList/Delay_Case_matainer.html?v=' + lastTime,
       link: function(scope, element, attrs) {}
     }
   }).directive('delayCaseStore', function() { //逾時排行榜門店清單
@@ -536,7 +536,7 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/DelayList/SortGroup/Delay_sort_caseNo.html?v=' + lastTime,
+      templateUrl: './app/DelayList/SortGroup/Delay_sort_caseNo.html?v=' + lastTime,
       link: function(scope, element, attrs) {} //DOM manipulation
     }
   })
@@ -545,14 +545,14 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/Quotation/Quote_list.html?v=' + lastTime,
+      templateUrl: './app/Quotation/Quote_list.html?v=' + lastTime,
       link: function(scope, element, attrs) {}
     }
   }).directive('quoteSearchMulti', function() { //綜合查詢備篩選用
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/Quotation/Quote_search_top.html?v=' + lastTime,
+      templateUrl: './app/Quotation/Quote_search_top.html?v=' + lastTime,
       link: function(scope, element, attrs) {
         scope.gotoTransfer = function() {
           location.replace(PathStr + "QRcode.html");
@@ -570,7 +570,7 @@ WeChat.directive('caseContent', function() {
         //     callback:'&'
         // }
         ,
-      templateUrl: '../app/Quotation/Quote_sort_search.html?v=' + lastTime,
+      templateUrl: './app/Quotation/Quote_sort_search.html?v=' + lastTime,
       link: function(scope, element, attrs) {
         scope.dateSort1 = true;
         scope.dateSort2 = false;
@@ -608,21 +608,21 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/Quotation/Quote_detail.html?v=' + lastTime,
+      templateUrl: './app/Quotation/Quote_detail.html?v=' + lastTime,
       link: function(scope, element, attrs) {}
     }
   }).directive('quoteDetailModal', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/Quotation/Quote_detail_modal.html?v=' + lastTime,
+      templateUrl: './app/Quotation/Quote_detail_modal.html?v=' + lastTime,
       link: function(scope, element, attrs) {}
     }
   }).directive('quoteItemEdit', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/Quotation/Quote_item_edit.html?v=' + lastTime,
+      templateUrl: './app/Quotation/Quote_item_edit.html?v=' + lastTime,
       replace: true,
       link: function(scope, element, attrs) {
         $("#ComponentList").select2({
@@ -634,7 +634,7 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/Quotation/Quote_item_other_edit.html?v=' + lastTime,
+      templateUrl: './app/Quotation/Quote_item_other_edit.html?v=' + lastTime,
       replace: true,
       link: function(scope, element, attrs) {}
     }
@@ -642,7 +642,7 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/Quotation/quote_sign_modal.html?v=' + lastTime,
+      templateUrl: './app/Quotation/quote_sign_modal.html?v=' + lastTime,
       replace: true,
       link: function(scope, element, attrs) {}
     }
@@ -669,7 +669,7 @@ WeChat.directive('caseContent', function() {
       restrict: 'EA', //E = element, A = attribute, C = class, M = comment         
       scope: true,
       //template: '<div>{{ myVal }}</div>',
-      templateUrl: '../app/AcceptanceList/Quote_Detail.html?v=' + lastTime,
+      templateUrl: './app/AcceptanceList/Quote_Detail.html?v=' + lastTime,
       //controller: controllerFunction, //Embed a custom controller in the directive
       link: function($scope, element, attrs) {} //DOM manipulation
     }
@@ -677,7 +677,7 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/Allot/Allot_search_top.html?v=' + lastTime,
+      templateUrl: './app/Allot/Allot_search_top.html?v=' + lastTime,
       link: function(scope, element, attrs) {}
     }
   })
@@ -685,7 +685,7 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/Allot/Allot_filter_right.html?v=' + lastTime,
+      templateUrl: './app/Allot/Allot_filter_right.html?v=' + lastTime,
       link: function(scope, element, attrs) {
         jQuery(document).ready(function() {
           var CompletedateMinDate = null;
@@ -717,7 +717,7 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/Allot/Allot_sub_toolbar.html?v=' + lastTime,
+      templateUrl: './app/Allot/Allot_sub_toolbar.html?v=' + lastTime,
       link: function(scope, element, attrs) {
         scope.SetParams = function(v) {
           console.log(v);
@@ -736,7 +736,7 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/Allot/Allot_list.html?v=' + lastTime,
+      templateUrl: './app/Allot/Allot_list.html?v=' + lastTime,
       link: function(scope, element, attrs) {}
     }
   })
@@ -744,7 +744,7 @@ WeChat.directive('caseContent', function() {
     return {
       restrict: 'EA',
       scope: true,
-      templateUrl: '../app/Allot/Allot_detail.html?v=' + lastTime,
+      templateUrl: './app/Allot/Allot_detail.html?v=' + lastTime,
       link: function (scope, element, attrs) {}
     }
   })

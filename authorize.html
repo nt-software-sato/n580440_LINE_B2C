@@ -2,6 +2,24 @@
 <html ng-app="WeChat" ng-controller="AuthCheckCtrl" ng-cloak>
 
 <head>
+
+  <script>
+    var _url = new URL(location.href);
+    var _t = _url.searchParams.get("t");
+    if(_t!=null){
+      window.localStorage.setItem("lineb39ebe28ba7036a5",_t);
+      //location.href=location.origin+location.pathname+location.hash;
+    }else{
+      history.pushState(null, null, document.URL);
+      window.addEventListener('popstate', function () {
+        history.pushState(null, null, document.URL);
+      });
+    }
+  </script>
+
+
+
+
   <meta charset="UTF-8">
   <meta name="viewport"
     content="width=device-width,initial-scale=1.0, user-scalable=0, minimum-scale=1.0, maximum-scale=1.0">

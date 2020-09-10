@@ -109,11 +109,11 @@
         });
     };
       
-    $scope.Load_WX();
+    //$scope.Load_WX();
     //获取帐号绑定信息
     $scope.GetAccountInfo = function () {
         $http({
-            url: ApiMapper.wxApi + "/wx/signin/" + $scope.OpenId,
+            url: ApiMapper.lineApi + "/line/s/signin/" + $scope.OpenId,
             method: "GET",
         }).success(function (data) {
             if (data.Code == 100) {
