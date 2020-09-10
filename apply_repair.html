@@ -217,6 +217,11 @@
                         <i class="fa fa-times"></i>
                     </button>
                 </span>
+
+        <input type="file" id="id1" multiple>
+
+
+
       </div>
       <div class="col-xs-2 col-md-2">
         <button type="button" class="btn noshadow btn-default NT_blue_word" ng-click="chooseWhole()">
@@ -235,6 +240,9 @@
                         <i class="fa fa-times"></i>
                     </button>
                 </span>
+
+        <input type="file" id="id2" multiple>
+        
       </div>
       <div class="col-xs-2 col-md-2">
         <button type="button" class="btn noshadow btn-default NT_blue_word" ng-click="chooseImage()">
@@ -328,6 +336,39 @@
             placeholder: placeholder_reasons
         });
     </script>
+
+
+<script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.min.js"></script>
+<script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.min.js"></script>
+<script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.min.js"></script>
+<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
+<link href="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css" rel="stylesheet">
+<script src="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/filepond/4.20.1/filepond.js'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/filepond/4.20.1/filepond.min.css' />
+<script>
+FilePond.registerPlugin(
+  FilePondPluginImagePreview,
+  FilePondPluginImageExifOrientation,
+  FilePondPluginFileValidateSize,
+  FilePondPluginImageEdit
+);
+FilePond.create(
+  document.querySelector('input[type=file]#id1'),   
+  {
+    labelIdle: `按這裡 選擇報修整體圖片`
+   }
+);
+FilePond.create(
+  document.querySelector('input[type=file]#id2'),
+  {
+    labelIdle: `按這裡 選擇報修局部圖片`
+   }
+);
+
+
+</script>
 </body>
 
 </html>
