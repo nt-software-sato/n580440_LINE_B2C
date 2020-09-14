@@ -196,7 +196,7 @@
                 </span>
       </div>
       <div class="col-xs-2 col-md-2" ng-show="!isStart" style="min-height:48px;">
-        <button type="button" class="btn noshadow btn-default NT_blue_word nopadding" ng-click="startRecord()">
+        <button type="button" class="btn noshadow btn-default NT_blue_word nopadding" ng-click="startRecord()" style="display: none">
                     <i class="fa fa-1-5x  fa-microphone   NT_blue_word"></i>
                 </button>
       </div>
@@ -218,13 +218,13 @@
                     </button>
                 </span>
 
-        <input type="file" id="id1" multiple>
+        <input type="file" id="id1" multiple accept="image/*" capture>
 
 
 
       </div>
       <div class="col-xs-2 col-md-2">
-        <button type="button" class="btn noshadow btn-default NT_blue_word" ng-click="chooseWhole()">
+        <button type="button" class="btn noshadow btn-default NT_blue_word" ng-click="chooseWhole()" style="display: none">
                     <i class="fa fa-1-5x fa-camera NT_blue_word"></i>
                 </button>
       </div>
@@ -241,11 +241,11 @@
                     </button>
                 </span>
 
-        <input type="file" id="id2" multiple>
+        <input type="file" id="id2" multiple accept="image/*" capture>
         
       </div>
       <div class="col-xs-2 col-md-2">
-        <button type="button" class="btn noshadow btn-default NT_blue_word" ng-click="chooseImage()">
+        <button type="button" class="btn noshadow btn-default NT_blue_word" ng-click="chooseImage()" style="display: none">
                     <i class="fa fa-1-5x fa-camera NT_blue_word"></i>
                 </button>
       </div>
@@ -341,11 +341,11 @@
 <script src="https://unpkg.com/filepond-plugin-file-encode/dist/filepond-plugin-file-encode.min.js"></script>
 <script src="https://unpkg.com/filepond-plugin-file-validate-size/dist/filepond-plugin-file-validate-size.min.js"></script>
 <script src="https://unpkg.com/filepond-plugin-image-exif-orientation/dist/filepond-plugin-image-exif-orientation.min.js"></script>
-<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.css" rel="stylesheet">
-<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.js"></script>
-<link href="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.css" rel="stylesheet">
-<script src="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.js"></script>
-<script src='https://cdnjs.cloudflare.com/ajax/libs/filepond/4.20.1/filepond.js'></script>
+<link href="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.css" rel="stylesheet">
+<script src="https://unpkg.com/filepond-plugin-image-preview/dist/filepond-plugin-image-preview.min.js"></script>
+<link href="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.min.css" rel="stylesheet">
+<script src="https://unpkg.com/filepond-plugin-image-edit/dist/filepond-plugin-image-edit.min.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/filepond/4.20.1/filepond.min.js'></script>
 <link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/filepond/4.20.1/filepond.min.css' />
 <script>
 FilePond.registerPlugin(
@@ -354,16 +354,72 @@ FilePond.registerPlugin(
   FilePondPluginFileValidateSize,
   FilePondPluginImageEdit
 );
-FilePond.create(
+
+FilePond.setOptions({
+  instantUpload: false,
+    server: {
+        process:(fieldName, file, metadata, load, error, progress, abort, transfer, options) => {
+
+            // fieldName is the name of the input field
+            // file is the actual file object to send
+            const formData = new FormData();
+            formData.append('Key', window._k);
+            formData.append('Source','40');
+            formData.append('Type','1');
+            formData.append('file[0]', file, file.name);
+
+            const request = new XMLHttpRequest();
+            request.open('POST', 'https://phm.580440.com.cn/55497/cc/upload');
+          //  request.setRequestHeader('passport','dFSpJ67930WuTjZ8p2o6cMx4N9IZpa%2Bqjjgt8bfnyEQxf%2FZQ%2FB2PrHtb7F6%2FYHRls2kLfVPMU2WIj6CyqEtonWDNldKYqFnFZBs8fgk%2Ft6ue7vPjafrAbaI%2B%2F0I5jImA4AbmHMAUMcZ021buQbVumTKz%2FGKKTrylHCR%2Bs0pfUQIQQfpVlC7UX%2F%2BjNovRlHQ57%2FbVithkJTb8ACxmgreI3lZGF1luU%2F9ASH7LbsHeVoALpKiNrKi0y6%2BY65WBs8jXSkFQ1qn4QcxoO0oH4%2B9Oqs8%2BJwhacL8vwvAow2X7fcrtAURo9ngjWWxNQTqGGrw9J7ZFAb1HShLXRivOlIbOey2aALWvx0lPl%2FkIxIodQGWASbg4NPKV9BgGJwKRZpi%2BpnQIjheqrKhFQ4JHaBeJFefTg7oyqZ%2Fa5QfwesuIApWzU3Aw0VTdqct21Hz5tXuzyaRDr8y4BUVlltZuqHGn0mWQovEM4YhhzptadUiVwqEngHkwrOkqCVSmCfmR09q')
+             request.setRequestHeader('passport',window._p)
+
+            // Should call the progress method to update the progress to 100% before calling load
+            // Setting computable to false switches the loading indicator to infinite mode
+            request.upload.onprogress = (e) => {
+                progress(e.lengthComputable, e.loaded, e.total);
+            };
+
+            // Should call the load method when done and pass the returned server file id
+            // this server file id is then used later on when reverting or restoring a file
+            // so your server knows which file to return without exposing that info to the client
+            request.onload = function() {
+                if (request.status >= 200 && request.status < 300) {
+                    // the load method accepts either a string (id) or an object
+                    load(request.responseText);
+                }
+                else {
+                    // Can call the error method if something is wrong, should exit after
+                    error('oh no');
+                }
+            };
+
+            request.send(formData);
+            
+            // Should expose an abort method so the request can be cancelled
+            return {
+                abort: () => {
+                    // This function is entered if the user has tapped the cancel button
+                    request.abort();
+
+                    // Let FilePond know the request has been cancelled
+                    abort();
+                }
+            };
+        }
+    }
+});
+
+
+let pond1=FilePond.create(
   document.querySelector('input[type=file]#id1'),   
   {
-    labelIdle: `按這裡 選擇報修整體圖片`
+    labelIdle: `點我上傳 報修整體圖片`
    }
 );
-FilePond.create(
+let pond2=FilePond.create(
   document.querySelector('input[type=file]#id2'),
   {
-    labelIdle: `按這裡 選擇報修局部圖片`
+    labelIdle: `點我上傳 報修局部圖片`
    }
 );
 

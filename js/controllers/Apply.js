@@ -1078,7 +1078,7 @@
   //送出报修
   $scope.SubmitCount = 0;
   $scope.Submit_Repair = function () {
-    if (!$scope.IsInspection) {
+      if (!$scope.IsInspection) {
       if ($scope.RepairParameters.PriorityId == '' || $scope.RepairParameters.PriorityId == undefined) {
         $scope.isSubmit = false;
         alert('请选择报修原因及报修时限！');
@@ -1184,8 +1184,15 @@
               $scope.CaseNo = data.CaseNo;
               $scope.LoadMedias(data.RequisitionId);
             } else {
-              $scope.isSubmit = false;
-              alert('成功报修！\n\r单号：' + data.CaseNo);
+              window._p=$cookies.Passport;
+              window._k=data.RequisitionId
+              pond1.processFiles().then(files => {
+                  pond2.processFiles().then(files => {
+                    $scope.isSubmit = false;
+                    alert('成功報修！\n\r單號：' + data.CaseNo);
+                    window.location.reload();
+                  });
+              });
               $scope.CloseBrowser();
             }
           }

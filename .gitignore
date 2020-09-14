@@ -1,0 +1,12 @@
+/node_modules
+/.vs
+/.vscode
+/.idea
+
+.env
+config.json
+/SSL/*
+/BK
+
+README.md
+
